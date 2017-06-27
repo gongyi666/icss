@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.his.dao.HisDeptInfoMapper" >
+  <resultMap id="HisDeptInfoMap" type="com.lantone.icss.api.his.model.Wrapper.HisDeptInfoWrapper" >
+    <result column="dept_code" property="deptCode" jdbcType="VARCHAR" />
+    <result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+    <result column="hospital_code" property="hospitalCode" jdbcType="VARCHAR" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getDeptByHospitalList" parameterType="com.lantone.icss.api.his.model.Wrapper.HisDeptInfoWrapper"
+  	resultMap="HisDeptInfoMap">
+  		select * from his_dept_info where hospital_code = #{hospitalCode}
+  </select>
+  
+  <insert id="insertDept" parameterType="com.lantone.icss.api.his.model.Wrapper.HisDeptInfoWrapper">
+  	insert into
+  		his_dept_info(
+  			dept_code,
+  			parent_code,
+  			hospital_code,
+  			dept_name,  			
+  			status
+  		)
+  		values(
+  			#{deptCode},
+  			#{parentCode},
+  			#{hospitalCode},
+  			#{deptName},
+  			#{status}
+  		)
+  </insert>
+  
+  <delete id="deleteDeptList" parameterType="java.lang.Long">
+  		delete from his_dept_info where hospital_code = #{hospitalCode}
+  </delete>
+  
+</mapper>

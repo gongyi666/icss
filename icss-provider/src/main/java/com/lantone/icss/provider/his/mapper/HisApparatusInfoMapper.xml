@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.his.dao.HisApparatusInfoMapper" >
+  <resultMap id="baseResultMap" type="com.lantone.icss.api.his.model.Wrapper.HisApparatusInfoWrapper" >
+    <result column="his_apparatus_code" property="apparatusCode" jdbcType="VARCHAR" />
+    <result column="hospital_code" property="hospitalCode" jdbcType="VARCHAR" />
+    <result column="apparatus_name" property="apparatusName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="insertAllData" parameterType="java.util.List">
+  		insert into his_apparatus_info (his_apparatus_code,hospital_code,apparatus_name,remark)
+  		values
+  		<foreach collection="list" item="item" index="index" separator=",">
+  			(#{item.apparatusCode,jdbcType=VARCHAR},#{item.hospitalCode,jdbcType=VARCHAR},
+  			#{item.apparatusName,jdbcType=VARCHAR},#{item.remark,jdbcType=VARCHAR})
+  		</foreach>
+  </insert>
+  <delete id="deleteByHospital">
+ 	DELETE  FROM his_apparatus_info where hospital_code=#{hospitalCode}
+  </delete>
+</mapper>

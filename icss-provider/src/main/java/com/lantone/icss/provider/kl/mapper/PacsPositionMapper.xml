@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.PacsPositionMapper" >
+  <resultMap id="PacsPositionWrapper" type="com.lantone.icss.api.kl.model.wrapper.PacsPositionWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="stand_id" property="standId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<select id="getPacsPositionByDiseaseId" parameterType="java.lang.Long" resultMap="PacsPositionWrapper">
+		select b.* from kl_dis_pacs_position a 
+		left join kl_pacs_position b on a.position_id = b.id
+		where a.disease_id = #{diseaseId}
+		order by b.order_no
+	</select>
+	
+	<select id="getDefaultPacsPosition" resultMap="PacsPositionWrapper">
+		select * from kl_pacs_position where status = '1' and is_default = '1'
+	</select>
+	
+	<select id="getAllPacsPosition" resultMap="PacsPositionWrapper"> 
+		select * from kl_pacs_position 
+	</select>
+	
+	<select id="getPacsPositionById" parameterType="java.lang.Long" resultMap="PacsPositionWrapper">
+		select * from kl_pacs_position where id = #{positionId}
+	</select>
+</mapper>

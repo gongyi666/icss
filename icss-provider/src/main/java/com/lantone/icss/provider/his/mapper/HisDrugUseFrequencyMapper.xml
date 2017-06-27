@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.his.dao.HisDrugUseFrequencyMapper" >
+  <resultMap id="HisDrugUseFrequencyMap" type="com.lantone.icss.api.his.model.HisDrugUseFrequency" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="hospital_code" property="hospitalCode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="insertHisDrugUseFrequency" parameterType="java.util.List">
+  		insert into his_frequency_info (id,hospital_code,name,en_name,num,order_no,remark)
+  		values
+  		<foreach collection="list" item="item" index="index" separator=",">
+  			(#{item.id,jdbcType=VARCHAR},#{item.hospitalCode,jdbcType=VARCHAR},
+  			#{item.name,jdbcType=VARCHAR},#{item.enName,jdbcType=VARCHAR},
+  			#{item.num,jdbcType=VARCHAR},
+  			#{item.orderNo,jdbcType=VARCHAR},#{item.remark,jdbcType=VARCHAR})
+  		</foreach>
+  </insert>
+  <delete id="deleteAllData">
+  	DELETE  FROM his_frequency_info where hospital_code=#{hospitalCode}
+  </delete>
+  <select id="getUseFrequencyList" 	parameterType="java.util.Map"
+  	resultMap="HisDrugUseFrequencyMap">
+		select t.* from his_frequency_info t 
+		where 1=1
+		<!-- <if test="fiveStroke != null and fiveStroke != ''">
+				 and t.five_stroke = #{fiveStroke}
+		</if> -->
+		<if test="enName != null and enName != ''">
+			and t.en_name like CONCAT('%','${enName}','%')
+		</if>
+		<if test="hospitalCode != null and hospitalCode != ''">
+		 and hospital_code=#{hospitalCode}
+		</if>
+	</select>
+</mapper>

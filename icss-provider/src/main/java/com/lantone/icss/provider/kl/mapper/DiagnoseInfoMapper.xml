@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.DiagnoseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.DiagnoseInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="standard_id" property="standardId" jdbcType="BIGINT" />
+   	<result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="is_matches" property="isMatches" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultWrapperMap" type="com.lantone.icss.api.kl.model.wrapper.DiagnoseInfoWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="standard_id" property="standardId" jdbcType="BIGINT" />
+   	<result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="is_matches" property="isMatches" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getByDiseaseId" resultMap="BaseResultWrapperMap">
+  	select * from kl_diagnose_info where status = '1' 
+  	and id in (select diagnose_id from kl_disease_diagnose where disease_id = #{diseaseId})
+  	order by weight desc,id asc
+  </select>
+  
+  <select id="selectAllList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select * from kl_diagnose_info where status = #{status}
+  </select>
+  
+</mapper>

@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.PacsInfoMapper" >
+  <resultMap id="PacsInfoWrapper" type="com.lantone.icss.api.kl.model.wrapper.PacsInfoWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="apparatus_code" property="apparatusCode" jdbcType="VARCHAR" />
+    <result column="apparatus_name" property="apparatusName" jdbcType="VARCHAR" />
+    <result column="apparatus_id" property="apparatusId" jdbcType="BIGINT" />
+    <result column="part_code" property="partCode" jdbcType="VARCHAR" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="part_id" property="partId" jdbcType="BIGINT" />
+    <result column="other_code" property="otherCode" jdbcType="VARCHAR" />
+    <result column="spell" property="spell" jdbcType="VARCHAR" />
+    <result column="five_stroke" property="fiveStroke" jdbcType="VARCHAR" />
+    <result column="sys_type" property="sysType" jdbcType="BIGINT" />
+    <result column="sex_type" property="sexType" jdbcType="VARCHAR" />
+    <result column="age_begin" property="ageBegin" jdbcType="BIGINT" />
+    <result column="age_end" property="ageEnd" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="standard_id" property="standardId" jdbcType="BIGINT" />
+ 	 
+ 	<!-- 扩充字段 -->
+ 	<result column="sub_name" property="subName" jdbcType="VARCHAR" /> 
+  	<result column="param_code" property="paramCode" jdbcType="VARCHAR" />
+  </resultMap> 
+  
+  <resultMap id="structuringMap" type="com.lantone.icss.api.his.model.Wrapper.HisPacsStructuringWrapper">
+	  <result column="his_part_code" property="hisPartCode" jdbcType="VARCHAR" />
+	  <result column="his_apparatus_code" property="hisApparatusCode" jdbcType="VARCHAR" />
+	  <result column="structuring_name" property="structuringName" jdbcType="VARCHAR" />
+  </resultMap>
+	
+	<select id="getPacsByPositionId" parameterType="java.lang.Long" resultMap="PacsInfoWrapper">
+		select a.*,s.code param_code from kl_pacs_info a 
+		left join kl_standard_info s on s.id = a.standard_id where a.position_id = #{positionId}
+	</select>
+	
+	<select id="searchPacs" parameterType="com.lantone.icss.api.kl.model.wrapper.PacsInfoWrapper" resultMap="PacsInfoWrapper">
+		select a.*,s.code param_code,
+		b.standard_id partStandardId,
+		c.standard_id  apparatusStandardId
+		from kl_pacs_info a 
+		left join kl_standard_info s on s.id = a.standard_id
+		left join kl_pacs_part b on a.part_id = b.id 
+		left join kl_pacs_apparatus c on a.apparatus_id = c.id 
+		where a.status = '1'
+		<if test="inputstr != null and inputstr != ''">
+			and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))
+		</if>
+		<if test="notIdsArr != null and notIdsArr.length > 0">
+			and a.id not in 
+			<foreach item="item" index="index" collection="notIdsArr" 
+                        open="(" separator="," close=")">
+                 #{item}
+            </foreach>
+		</if>
+		limit 0,#{size}
+	</select>
+	
+	
+	<select id="getPacsByDiseaseId" parameterType="java.lang.Long" resultMap="PacsInfoWrapper">
+		select a.*,s.code param_code  from kl_pacs_info a
+			left join kl_disease_pacs b on a.id = b.pacs_id
+			left join kl_standard_info s on s.id = a.standard_id
+			where a.status = '1'
+			and b.disease_id = #{diseaseId}
+	</select>
+	
+	<select id="getCommonPacs" parameterType="java.lang.Long" resultMap="PacsInfoWrapper">
+		select b.*,s.code param_code  from kl_pacs_info b 
+			left join at_doctor_habit_count a on a.habit_id = b.id and a.type = '6' and doctor_id = #{doctorId}
+			left join kl_standard_info s on s.id = b.standard_id
+			order by a.count_num desc
+	</select>
+	
+	
+	<select id="getPacsInfosByCode"  resultMap="PacsInfoWrapper">
+		select c.*,s.code param_code from kl_pacs_info c 
+		left join kl_standard_info s on s.id = c.standard_id where c.id in
+		   (select a.pacs_id from kl_pacs_diagnose a,kl_pacs_rule b where a.rule_id = b.id and b.code in 
+		   <foreach item="code" collection="list" open="(" separator="," close=")">
+			#{code}
+		  </foreach>
+		   )
+	</select>
+	
+	<!-- 推送只显示部位+手段的结合，不显示单部位-->
+	<!-- <select id="getPacsByDoctor" parameterType="java.util.Map" resultMap="PacsInfoWrapper">
+		 select a.*,
+		 (select c.standard_id from kl_pacs_part c where a.part_id = c.id 
+		 <if test="pacsPartStandardIds != null and pacsPartStandardIds.size() != 0 ">
+				and c.standard_id in 
+				<foreach collection="pacsPartStandardIds" item="pacsPartStandardId" open="(" separator="," close=")">
+					#{pacsPartStandardId}
+				</foreach>
+		 </if>)partStandardId,
+ 		 (select d.standard_id from kl_pacs_apparatus d where a.apparatus_id = d.id
+ 		 <if test="pacsApparatusStandardIds != null and pacsApparatusStandardIds.size() != 0 ">
+				and d.standard_id in 
+				<foreach collection="pacsApparatusStandardIds" item="pacsApparatusStandardId" open="(" separator="," close=")">
+					#{pacsApparatusStandardId}
+				</foreach>
+		 </if>)apparatusStandardId
+		 from kl_pacs_info a
+			left join at_doctor_habit_count b on a.id = b.habit_id and b.type = '6' and b.doctor_id = #{doctorId}
+			where a.status = '1' 
+			<if test="notIdsArr != null">
+				and a.id not in 
+				<foreach collection="notIdsArr" separator="," open="(" close=")" item="item" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="age != null and age != ''">
+				<![CDATA[ and a.age_begin <= #{age} ]]>
+				<![CDATA[ and a.age_end >= #{age} ]]>
+			</if>
+			<if test="sexType == 3">
+				and a.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and a.sex_type in ('3',#{sexType})
+			</if>
+			<if test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+				and a.sys_type in (select c.icss_sys_id from 
+										his_mapping_dept c 
+										where c.hospital_code = #{hospitalCode}
+										and c.his_dept_code = #{deptNo})
+			</if>
+			<if test="inputstr != null and inputstr != ''">
+				and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))				
+			</if>
+			<if test="inputstr == null or inputstr == ''">				
+				and (a.apparatus_code is not null and a.apparatus_code != '') 
+			</if>				 
+				order by b.count_num desc,a.id asc
+				limit 0,#{size}
+	</select> -->
+	
+	
+	
+	<!-- *********常规推送 改进版本，等数据录入完毕后替换************-->
+	<!-- <select id="getPacsByDoctor" parameterType="java.util.Map" resultMap="PacsInfoWrapper">
+		 select a.*,p.standard_id as partStandardId, ks.code param_code 
+		 from (select * from kl_pacs_info t where 1 = 1
+				<if test="standardIds != null and standardIds.size()>0">
+					and t.standard_id in
+			 		<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+						#{standardId}
+					</foreach>
+				</if>
+			    ) a
+			left join kl_standard_info ks on ks.id = a.standard_id
+			left join at_doctor_habit_count b on a.id = b.habit_id and b.type = '6' and b.doctor_id = #{doctorId}
+			left join kl_pacs_part p on p.id=a.part_id
+			<if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != '' 
+						and (standardIds == null or standardIds.size()==0 )">
+				inner join (select mm.item_id from kl_dept_item mm, his_mapping_dept nn
+				where mm.usual = '1' and mm.type = '6' and mm.icss_sys_id = nn.icss_sys_id
+				and nn.hospital_code = #{hospitalCode} and nn.his_dept_code = #{deptNo}) h
+			</if>
+			where a.status = '1' 
+			<if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != '' 
+						and (standardIds == null or standardIds.size()==0) ">
+				and a.id = h.item_id
+			</if>
+			<if test="standardIds != null and standardIds.size()>0" >
+				and p.standard_id in
+		 		<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+				and a.apparatus_id is null
+		 	</if>
+			<if test="notIdsArr != null and notIdsArr.length > 0 ">
+				and a.id not in 
+				<foreach collection="notIdsArr" separator="," open="(" close=")" item="item" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="age != null and age != ''">
+				<![CDATA[ and a.age_begin <= #{age} ]]>
+				<![CDATA[ and a.age_end >= #{age} ]]>
+			</if>
+			<if test="sexType == 3">
+				and a.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and a.sex_type in ('3',#{sexType})
+			</if>
+			<if test="inputstr != null and inputstr != ''">
+				and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))				
+			</if>
+			<if test="(standardIds == null or standardIds.size() == 0) and (inputstr == null or inputstr == '') ">				
+				and (a.apparatus_code is not null and a.apparatus_code != '') 
+			</if>
+				order by b.count_num desc,a.order_no asc
+				limit 0,#{size}
+	</select> -->
+	
+	
+	<!-- 常规推送 -->
+	<select id="getPacsByDoctor" parameterType="java.util.Map" resultMap="PacsInfoWrapper">
+		 select a.*,p.standard_id as partStandardId, ks.code param_code 
+		 from (select * from kl_pacs_info t where 1 = 1
+		         <choose>
+				<when test="standardIds != null and standardIds.size()>0">
+					and t.standard_id in
+			 		<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+						#{standardId}
+					</foreach>
+				</when>
+				<otherwise>
+					and t.usual = '1' 
+				</otherwise>
+			     </choose>
+			    ) a
+			left join kl_standard_info ks on ks.id = a.standard_id
+			left join at_doctor_habit_count b on a.id = b.habit_id and b.type = '6' and b.doctor_id = #{doctorId}
+			left join kl_pacs_part p on p.id=a.part_id
+			where a.status = '1' 
+			
+			<!-- <if test="standardIds != null and standardIds.size()>0" >
+				and p.standard_id in
+		 		<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+				and a.apparatus_id is null
+		 	</if> -->
+			<if test="notIdsArr != null and notIdsArr.length > 0 ">
+				and a.id not in 
+				<foreach collection="notIdsArr" separator="," open="(" close=")" item="item" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="age != null and age != ''">
+				<![CDATA[ and a.age_begin <= #{age} ]]>
+				<![CDATA[ and a.age_end >= #{age} ]]>
+			</if>
+			<if test="sexType == 3">
+				and a.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and a.sex_type in ('3',#{sexType})
+			</if>
+			<!-- <if test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+				and a.sys_type in (select c.icss_sys_id from 
+										his_mapping_dept c 
+										where c.hospital_code = #{hospitalCode}
+										and c.his_dept_code = #{deptNo})
+			</if> -->
+			<if test="inputstr != null and inputstr != ''">
+				and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))				
+			</if>
+			<if test="(standardIds == null or standardIds.size() == 0) and (inputstr == null or inputstr == '') ">				
+				and (a.apparatus_code is not null and a.apparatus_code != '') 
+			</if>
+				order by b.count_num desc,a.order_no asc
+				limit 0,#{size}
+	</select>
+	
+	<!-- 高频 -->
+	<select id="getHighFrequencyPush" parameterType="java.util.Map" resultMap="PacsInfoWrapper">
+		 select a.*,p.standard_id as partStandardId, ks.code  param_code 
+		 from kl_pacs_info a
+		 left join kl_standard_info ks on ks.id = a.standard_id
+		 left join at_doctor_habit_count b on a.id = b.habit_id and b.type = '6' and b.doctor_id = #{doctorId} 
+		 left join kl_pacs_part p on p.id=a.part_id
+		 where a.status = '1' 
+			<if test="standardIds != null and standardIds.size()>0" >
+				and p.standard_id in
+		 		<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+				and a.apparatus_id is null
+		 	</if>
+			<if test="notIdsArr != null and notIdsArr.length > 0">
+				and a.id not in 
+				<foreach collection="notIdsArr" separator="," open="(" close=")" item="item" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="age != null and age != ''">
+				<![CDATA[ and a.age_begin <= #{age} ]]>
+				<![CDATA[ and a.age_end >= #{age} ]]>
+			</if>
+			<if test="sexType == 3">
+				and a.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and a.sex_type in ('3',#{sexType})
+			</if>
+			<!-- <if test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+				and a.sys_type in (select c.icss_sys_id from 
+										his_mapping_dept c 
+										where c.hospital_code = #{hospitalCode}
+										and c.his_dept_code = #{deptNo})
+			</if> -->
+			<if test="inputstr != null and inputstr != ''">
+				and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))				
+			</if>
+			<if test="(standardIds == null or standardIds.size() == 0) and (inputstr == null or inputstr == '') ">				
+				and (a.apparatus_code is not null and a.apparatus_code != '') 
+			</if>
+			order by b.count_num desc,a.order_no asc
+			limit 0,#{size}
+	</select>
+	
+	
+	<select id="getPacsByRetrieval" parameterType="com.lantone.icss.api.kl.model.wrapper.RetrievalInfoWrapper" resultMap="PacsInfoWrapper">	
+		select t.*,p.standard_id as partStandardId from 
+			(select s.*,ksi.code param_code,r.name as sub_name  
+			from kl_pacs_info s
+			left join kl_retrieval_mapping m on m.search_id = s.id
+			left join kl_retrieval_info r on m.retrieval_id = r.id and r.type = #{type} and r.status = '1'
+			left join kl_standard_info ksi on ksi.id = s.standard_id
+			where s.status = '1' 
+			and (r.spell like CONCAT('%',#{inputstr},'%') or r.name like CONCAT('%',#{inputstr},'%'))) t 
+		left join at_doctor_habit_count b on t.id = b.habit_id and b.doctor_id = #{doctorId} and b.type ='6'
+		left join kl_pacs_part p on p.id=t.part_id
+			<if test="standardIds != null and standardIds.size()>0" >
+				and p.standard_id in
+		 		<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+				and t.apparatus_id is null
+		 	</if>
+			<if test="notIdsArr != null">
+				and t.id not in 
+				<foreach collection="notIdsArr" separator="," open="(" close=")" item="item" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="age != null and age != ''">
+				<![CDATA[ and t.age_begin <= #{age} ]]>
+				<![CDATA[ and t.age_end >= #{age} ]]>
+			</if>
+			<if test="sexType == 3">
+				and t.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and t.sex_type in ('3',#{sexType})
+			</if>
+			<!-- 搜索不用过滤科室2017.6.10
+			<if test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+				and t.sys_type in (select c.icss_sys_id from 
+										his_mapping_dept c 
+										where c.hospital_code = #{hospitalCode}
+										and c.his_dept_code = #{deptNo})
+			</if> -->
+			<if test="(standardIds == null or standardIds.size() == 0) and (inputstr == null or inputstr == '') ">				
+				and (t.apparatus_code is not null and t.apparatus_code != '') 
+			</if>
+				order by b.count_num desc,t.order_no asc
+				limit 0,#{size}
+	</select>
+	
+	<select id="getHisPacsInfo" parameterType="com.lantone.icss.api.kl.PacsStructuring" 
+		resultMap="structuringMap">
+		select 
+			a.his_apparatus_code as his_apparatus_code,
+			b.his_part_code as his_part_code,
+			CONCAT(b.part_name,a.apparatus_name) as structuring_name 
+			from 
+			his_apparatus_info a,
+			his_part_info b,
+			his_mapping_pacs c
+			where 
+			a.his_apparatus_code = c.his_apparatus
+			and b.his_part_code = c.his_part
+			and a.hospital_code = c.hospital_code
+			and b.hospital_code = c.hospital_code
+			<if test="apparatusCode != null and apparatusCode != ''">
+				and c.icss_apparatus = #{apparatusCode}
+			</if>
+			<if test="apparatusCode == null or apparatusCode == ''">
+				and c.icss_apparatus is null
+			</if>
+			<if test="direction != null and direction != ''">
+				and c.icss_direction = #{direction}
+			</if>
+			<if test="direction == null or direction == ''">
+				and c.icss_direction is null
+			</if>
+			<if test="model != null and model != ''">
+				and c.icss_model = #{model}
+			</if>
+			<if test="model == null or model == ''">
+				and c.icss_model is null
+			</if>
+			<if test="otherCode != null and otherCode != ''">
+				and c.icss_other = #{otherCode}
+			</if>
+			<if test="otherCode == null or otherCode == ''">
+				and c.icss_other is null
+			</if>
+			<if test="partCode != null and partCode != ''">
+				and c.icss_part = #{partCode}
+			</if>
+			<if test="partCode == null or partCode == ''">
+				and c.icss_part is null
+			</if>
+			<if test="position != null and position != ''">
+				and c.icss_position = #{position}
+			</if>
+			<if test="position == null or position == ''">
+				and c.icss_position is null
+			</if>
+			<if test="requirementCode != null and requirementCode != ''">
+				and c.icss_requirement = #{requirementCode}
+			</if>
+			<if test="requirementCode == null or requirementCode == ''">
+				and c.icss_requirement is null
+			</if>
+			and c.hospital_code = #{hospitalCode}
+	</select>
+	
+	<select id="getHisPacs" parameterType="java.util.Map" resultMap="structuringMap">
+		select 
+			a.his_apparatus_code as his_apparatus_code,
+			b.his_part_code as his_part_code,
+			CONCAT(b.part_name,a.apparatus_name) as structuring_name 
+			from 
+			his_apparatus_info a,
+			his_part_info b,
+			his_mapping_pacs c
+			where 
+			a.his_apparatus_code = c.his_apparatus
+			and b.his_part_code = c.his_part
+			and a.hospital_code = c.hospital_code
+			and b.hospital_code = c.hospital_code
+			<if test="apparatusCode != null and apparatusCode != ''">
+				and c.icss_apparatus = #{apparatusCode}
+			</if>
+			<if test="apparatusCode == null or apparatusCode == ''">
+				and c.icss_apparatus is null
+			</if>
+			<if test="direction != null and direction != ''">
+				and c.icss_direction = #{direction}
+			</if>
+			<if test="direction == null or direction == ''">
+				and c.icss_direction is null
+			</if>
+			<if test="model != null and model != ''">
+				and c.icss_model = #{model}
+			</if>
+			<if test="model == null or model == ''">
+				and c.icss_model is null
+			</if>
+			<if test="otherCode != null and otherCode != ''">
+				and c.icss_other = #{otherCode}
+			</if>
+			<if test="otherCode == null or otherCode == ''">
+				and c.icss_other is null
+			</if>
+			<if test="partCode != null and partCode != ''">
+				and c.icss_part = #{partCode}
+			</if>
+			<if test="partCode == null or partCode == ''">
+				and c.icss_part is null
+			</if>
+			<if test="position != null and position != ''">
+				and c.icss_position = #{position}
+			</if>
+			<if test="position == null or position == ''">
+				and c.icss_position is null
+			</if>
+			<if test="requirementCode != null and requirementCode != ''">
+				and c.icss_requirement = #{requirementCode}
+			</if>
+			<if test="requirementCode == null or requirementCode == ''">
+				and c.icss_requirement is null
+			</if>
+			and c.hospital_code = #{hospitalCode}
+	</select>
+	
+	
+	<select id="getHisPacsByPartAndAppar" parameterType="com.lantone.icss.api.kl.model.wrapper.PacsInfoWrapper" resultMap="PacsInfoWrapper">
+		select his_part as part_code,his_apparatus as apparatus_code from his_mapping_pacs where icss_apparatus = #{apparatusCode} and icss_part = #{partCode} and hospital_code = #{hospitalCode}
+	
+	 		<!-- select his_part as part_code,his_apparatus as apparatus_code from his_mapping_pacs a,
+kl_pacs_info t where a.icss_apparatus=t.id AND A.icss_part=T.part_code 
+ and t.apparatus_code = #{apparatusCode} and t.part_code =#{partCode} and hospital_code = #{hospitalCode} -->
+	 </select>
+	
+	<select id="getPacsInfoByPortrait"  resultMap="PacsInfoWrapper">
+		select i.*,s.code param_code,b.standard_id as partStandardId
+		from kl_pacs_info i
+		left join kl_portrait_pacs p on i.id = p.pacs_id
+		left join kl_pacs_part b on i.part_id = b.id
+		left join kl_standard_info s on s.id = i.standard_id
+		where i.status = '1' and p.portrait_id = #{id} 
+		and (i.apparatus_id is null or i.apparatus_id = '')
+	</select>
+	
+	
+	<select id="selectByPrimaryKey"  resultMap="PacsInfoWrapper">
+		select * from kl_pacs_info where id = #{id}
+	</select>
+	
+</mapper>

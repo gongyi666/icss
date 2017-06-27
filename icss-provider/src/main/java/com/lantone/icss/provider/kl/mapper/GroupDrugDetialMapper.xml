@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.GroupDrugDetailMapper">
+	<resultMap id="BaseResultMap"
+		type="com.lantone.icss.api.kl.model.wrapper.GroupDrugDetailWrapper">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="drg_id" property="name" jdbcType="BIGINT" />
+		<result column="grp_num" property="sys_type" jdbcType="INTEGER" />
+		<result column="spe_id" property="fiveStroke" jdbcType="VARCHAR" />
+		<result column="man_id" property="spell" jdbcType="VARCHAR" />
+		<result column="drg_once_dose" property="sex_type" jdbcType="NUMERIC" />
+		<result column="drg_dose_unit" property="type" jdbcType="VARCHAR" />
+		<result column="mod_id" property="isGroup" jdbcType="INTEGER" />
+		<result column="fre_en_name" property="isSpecial" jdbcType="VARCHAR" />
+		<result column="drg_use_day" property="ageBegin" jdbcType="INTEGER" />
+		<result column="drg_group_num" property="ageEnd" jdbcType="INTEGER" />
+		<result column="drg_quantity" property="hasQuestion" jdbcType="INTEGER" />
+		<result column="doctor_id" property="status" jdbcType="BIGINT" />
+		<result column="hospital_code" property="remark" jdbcType="VARCHAR" />
+		<result column="skin_test" property="skinTest" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.lantone.icss.api.kl.model.GroupDrugDetail" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO kl_group_drug_detail
+		(id,drg_id,drg_group_id,grp_num,spe_id,man_id,drg_once_dose,drg_dose_unit,mod_id,fre_en_name,drg_use_day,drg_group_num,drg_quantity,doctor_id,hospital_code,skin_test)
+		VALUES
+		(#{id},#{drgId},#{drgGroupId},#{grpNum},#{speId},#{manId},#{drgOnceDose},#{drgDoseUnit},#{modId},#{freEnName},#{drgUseDay},#{drgGroupNum},#{drgQuantity},#{doctorId},#{hospitalCode},#{skinTest})
+	</insert>
+
+</mapper>

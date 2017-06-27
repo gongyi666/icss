@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.ContentDetailMapper" >
+  <resultMap id="ContentDetailWrapper" type="com.lantone.icss.api.kl.model.wrapper.ContentDetailWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="standard_id" property="standardId" jdbcType="BIGINT" />
+    <result column="content_id" property="contentId" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="relation_id" property="relationId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="min_value" jdbcType="DECIMAL" property="minValue" />
+    <result column="max_value" jdbcType="DECIMAL" property="maxValue" />
+    <result column="judge_type" jdbcType="CHAR" property="judgeType" />
+    <result column="formula_code" jdbcType="VARCHAR" property="formulaCode" />
+   	<!-- 扩充字段 -->
+   	<result column="param_code" property="paramCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getContentDetailByContentId" parameterType="java.lang.Long" resultMap="ContentDetailWrapper">
+  	select a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code from kl_content_detail a
+		where a.status = '1'
+		and a.content_id = #{contentId}
+		order by order_no
+  </select>
+</mapper>

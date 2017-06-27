@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.his.dao.HisLisDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.his.model.Wrapper.HisLisDetailWrapper" >
+    <result column="his_lis_code" property="hisLisCode" jdbcType="VARCHAR" />
+    <result column="hospital_code" property="hospitalCode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="spell" property="spell" jdbcType="VARCHAR" />
+    <result column="five_stroke" property="fiveStroke" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getHisLisDetailByDiseaseId" parameterType="java.lang.Long" resultType="String">
+  	select a.his_lis_code from his_mapping_lis a,
+	kl_dis_lis_detail b
+	where 
+	a.icss_lis_id = b.lis_detail_id
+	and b.disease_id = #{diseaseId}
+  </select>
+ 
+ 
+  <insert id="insertByBatch" parameterType="java.util.List">
+  		insert into his_lis_detail (his_lis_code,hospital_code,name,spell,five_stroke,remark)
+  		values
+  		<foreach collection="list" item="item" index="index" separator=",">
+  			(#{item.hisLisCode,jdbcType=VARCHAR},#{item.hospitalCode,jdbcType=VARCHAR},
+  			#{item.name,jdbcType=VARCHAR},#{item.spell,jdbcType=VARCHAR},
+  			#{item.fiveStroke,jdbcType=VARCHAR},#{item.remark,jdbcType=VARCHAR})
+  		</foreach>
+  </insert>
+  
+  
+  <select id="getHisLisDetail" parameterType="com.lantone.icss.api.kl.model.wrapper.LisInfoWrapper" resultType="String">
+  	select a.his_lis_code from his_mapping_lis a,kl_lis_detail b
+	where a.icss_lis_code = b.code
+	and a.hospital_code = #{hospitalCode}
+	and b.code = #{detailCode}
+  </select>
+</mapper>

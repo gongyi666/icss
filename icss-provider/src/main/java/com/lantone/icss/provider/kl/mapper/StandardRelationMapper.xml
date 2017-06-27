@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.StandardRelationMapper" >
+
+	<resultMap id="StandardRelationMap" type="com.lantone.icss.api.kl.model.StandardRelation" >
+	    <id column="id" property="id" />
+	    <result column="in_standard_id" property="inStandardId"/>
+	    <result column="out_standard_id" property="outStandardId" />
+	    <result column="outname" property="outname" />
+	    <result column="outtype" property="outtype" />
+	    <result column="order_no" property="orderNo" />
+	</resultMap>
+	
+	<resultMap id="StandardRelationWrapperMap" type="com.lantone.icss.api.kl.model.wrapper.StandardRelationWrapper" >
+	    <id column="id" property="id" />
+	    <result column="in_standard_id" property="inStandardId"/>
+	    <result column="out_standard_id" property="outStandardId" />
+	    <result column="outname" property="outname" />
+	    <result column="outtype" property="outtype" />
+	    <result column="order_no" property="orderNo" />
+	    <result column="inname" property="inname" />
+	</resultMap>
+
+	<select id="getFirstStandardRelation" parameterType="java.lang.String" resultMap="StandardRelationWrapperMap">
+		select t.* from kl_standard_relation t where t.in_standard_id = #{standardId} and 
+		exists (select * from kl_standard_info f where t.out_standard_id = f.id and f.type=0)
+	</select>
+	
+	<select id="getSecondStandardRelation" parameterType="java.lang.String" resultMap="StandardRelationWrapperMap">
+		select t.*,a.name as inname from kl_standard_relation t, kl_standard_info a
+		where t.in_standard_id = #{standardId} and t.in_standard_id = a.id
+	</select>
+
+</mapper>

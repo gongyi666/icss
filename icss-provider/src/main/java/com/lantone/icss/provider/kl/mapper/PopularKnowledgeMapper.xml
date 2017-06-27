@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.PopularKnowledgeMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.PopularKnowledge" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="key_word_id" property="keyWordId" jdbcType="BIGINT" />
+    <result column="stand_id" property="standId" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  	<select id="selectAllKnowledge"  resultMap="BaseResultMap">
+		select * from kl_popular_knowledge 
+	</select> 
+    <select id="selectPopularKnowledgeByName" parameterType="java.util.Map" resultMap="BaseResultMap">
+			select * from kl_popular_knowledge a where a.noun_id=#{nounId} and a.describe_id=#{describeId}
+	</select>
+    <select id="selectPopularKnowledgeByKeyWordId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+			select * from kl_popular_knowledge a where a.key_word_id=#{keyWordId}
+	</select>
+</mapper>

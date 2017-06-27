@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="css/diagnose_0.css">
+		<title>诊疗</title>
+	</head>
+
+	<body style="overflow-x: hidden;">
+		<div class="container">
+			<div class="group">
+				<label>主诉</label>
+				<div class="box-r-s">
+					<div class="choose" id="visSymptom">
+						<ul>
+							<li><span class="dot"></span>胸痛5天，在劳累情况下，中度，呈间隙性(有时在睡眠中发作)</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>现病史</label>
+				<div class="box-r-s">
+					<div class="choose" id="visPresentHis">
+						<ul>
+							<li></li><span class="dot"></span>高血压2年</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>既往史</label>
+				<div class="box-r-s">
+					<div class="choose" id="visPreviousHis">
+						<ul>
+							<li><span class="dot"></span>心脏病家族史：母亲，发现于1990年</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>其他史</label>
+				<div class="box-r-s">
+					<div class="choose" id="visOtherHis">
+						<ul>
+							<li>
+								<div class="title title_家族史"></div>
+								<ul class="content content_家族史">
+									<li><span class="dot"></span>饮食不规律（高脂、高盐）</li>
+								</ul>
+							</li>
+							<li>
+								<div class="title title_个人史"></div>
+								<ul class="content content_个人史">
+									<li><span class="dot"></span>吸烟</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>体征</label>
+				<div class="box-r-s">
+					<div class="choose" id="signDiv">
+						<ul>
+							<li><span class="dot"></span>正常</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>化验</label>
+				<div class="box-r-s">
+					<div class="choose" id="testDiv">
+						<ul>
+							<li>
+								<span class="dot"></span>胸痛5天，在劳累情况下，中度，呈间隙性(有时在睡眠中发作)
+							</li>
+							<li>
+								<span class="dot"></span>咳嗽三天，轻度，呈阵发性
+							</li>
+							<li>
+								<span class="dot"></span>胸痛5天，在劳累情况下，中度，呈间隙性(有时在睡眠中发作)
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>器查</label>
+				<div class="box-r-s">
+					<div class="choose" id="organDiv">
+						<ul>
+							<li>
+								<span class="dot"></span>心电图：st轻度压低<span class="eeg"><img src="img/u1034.png"></span>
+							</li>
+							<li>
+								<span class="dot"></span>冠脉造影：狭窄度＞70%<span class="photo"><img src="img/u1032.png"></span>
+							</li>
+							<li>
+								<span class="dot"></span>OCT：见斑块
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>诊断</label>
+				<div class="box-r-s">
+					<div class="choose" id="diagnosisDiv">
+						<ul>
+							<li>
+								<span class="dot"></span>心电图：st轻度压低<span class="eeg"><img src="img/u1034.png" alt=""></span>
+							</li>
+							<li>
+								<span class="dot"></span>冠脉造影：狭窄度＞70%<span class="photo"><img src="img/u1032.png"></span>
+							</li>
+							<li>
+								<span class="dot"></span>OCT：见斑块
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>治疗</label>
+				<div class="box-r-s">
+					<div class="choose" id="treatDiv">
+						<ul>
+							<li>
+								<span class="dot"></span>胸痛5天，在劳累情况下，中度，呈间隙性(有时在睡眠中发作)
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+		<script src="js/param.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var getIndexId = sessionStorage.getItem("getIndexId");
+				getIndexId = getIndexId == "undefined" ? -1 : getIndexId;
+				
+				/*var params = new Array();
+				params = $(window.parent.document).find("iframe").attr("src")
+					.split("?")[1].split("&");
+				var getIndexId = params[0].split("=")[1];*/
+				console.info(getIndexId);
+				$.ajax({
+					url: Param.hostUrl + '/at/inquiry_detail/find_by_id',
+					type: 'GET',
+					dataType: 'json',
+					data: {
+						"inquiryId": getIndexId
+					},
+					success: function(res) {
+						var sympHtml = "";
+						var prevHtml = "";
+						var prevArray = new Array();
+						var otherHtml = "";
+						var otherArray = new Array();
+						var signHtml = "";
+						var testHtml = "";
+						var organHtml = "";
+						var diagHtml = "";
+						var treatHtml = "";
+						var presentHtml = "";
+						$.each(res.data, function(index, value) {
+							if(value.type == 1) { //==1 是症状 (1:症状，2既往史，3其他史，4体征，5化验，6器查，7诊断，8治疗,9现病史)
+								//!!sympHtml && (sympHtml += "<br>");
+								sympHtml += "<li><span class='dot'></span>" + value.itemDescribe + "</li>";
+							}
+							if(value.type == 2) { //==2 是既往史
+								//!!prevHtml && (prevHtml += "<br>");
+								prevArray.push(value.itemDescribe);
+							}
+							if(value.type == 3) { //==3 是其他史
+								//!!otherHtml && (otherHtml += "<br>");
+								otherArray.push(value.itemDescribe);
+							}
+							if(value.type == 4) { //==4 是体征
+								//!!signHtml && (signHtml += "<br>");
+								signHtml += "<li><span class='dot'></span>" + value.itemDescribe + "</li>";
+							}
+							if(value.type == 5) { //==5 是化验
+								//!!testHtml && (testHtml += "<br>");
+								testHtml += "<li><span class='dot'></span>" + value.itemDescribe + "</li>";
+							}
+							if(value.type == 6) { //==1 是器查
+								//!!organHtml && (organHtml += "<br>");
+								organHtml += "<li><span class='dot'></span>" + value.itemDescribe + "</li>";
+							}
+							if(value.type == 7) { //==1 是诊断
+								//!!diagHtml && (diagHtml += "<br>");
+								diagHtml += "<li><span class='dot'></span>" + value.itemDescribe + "</li>";
+							}
+							if(value.type == 8) { //==1 是治疗
+								//!!treatHtml && (treatHtml += "<br>");
+								treatHtml += "<li><span class='dot'></span>" + value.itemDescribe + "</li>";
+							}
+							if(value.type == 9) { //==9 是现病史
+								//!!presentHtml && (presentHtml += "<br>");
+								presentHtml += "<li><span class='dot'></span>" + value.itemDescribe + "</li>";
+							}
+						});
+						if(!!sympHtml) {
+							$("#visSymptom").find("ul").html(sympHtml);
+						} else {
+							$("#visSymptom").parent().parent().hide();
+						}
+						if(prevArray.length > 0) {
+							$("#visPreviousHis").find("ul").html("");
+							$(prevArray).each(function(index, prevStr) {
+								var tempArray = prevStr.split("$title$");
+								var tempTitle = $("#visPreviousHis").find("div.title_" + tempArray[1] + "");
+								if(tempTitle.length == 0) {
+									$("#visPreviousHis>ul").append('<li><div class="title title_' + tempArray[1] + '">' + tempArray[1] + '</div><ul class="content content_' + tempArray[1] + '"></ul></li>');
+								}
+								var tempHtml = '<li><span class="dot"></span>' + tempArray[0] + '</li>';
+								$("#visPreviousHis").find("ul.content_" + tempArray[1] + "").append(tempHtml);
+							});
+						} else {
+							$("#visPreviousHis").parent().parent().hide();
+						}
+						if(otherArray.length > 0) {
+							$("#visOtherHis").find("ul").html("");
+							$(otherArray).each(function(index, otherStr) {
+								var tempArray = otherStr.split("$title$");
+								var tempTitle = $("#visOtherHis").find("div.title_" + tempArray[1] + "");
+								if(tempTitle.length == 0) {
+									$("#visOtherHis>ul").append('<li><div class="title title_' + tempArray[1] + '">' + tempArray[1] + '</div><ul class="content content_' + tempArray[1] + '"></ul></li>');
+								}
+								var tempHtml = "<li><span class='dot'></span>" + tempArray[0] + "</li>";
+								$("#visOtherHis").find("ul.content_" + tempArray[1] + "").append(tempHtml);
+							});
+						} else {
+							$("#visOtherHis").parent().parent().hide();
+						}
+						if(!!signHtml) {
+							$("#signDiv>ul").html(signHtml);
+						} else {
+							$("#signDiv").parent().parent().hide();
+						}
+						if(!!testHtml) {
+							$("#testDiv>ul").html(testHtml);
+						} else {
+							$("#testDiv").parent().parent().hide();
+						}
+						if(!!organHtml) {
+							$("#organDiv>ul").html(organHtml);
+						} else {
+							$("#organDiv").parent().parent().hide();
+						}
+						if(!!diagHtml) {
+							$("#diagnosisDiv>ul").html(diagHtml);
+						} else {
+							$("#diagnosisDiv").parent().parent().hide();
+						}
+						if(!!treatHtml) {
+							$("#treatDiv>ul").html(treatHtml);
+						} else {
+							$("#treatDiv").parent().parent().hide();
+						}
+						if(!!presentHtml) {
+							$("#visPresentHis>ul").html(presentHtml);
+						} else {
+							$("#visPresentHis").parent().parent().hide();
+						}
+						$(".content-diagnosis").find("iframe").attr("src", "diagnose.html");
+
+					}
+				})
+			})
+		</script>
+	</body>
+
+</html>

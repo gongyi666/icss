@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.DrugHisMappingMapper">
+	<resultMap id="BaseResultMap"
+		type="com.lantone.icss.api.kl.model.wrapper.DrugHisMappingWrapper">
+		<id column="icss_drug_id" property="icssDrugId" jdbcType="BIGINT" />
+		<result column="his_drug_spell" property="hisDrugSpell"
+			jdbcType="VARCHAR" />
+		<result column="his_drug_type" property="hisDrugType" jdbcType="VARCHAR" />
+		<result column="his_drug_id" property="hisDrugId" jdbcType="BIGINT" />
+		<result column="his_drug_name" property="hisDrugName" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="hospital_code" property="hospitalCode"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getDrugHisMappingByDrugId" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select * from his_mapping_drug where
+		icss_drug_id=#{icssDrugId}
+		and
+		hospital_code=#{hospitalCode}
+	</select>
+</mapper>

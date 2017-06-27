@@ -1,0 +1,99 @@
+div.group {
+  height: auto;
+  width: 778px;
+  color: #33475f;
+  margin-bottom: 10px;
+  /* 标题 样式 */
+  /* 输入框样式 */
+}
+div.group > div {
+  width: 100%;
+  min-height: 39px;
+  position: relative;
+}
+div.group .group__wrapper {
+  border-radius: 5px;
+  box-shadow: 0 0 1px rgba(154, 152, 152, 0.15);
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  outline: none;
+}
+div.group .group__wrapper .wrapper__choose {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+div.group .group__wrapper .wrapper__choose__title {
+  width: 10%;
+  position: relative;
+  height: 100%;
+  float: left;
+  text-align: left;
+  color: #33475f !important;
+  font-size: 12px;
+  font-weight: bold !important;
+  padding-right: 0;
+  padding-left: 6px;
+  border-radius: 5px;
+  padding-top: 6px;
+}
+div.group .group__wrapper .wrapper__choose__content {
+  width: 89%;
+  float: left;
+}
+div.group .group__wrapper .wrapper__choose__content > div {
+  cursor: pointer;
+  padding: 5px 12px;
+  font-weight: normal;
+  line-height: 17px;
+  width: 100%;
+  position: relative;
+}
+div.group .group__wrapper .wrapper__choose__content > div > ul {
+  float: left;
+  margin-right: 10px;
+}
+div.group .group__wrapper .wrapper__choose__content > div i.icon-move-top {
+  background: url('../img/modules/top.png') no-repeat center;
+  background-size: 17px 17px;
+}
+div.group .group__wrapper .wrapper__choose__content > div > i.icon-remove {
+  background: url(../img/modules/close.png) no-repeat center;
+  background-size: 17px 17px;
+}
+div.group .group__wrapper .wrapper__choose__content > div i {
+  height: 17px;
+  width: 17px;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 8px;
+}
+div.group .group__wrapper .wrapper__choose__content > div:hover {
+  color: #0088be;
+  font-weight: bold;
+}
+div.group .group__wrapper .wrapper__choose__content > div:hover > span.dot {
+  background-color: #0088be;
+}
+div.group .group__wrapper .wrapper__choose__content > .symptom-item .icon-dot {
+  margin-top: 4px;
+}
+div.group .group__wrapper.focus {
+  border-color: #0088be;
+}
+div.group > label {
+  display: block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+}
+div.group > div > input {
+  width: 100%;
+  padding-left: 10px;
+  height: 39px;
+  border: none;
+  outline: none;
+  position: relative;
+  z-index: 0;
+  line-height: 39px;
+  font-size: 13px;
+}

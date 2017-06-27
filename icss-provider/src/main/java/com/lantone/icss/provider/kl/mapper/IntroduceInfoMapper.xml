@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.IntroduceInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.wrapper.IntroduceInfoWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+   	<result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="nice" property="nice" jdbcType="LONGVARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getByitemIdAndType" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select * from kl_introduce_info where status = '1' 
+  	and id = 
+		(select introduce_id from kl_introdcue_map where type = #{type} and item_id = #{itemId})
+  </select>
+</mapper>

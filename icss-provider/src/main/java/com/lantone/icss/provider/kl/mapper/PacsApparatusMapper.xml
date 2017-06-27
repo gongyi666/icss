@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.PacsApparatusMapper" >
+  <resultMap id="baseResultMap" type="com.lantone.icss.api.kl.model.wrapper.PacsApparatusWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="BIGINT" />
+    <result column="standard_id" property="standardId" jdbcType="BIGINT" />
+  	<!-- 扩展字段 -->
+  	<result column="info_id" property="infoId" jdbcType="VARCHAR" />
+  	<result column="info_name" property="infoName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="apparatusPartMap" type="com.lantone.icss.api.kl.model.wrapper.ApparatusPartWrapper">
+  	<result column="apparatus_code" property="apparatusCode" jdbcType="VARCHAR" />
+    <result column="part_code" property="partCode" jdbcType="VARCHAR" />
+    <result column="organ_code" property="organCode" jdbcType="VARCHAR" />
+    <result column="apparatus_name" property="apparatusName" jdbcType="VARCHAR" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="organ_name" property="organName" jdbcType="VARCHAR" />
+    <result column="part_direction" property="partDirection" jdbcType="VARCHAR" />
+    <result column="organ_direction" property="organDirection" jdbcType="VARCHAR" />
+    <result column="apparatus_type_id" property="apparatusTypeId" jdbcType="VARCHAR" />
+    <result column="apparatus_model" property="apparatusModel" jdbcType="VARCHAR" />
+    <result column="apparatus_requirement" property="apparatusRequirement" jdbcType="VARCHAR" />
+    <result column="apparatus_position" property="apparatusPosition" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<select id="getPacsApparatusByCode" parameterType="java.lang.String" resultMap="baseResultMap">
+		select * from kl_pacs_apparatus where status = '1' and code = #{code}
+	</select>
+	
+	<select id="getPacsApparatusByPartCode" parameterType="java.lang.String" resultMap="baseResultMap">
+		select a.* from kl_pacs_apparatus a,
+			kl_apparatus_part b
+			where a.status = '1'
+			and a.code = b.apparatus_code
+			and b.part_code = #{partCode}
+	</select>
+	
+	<select id="getPacsApparatusByOrganCode" parameterType="java.lang.String" resultMap="baseResultMap">
+		select a.* from kl_pacs_apparatus a,
+			kl_apparatus_part b
+			where a.status = '1'
+			and a.code = b.apparatus_code
+			and b.organ_code = #{organCode}
+	</select>
+	
+	<select id="getApparatusByPartAndOrgan" parameterType="java.util.Map" resultMap="baseResultMap">
+		select a.* from kl_pacs_apparatus a,
+			kl_apparatus_part b
+			where a.status = '1'
+			and a.code = b.apparatus_code
+			and b.organ_code = #{organCode}
+			and b.part_code = #{partCode}
+	</select>
+	
+	<select id="getApparatusPart" parameterType="java.util.Map" resultMap="apparatusPartMap">
+		select 
+			a.code as apparatus_code,
+			a.name as apparatus_name,
+			a.type_id as apparatus_type_id,
+			a.model as apparatus_model,
+			a.requirement as apparatus_requirement,
+			a.position as apparatus_position,
+			b.code as part_code,
+			b.name as part_name,
+			b.direction as part_direction,
+			c.code as organ_code,
+			c.name as organ_name,
+			c.direction as organ_direction
+			from 
+			kl_pacs_apparatus a,
+			kl_pacs_part b,
+			kl_pacs_organ c,
+			kl_apparatus_part d
+			where a.code = d.apparatus_code
+			and b.code = d.part_code
+			and c.code = d.organ_code
+			<if test="apparatusCode != null and apparatusCode != ''">
+			and d.apparatus_code = #{apparatusCode}
+			</if>
+			<if test="partCode != null and apparatusCode != ''">
+			and d.part_code = #{partCode}
+			</if>
+			<if test="organCode != null and organCode != ''">
+			and d.organ_code = #{organCode}
+			</if>
+	</select>
+	
+	<select id="getPacsApparatusByType" parameterType="java.lang.Long" resultMap="baseResultMap">
+		select * from kl_pacs_apparatus where status = '1' and type_id = #{typeId}
+	</select>
+	
+	
+	<select id="getByPartId" parameterType="java.lang.Long" resultMap="baseResultMap">
+		select a.*,i.id info_id,i.name info_name from kl_pacs_apparatus a, kl_pacs_info i 
+		where a.id = i.apparatus_id and a.status = '1' and i.status = '1'
+		and i.part_id = #{partId} and (i.apparatus_id is not null and i.apparatus_id != '')
+		order by i.order_no
+	</select>
+</mapper>

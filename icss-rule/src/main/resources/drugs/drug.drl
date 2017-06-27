@@ -1,0 +1,381 @@
+package com.lantone.icss.rule
+
+import java.util.List;
+import java.util.ArrayList;
+
+import com.lantone.icss.rule.model.IcssDrugInput;
+import com.lantone.icss.rule.model.ChiefComplaint;
+import com.lantone.icss.rule.model.LabResult;
+import com.lantone.icss.rule.model.OtherHistory;
+import com.lantone.icss.rule.model.PastMedicalHistory;
+import com.lantone.icss.rule.model.VitalSign;
+import com.lantone.icss.rule.util.PhraseUtil;
+import com.lantone.icss.rule.model.Diseases;
+import java.util.Arrays;
+import com.lantone.icss.rule.model.IcssDrugOutput;
+
+//declare any global variables here
+global IcssDrugOutput output;
+
+//1级高血压，高血压，电解质：血钾>5.5
+rule "YP003"
+	salience 1000
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001988") != null && input.getDiseases().getDisease.get("JBBM001042") != null && input.getLabResult().getLabs().get("HYBM901009") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901009").get("HYBM001012")) >=5.5) 
+	then
+		output.getDrugList().put("JBBM001988",(List<String>)Arrays.asList("YPBM1001444,YPBM2001487".split(",")));
+		System.out.println("JBBM001988: " + output.getDrugList().get("JBBM001988").get(0));
+end
+
+//1级高血压，糖尿病
+rule "YP002"
+	salience 1001
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001988") != null && input.getDiseases().getDisease.get("JBBM001042") != null) 
+	then
+		output.getDrugList().put("JBBM001988",(List<String>)Arrays.asList("YPBM1001444,YPBM2001487,YPBM1001054,YPBM1001128,YPBM1001180,YPBM1001174,YPBM1001455".split(",")));
+		System.out.println("JBBM001988: " + output.getDrugList().get("JBBM001988").get(0));
+end
+
+//1级高血压
+rule "YP001"
+	salience 1002
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001988") != null) 
+	then
+		output.getDrugList().put("JBBM001988",(List<String>)Arrays.asList("YPBM1001444,YPBM2001487,YPBM1001054,YPBM1001128,YPBM1001180,YPBM1001174,YPBM1001455,YPBM1001208,YPBM1001125".split(",")));
+		System.out.println("JBBM001988: " + output.getDrugList().get("JBBM001988").get(0));
+end
+
+//糖尿病I型
+rule "YP004"
+	salience 1003
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001439") != null) 
+	then
+		output.getDrugList().put("JBBM001439",(List<String>)Arrays.asList("YPBM2001470,YPBM1001565,YPBM2001471,YPBM2001472,YPBM2001473,YPBM2001474,YPBM1001865,YPBM1001006,YPBM2001588,YPBM2001587,YPBM1001892,YPBM2001628,YPBM2001626,YPBM1001830,YPBM2001586,YPBM2001475,YPBM2001632".split(",")));
+		System.out.println("JBBM001439: " + output.getDrugList().get("JBBM001439").get(0));
+end
+
+//糖尿病II型
+rule "YP005"
+	salience 1004
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001440") != null) 
+	then
+		output.getDrugList().put("JBBM001440",(List<String>)Arrays.asList("YPBM2001478,YPBM1001396,YPBM1001486,YPBM2001476,YPBM1001077,YPBM1001082,YPBM1001086,YPBM1001080,YPBM2001599,YPBM1001476,YPBM2001480,YPBM2001481,YPBM2001482,YPBM1001683,YPBM2001483,YPBM2001477,YPBM1001485,YPBM2001479,YPBM2001484".split(",")));
+		System.out.println("JBBM001440: " + output.getDrugList().get("JBBM001440").get(0));
+end
+
+//哮喘
+rule "YP006"
+	salience 1005
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001045") != null) 
+	then
+		output.getDrugList().put("JBBM001045",(List<String>)Arrays.asList("YPBM1001153,YPBM1001827,YPBM2001491,YPBM2001492,YPBM1001699,YPBM1001698,YPBM1001700,YPBM2001493,YPBM1001655,YPBM2001494,YPBM1001726,YPBM2001495,YPBM1001854,YPBM1001207,YPBM2001496,YPBM2001497,YPBM1001840,YPBM2001498,YPBM2001499,YPBM1001876".split(",")));
+		System.out.println("JBBM001045: " + output.getDrugList().get("JBBM001045").get(0));
+end
+
+//2级高血压
+rule "YP007"
+	salience 1006
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001989") != null) 
+	then
+		output.getDrugList().put("JBBM001989",(List<String>)Arrays.asList("YPBM1001444,YPBM2001487,YPBM1001054,YPBM1001128,YPBM1001180,YPBM1001174,YPBM1001455,YPBM1001208,YPBM1001125".split(",")));
+		System.out.println("JBBM001989: " + output.getDrugList().get("JBBM001989").get(0));
+end
+
+//3级高血压
+rule "YP008"
+	salience 1007
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001990") != null) 
+	then
+		output.getDrugList().put("JBBM001990",(List<String>)Arrays.asList("YPBM1001444,YPBM2001487,YPBM1001054,YPBM1001128,YPBM1001180,YPBM1001174,YPBM1001455,YPBM1001208,YPBM1001125".split(",")));
+		System.out.println("JBBM001990: " + output.getDrugList().get("JBBM001990").get(0));
+end
+
+//单纯收缩期高血压
+rule "YP009"
+	salience 1008
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001991") != null) 
+	then
+		output.getDrugList().put("JBBM001991",(List<String>)Arrays.asList("YPBM1001444,YPBM2001487,YPBM1001054,YPBM1001128,YPBM1001180,YPBM1001174,YPBM1001455,YPBM1001208,YPBM1001125".split(",")));
+		System.out.println("JBBM001991: " + output.getDrugList().get("JBBM001991").get(0));
+end
+
+//老年高血压
+rule "YP100"
+	salience 1009
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001730") != null) 
+	then
+		output.getDrugList().put("JBBM001730",(List<String>)Arrays.asList("YPBM1001444,YPBM2001487,YPBM1001054,YPBM1001128,YPBM1001180,YPBM1001174,YPBM1001455,YPBM1001208,YPBM1001125".split(",")));
+		System.out.println("JBBM001730: " + output.getDrugList().get("JBBM001730").get(0));
+end
+
+//H型高血压
+rule "YP101"
+	salience 1010
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001708") != null) 
+	then
+		output.getDrugList().put("JBBM001708",(List<String>)Arrays.asList("YPBM1001444,YPBM2001487,YPBM1001054,YPBM1001128,YPBM1001180,YPBM1001174,YPBM1001455,YPBM1001208,YPBM1001125".split(",")));
+		System.out.println("JBBM001708: " + output.getDrugList().get("JBBM001708").get(0));
+end
+
+//高血压
+rule "YP102"
+	salience 1011
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001038") != null) 
+	then
+		output.getDrugList().put("JBBM001038",(List<String>)Arrays.asList("YPBM1001444,YPBM2001487,YPBM1001054,YPBM1001128,YPBM1001180,YPBM1001174,YPBM1001455,YPBM1001208,YPBM1001125".split(",")));
+		System.out.println("JBBM001038: " + output.getDrugList().get("JBBM001038").get(0));
+end
+
+//糖尿病性视网膜病变
+rule "YP103"
+	salience 1012
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002387") != null) 
+	then
+		output.getDrugList().put("JBBM002387",(List<String>)Arrays.asList("YPBM2001571".split(",")));
+		System.out.println("JBBM002387: " + output.getDrugList().get("JBBM002387").get(0));
+end
+
+//非增殖性糖尿病性视网膜病变
+rule "YP104"
+	salience 1013
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002383") != null) 
+	then
+		output.getDrugList().put("JBBM002383",(List<String>)Arrays.asList("YPBM2001571".split(",")));
+		System.out.println("JBBM002383: " + output.getDrugList().get("JBBM002383").get(0));
+end
+
+//增殖性糖尿病性视网膜病变
+rule "YP105"
+	salience 1014
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002384") != null) 
+	then
+		output.getDrugList().put("JBBM002384",(List<String>)Arrays.asList("YPBM2001571".split(",")));
+		System.out.println("JBBM002384: " + output.getDrugList().get("JBBM002384").get(0));
+end
+
+//糖尿病/DM
+rule "YP106"
+	salience 1015
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001042") != null) 
+	then
+		output.getDrugList().put("JBBM001042",(List<String>)Arrays.asList("YPBM2001470,YPBM1001565,YPBM2001471,YPBM2001472,YPBM2001473,YPBM2001474,YPBM1001865,YPBM1001006,YPBM2001588,YPBM2001587,YPBM1001892,YPBM2001628,YPBM2001626,YPBM1001830,YPBM2001586,YPBM2001475,YPBM2001632,YPBM2001478,YPBM1001396,YPBM1001486,YPBM2001476,YPBM1001077,YPBM1001082,YPBM1001086,YPBM1001080,YPBM2001599,YPBM1001476,YPBM2001480,YPBM2001481,YPBM2001482,YPBM1001683,YPBM2001483,YPBM2001477,YPBM1001485,YPBM2001479,YPBM2001484".split(",")));
+		System.out.println("JBBM001042: " + output.getDrugList().get("JBBM001042").get(0));
+end
+
+//急性胰腺炎
+rule "YP107"
+	salience 1016
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001185") != null) 
+	then
+		output.getDrugList().put("JBBM001185",(List<String>)Arrays.asList("YPBM2001504,YPBM2001613,YPBM1001393,YPBM2001627,YPBM2001629,YPBM2001630,YPBM2001630,YPBM2001527,YPBM1001294".split(",")));
+		System.out.println("JBBM001185: " + output.getDrugList().get("JBBM001185").get(0));
+end
+
+//1.5型糖尿病
+rule "YP108"
+	salience 1017
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002385") != null) 
+	then
+		output.getDrugList().put("JBBM002385",(List<String>)Arrays.asList("YPBM1001101,YPBM2001470,YPBM1001565,YPBM2001471,YPBM2001472,YPBM2001473,YPBM2001474,YPBM1001865,YPBM1001006,YPBM2001588,YPBM2001587,YPBM1001892,YPBM2001628,YPBM2001626,YPBM1001830,YPBM2001586,YPBM2001475,YPBM2001632".split(",")));
+		System.out.println("JBBM002385: " + output.getDrugList().get("JBBM002385").get(0));
+end
+
+//儿童糖尿病
+rule "YP109"
+	salience 1018
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002382") != null) 
+	then
+		output.getDrugList().put("JBBM002382",(List<String>)Arrays.asList("YPBM2001470,YPBM1001565,YPBM2001471,YPBM2001472,YPBM2001473,YPBM2001474,YPBM1001865,YPBM1001006,YPBM2001588,YPBM2001587,YPBM1001892,YPBM2001628,YPBM2001626,YPBM1001830,YPBM2001586,YPBM2001475,YPBM2001632".split(",")));
+		System.out.println("JBBM002382: " + output.getDrugList().get("JBBM002382").get(0));
+end
+
+//妊娠糖尿病（
+rule "YP110"
+	salience 1019
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001441") != null) 
+	then
+		output.getDrugList().put("JBBM001441",(List<String>)Arrays.asList("YPBM2001470,YPBM1001565,YPBM2001471,YPBM2001472,YPBM2001473,YPBM2001474,YPBM1001865,YPBM1001006,YPBM2001588,YPBM2001587,YPBM1001892,YPBM2001628,YPBM2001626,YPBM1001830,YPBM2001586,YPBM2001475,YPBM2001632".split(",")));
+		System.out.println("JBBM001441: " + output.getDrugList().get("JBBM001441").get(0));
+end
+
+//糖尿病合并妊娠
+rule "YP111"
+	salience 1020
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002386") != null) 
+	then
+		output.getDrugList().put("JBBM002386",(List<String>)Arrays.asList("YPBM2001470,YPBM1001565,YPBM2001471,YPBM2001472,YPBM2001473,YPBM2001474,YPBM1001865,YPBM1001006,YPBM2001588,YPBM2001587,YPBM1001892,YPBM2001628,YPBM2001626,YPBM1001830,YPBM2001586,YPBM2001475,YPBM2001632".split(",")));
+		System.out.println("JBBM002386: " + output.getDrugList().get("JBBM002386").get(0));
+end
+
+//糖尿病神经病变
+rule "YP112"
+	salience 1021
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001257") != null) 
+	then
+		output.getDrugList().put("JBBM001257",(List<String>)Arrays.asList("YPBM2001579,YPBM1001616,YPBM1001110,YPBM1001111,YPBM1001464".split(",")));
+		System.out.println("JBBM001257: " + output.getDrugList().get("JBBM001257").get(0));
+end
+
+//糖尿病性胃轻瘫
+rule "YP113"
+	salience 1022
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002388") != null) 
+	then
+		output.getDrugList().put("JBBM002388",(List<String>)Arrays.asList("YPBM1001889".split(",")));
+		System.out.println("JBBM002388: " + output.getDrugList().get("JBBM002388").get(0));
+end
+
+//糖尿病酮症酸中毒
+rule "YP114"
+	salience 1023
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002389") != null) 
+	then
+		output.getDrugList().put("JBBM002389",(List<String>)Arrays.asList("YPBM2001632".split(",")));
+		System.out.println("JBBM002389: " + output.getDrugList().get("JBBM002389").get(0));
+end
+
+//胰腺炎
+rule "YP115"
+	salience 1024
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001211") != null) 
+	then
+		output.getDrugList().put("JBBM001211",(List<String>)Arrays.asList("YPBM2001504,YPBM2001613,YPBM1001393,YPBM2001627,YPBM2001629,YPBM2001630,YPBM2001630,YPBM2001527,YPBM1001294,YPBM1001522,YPBM1001907".split(",")));
+		System.out.println("JBBM001211: " + output.getDrugList().get("JBBM001211").get(0));
+end
+
+//急性水肿型胰腺炎
+rule "YP116"
+	salience 1025
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002391") != null) 
+	then
+		output.getDrugList().put("JBBM002391",(List<String>)Arrays.asList("YPBM1001907,YPBM2001504,YPBM2001613,YPBM1001393,YPBM2001627,YPBM2001629,YPBM2001630,YPBM2001630,YPBM2001527,YPBM1001294,YPBM1001522,YPBM1001907".split(",")));
+		System.out.println("JBBM002391: " + output.getDrugList().get("JBBM002391").get(0));
+end
+
+//糖尿病乳酸性酸中毒
+rule "YP117"
+	salience 1026
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002390") != null) 
+	then
+		output.getDrugList().put("JBBM002390",(List<String>)Arrays.asList("YPBM2001632".split(",")));
+		System.out.println("JBBM002390: " + output.getDrugList().get("JBBM002390").get(0));
+end
+
+//慢性胰腺炎
+rule "YP118"
+	salience 1027
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001233") != null) 
+	then
+		output.getDrugList().put("JBBM001233",(List<String>)Arrays.asList("YPBM2001534".split(",")));
+		System.out.println("JBBM001233: " + output.getDrugList().get("JBBM001233").get(0));
+end
+
+//自身免疫性胰腺炎
+rule "YP119"
+	salience 1028
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM002393") != null) 
+	then
+		output.getDrugList().put("JBBM002393",(List<String>)Arrays.asList("YPBM1001726,YPBM2001631".split(",")));
+		System.out.println("JBBM002393: " + output.getDrugList().get("JBBM002393").get(0));
+end
+
+//胆源性胰腺炎
+rule "YP120"
+	salience 1029
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001800") != null) 
+	then
+		output.getDrugList().put("JBBM001800",(List<String>)Arrays.asList("YPBM2001630,YPBM2001630,YPBM1001393,YPBM2001627,YPBM2001629,YPBM1001369,YPBM1001789,YPBM1001590,YPBM1001788,YPBM2001512,YPBM2001506,YPBM2001514,YPBM2001563,YPBM2001539,YPBM2001589".split(",")));
+		System.out.println("JBBM001800: " + output.getDrugList().get("JBBM001800").get(0));
+end
+
+//胆源性胰腺炎
+rule "YP121"
+	salience 1030
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001293") != null) 
+	then
+		output.getDrugList().put("JBBM001293",(List<String>)Arrays.asList("YPBM2001630,YPBM1001369,YPBM1001789,YPBM1001590,YPBM1001788,YPBM2001512,YPBM2001506,YPBM2001514,YPBM2001563,YPBM2001539,YPBM2001589,YPBM1001766,YPBM1001769,YPBM2001519,YPBM1001767,YPBM1001781,YPBM1001790,YPBM1001786,YPBM1001787".split(",")));
+		System.out.println("JBBM001293: " + output.getDrugList().get("JBBM001293").get(0));
+end
+
+//急性单纯性阑尾炎
+rule "YP122"
+	salience 1031
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001752") != null) 
+	then
+		output.getDrugList().put("JBBM001752",(List<String>)Arrays.asList("YPBM2001630,YPBM1001369,YPBM1001789,YPBM1001590,YPBM1001788,YPBM2001512,YPBM2001506,YPBM2001514,YPBM2001563,YPBM2001539,YPBM2001589,YPBM1001766,YPBM1001769,YPBM2001519,YPBM1001767,YPBM1001781,YPBM1001790,YPBM2001556,YPBM1001786,YPBM1001787".split(",")));
+		System.out.println("JBBM001752: " + output.getDrugList().get("JBBM001752").get(0));
+end
+
+//慢性阑尾炎
+rule "YP123"
+	salience 1032
+	no-loop true
+	when
+		input: IcssDrugInput(input.getDiseases().getDisease.get("JBBM001294") != null) 
+	then
+		output.getDrugList().put("JBBM001294",(List<String>)Arrays.asList("YPBM2001630,YPBM1001369,YPBM1001789,YPBM1001590,YPBM1001788,YPBM2001512,YPBM2001506,YPBM2001514,YPBM2001563,YPBM2001539,YPBM2001589,YPBM1001766,YPBM1001769,YPBM2001519,YPBM1001767,YPBM1001781,YPBM1001790,YPBM1001786,YPBM1001787".split(",")));
+		System.out.println("JBBM001294: " + output.getDrugList().get("JBBM001294").get(0));
+end

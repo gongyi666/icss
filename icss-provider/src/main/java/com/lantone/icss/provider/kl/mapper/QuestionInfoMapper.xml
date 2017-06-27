@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.QuestionInfoMapper" >
+  <resultMap id="QuestionInfoWrapper" type="com.lantone.icss.api.kl.model.wrapper.QuestionInfoWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="add_line" property="addLine" jdbcType="VARCHAR" />
+    <result column="require" property="require" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectWrapperByPrimaryKey" parameterType="java.lang.Long" resultMap="QuestionInfoWrapper">
+  	select a.* from kl_question_info a where a.id = #{id}
+  </select>
+  
+  <select id="getSymptomQuestion" parameterType="java.lang.Long" resultMap="QuestionInfoWrapper">
+  	select b.* from kl_symptom_question a 
+		left join kl_question_info b on a.question_id = b.id
+		where a.symptom_id = #{symptomId}
+		order by b.order_no
+  </select>
+  
+  <select id="getLisQuestion" parameterType="java.lang.Long" resultMap="QuestionInfoWrapper">
+  	select b.* from kl_lis_question a
+		left join kl_question_info b on a.question_id = b.id
+		where a.lis_id = #{lisId}
+		order by b.order_no
+  </select>
+  
+  <select id="getPacsQuestion" parameterType="java.lang.Long" resultMap="QuestionInfoWrapper">
+  	select b.* from kl_pacs_question a 
+		left join kl_question_info b on a.question_id = b.id
+		where a.pacs_id = #{pacsId}
+		order by b.order_no
+  </select>
+  
+  <select id="getLisTypeQuestion" parameterType="java.lang.Long" resultMap="QuestionInfoWrapper">
+  	select b.* from kl_lis_type_question a
+		left join kl_question_info b on a.question_id = b.id
+		where a.lis_type_id = #{lisTypeId}
+		order by b.order_no
+  </select>
+  
+  <select id="getPhysicalQuestion" parameterType="java.lang.Long" resultMap="QuestionInfoWrapper">
+  	select b.* from kl_physical_question a
+		left join kl_question_info b on a.question_id = b.id
+		where a.physical_id = #{physicalId}
+		order by b.order_no
+  </select>
+  
+  <select id="getSubitemQuestion" parameterType="java.lang.Long" resultMap="QuestionInfoWrapper">
+  	select b.* from kl_subitem_question a
+		left join kl_question_info b on a.question_id = b.id
+		where a.subitem_id = #{subitemId}
+		order by b.order_no
+  </select>
+</mapper>

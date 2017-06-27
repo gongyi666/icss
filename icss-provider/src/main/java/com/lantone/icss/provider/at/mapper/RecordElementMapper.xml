@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.at.dao.RecordElementMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.at.model.wrapper.RecordElementWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="record_id" property="recordId" jdbcType="BIGINT" />
+    <result column="element_key" property="elementKey" jdbcType="VARCHAR" />
+    <result column="element_value" property="elementValue" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="insertRecordElement" keyProperty="id" useGeneratedKeys="true" parameterType="com.lantone.icss.api.at.model.wrapper.RecordElementWrapper">
+  	insert into
+  		at_record_element(
+  			record_id,
+  			element_key,
+  			element_value,
+  			type,
+  			remark
+  		)
+  		values(
+  			#{recordId},
+  			#{elementKey},
+  			#{elementValue},
+  			#{type},
+  			#{remark}
+  		)
+  </insert>
+  
+  <delete id="deleteRecordElement" parameterType="java.lang.Long">
+  	delete from at_record_element where record_id = #{recordId}
+  </delete>
+  
+  <select id="selectRecordElement" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select * from at_record_element where record_id = #{recordId}
+  </select>
+  
+  <select id="selectRecordElementByType" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select * from at_record_element where record_id = #{recordId}
+  	and type in 
+  	<foreach collection="types" item="type" open="(" separator="," close=")">
+  		#{type}
+  	</foreach>
+  </select>
+</mapper>

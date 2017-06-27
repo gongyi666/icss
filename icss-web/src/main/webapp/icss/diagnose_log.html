@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="css/diagnose_0.css">
+		<title>诊疗</title>
+	</head>
+
+	<body style="overflow-x: hidden;">
+		<div class="container">
+			<div class="group">
+				<div class="last_clinic_time">
+					<label>最后提交时间:</label>
+					<div id="last_clinic_time"></div>
+				</div>
+			</div>
+			<div class="group">
+				<label>主诉</label>
+				<div class="box-r-s">
+					<div class="choose" id="visSymptom">
+						<ul data-type="1">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>现病史</label>
+				<div class="box-r-s">
+					<div class="choose" id="visPresentHis">
+						<ul data-type="9">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>既往史</label>
+				<div class="box-r-s">
+					<div class="choose" id="visPreviousHis">
+						<ul data-type="2">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>其他史</label>
+				<div class="box-r-s">
+					<div class="choose" id="visOtherHis">
+						<ul data-type="3">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>体征</label>
+				<div class="box-r-s">
+					<div class="choose" id="signDiv">
+						<ul data-type="4">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>化验</label>
+				<div class="box-r-s">
+					<div class="choose" id="testDiv">
+						<ul data-type="5">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>器查</label>
+				<div class="box-r-s">
+					<div class="choose" id="organDiv">
+						<ul data-type="6">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>诊断</label>
+				<div class="box-r-s">
+					<div class="choose" id="diagnosisDiv">
+						<ul data-type="7">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="group">
+				<label>治疗</label>
+				<div class="box-r-s">
+					<div class="choose" id="treatDiv">
+						<ul data-type="8">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+		<script src="js/param.js"></script>
+		<script src="js/timer.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var getIndexId = sessionStorage.getItem("getIndexId");
+				getIndexId = getIndexId == "undefined" ? -1 : getIndexId;
+				console.info(getIndexId);
+				$.ajax({
+					url: Param.hostUrl + '/at/inquiry_info/index',
+					type: 'GET',
+					dataType: 'json',
+					data: {
+						"id": getIndexId,
+						"detailFlag": 1
+					},
+					success: function(res) {
+						if(!!res.data && !!res.data.length > 0) {
+							var inquiry = res.data[0];
+							var details = inquiry.details;
+							var logs = inquiry.logs;
+							$("#last_clinic_time").html(time(inquiry.clinicTime, 2));
+							var sympHtml = "";
+							var prevHtml = "";
+							var prevArray = new Array();
+							var otherHtml = "";
+							var otherArray = new Array();
+							var signHtml = "";
+							var testHtml = "";
+							var organHtml = "";
+							var diagHtml = "";
+							var treatHtml = "";
+							var presentHtml = "";
+
+							$.each(details, function(index, value) {
+								var tempHtml = "<li data-item-id=\"" + value.itemId + "\" data-type=\"" + value.type + "\"><span class=\"dot\"></span>" + value.itemDescribe + "<span class=\"clinic_time\">" + time(value.clinicTime, 2) + "</span><span class=\"doctor_name\">" + (value.doctorName || "") + "</span></li>"
+								if(value.type == 1) { //==1 是症状
+									sympHtml += tempHtml;
+								}
+								if(value.type == 2) { //==2 是既往史
+									prevArray.push(value);
+								}
+								if(value.type == 3) { //==3 是其他史
+									otherArray.push(value);
+								}
+								if(value.type == 4) { //==4 是体征
+									signHtml += tempHtml;
+								}
+								if(value.type == 5) { //==5 是化验
+									testHtml += tempHtml;
+								}
+								if(value.type == 6) { //==1 是器查
+									organHtml += tempHtml;
+								}
+								if(value.type == 7) { //==1 是诊断
+									diagHtml += tempHtml;
+								}
+								if(value.type == 8) { //==1 是治疗
+									treatHtml += tempHtml;
+								}
+								if(value.type == 9) { //==9 是现病史
+									presentHtml += tempHtml;
+								}
+							});
+							if(!!sympHtml) {
+								$("#visSymptom").find("ul").html(sympHtml);
+							}
+							if(prevArray.length > 0) {
+								$("#visPreviousHis").find("ul").html("");
+								$(prevArray).each(function(index, prevStr) {
+									var tempArray = prevStr.itemDescribe.split("$title$");
+									var tempTitle = $("#visPreviousHis").find("div.title_" + tempArray[1] + "");
+									if(tempTitle.length == 0) {
+										$("#visPreviousHis>ul").append('<li><div class="title title_' + tempArray[1] + '">' + tempArray[1] + '</div><ul class="content content_' + tempArray[1] + '" data-type="' + prevStr.type + '"></ul></li>');
+									}
+									var tempHtml = '<li  data-item-id=' + prevStr.itemId + ' data-type=' + prevStr.type + '><span class="dot"></span>' + tempArray[0] + '</li>';
+									$("#visPreviousHis").find("ul.content_" + tempArray[1] + "").append(tempHtml);
+								});
+							}
+							if(otherArray.length > 0) {
+								$("#visOtherHis").find("ul").html("");
+								$(otherArray).each(function(index, otherStr) {
+									var tempArray = otherStr.itemDescribe.split("$title$");
+									var tempTitle = $("#visOtherHis").find("div.title_" + tempArray[1] + "");
+									if(tempTitle.length == 0) {
+										$("#visOtherHis>ul").append('<li><div class="title title_' + tempArray[1] + '">' + tempArray[1] + '</div><ul class="content content_' + tempArray[1] + '" data-type="' + otherStr.type + '"></ul></li>');
+									}
+									var tempHtml = "<li  data-item-id='" + otherStr.itemId + "' data-type='" + otherStr.type + "'><span class='dot'></span>" + tempArray[0] + "</li>";
+									$("#visOtherHis").find("ul.content_" + tempArray[1] + "").append(tempHtml);
+								});
+							}
+							if(!!signHtml) {
+								$("#signDiv>ul").html(signHtml);
+							}
+							if(!!testHtml) {
+								$("#testDiv>ul").html(testHtml);
+							}
+							if(!!organHtml) {
+								$("#organDiv>ul").html(organHtml);
+							}
+							if(!!diagHtml) {
+								$("#diagnosisDiv>ul").html(diagHtml);
+							}
+							if(!!treatHtml) {
+								$("#treatDiv>ul").html(treatHtml);
+							}
+							if(!!presentHtml) {
+								$("#visPresentHis>ul").html(presentHtml);
+							}
+
+							$.each(logs, function(index, value) {
+								var tempArray = value.itemDescribe.split("$title$");
+								var curItem = $("li[data-item-id=" + value.itemId + "][data-type=" + value.type + "]");
+								if(curItem.length > 0) {
+									if(curItem.children("ul").length == 0) {
+										curItem.append('<ul class="log_modify"></ul>');
+									}
+									curItem.find("ul").append('<li><span class="item_describe">' + tempArray[0] + (value.operation == 2 ? "(取消)" : "") + '</span><span class="clinic_time">' + time(value.clinicTime, 2) + '</span><span class="doctor_name">' + value.doctorName + '</span></li>');
+								} else {
+									var delUl = $('ul[class="log_del"][data-type="' + value.type + '"]');
+
+									if(delUl.length > 0) {
+										delUl.append('<li><span class="dot"></span><span class="item_describe">' + tempArray[0] + (value.operation == 2 ? "(取消)" : "") + '</span><span class="clinic_time">' + time(value.clinicTime, 2) + '</span><span class="doctor_name">' + value.doctorName + '</span></li>');
+									} else {
+										var typeUl = $('ul[data-type=' + value.type + ']');
+										if(!!tempArray[1]) {
+											typeUl = $('ul[class="content content_' + tempArray[1] + '"][data-type="' + value.type + '"]');
+											typeUl.after('<ul class="log_del content content_' + tempArray[1] + '" data-type="' + value.type + '"></ul>');
+											typeUl.siblings('ul[class="log_del content content_' + tempArray[1] + '"]').append('<li><span class="dot"></span>' + tempArray[0] + "(取消)" + '<span class="clinic_time">' + time(value.clinicTime, 2) + '</span><span class="doctor_name">' + value.doctorName + '</span></li>');
+										} else {
+											typeUl.after('<ul class="log_del" data-type="' + value.type + '"></ul>');
+											typeUl.siblings('ul[class="log_del"]').append('<li><span class="dot"></span><span>' + tempArray[0] + "(取消)" + '<span class="clinic_time">' + time(value.clinicTime, 2) + '</span><span class="doctor_name">' + value.doctorName + '</span></li>');
+										}
+									}
+								}
+							});
+							$(".content-diagnosis").find("iframe").attr("src", "diagnose.html");
+
+							var $chooseUls = $(".choose>ul");
+							$.each($chooseUls, function(index, value) {
+								$(value).children().length == 0 && $(value).parent().parent().parent().hide();
+							});
+
+						}
+					}
+				})
+			})
+		</script>
+	</body>
+
+</html>

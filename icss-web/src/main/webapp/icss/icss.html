@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/diagnose.css" rel="stylesheet">
+    <!--<link href="http://at.alicdn.com/t/font_mmbjsk0ih70c0udi.css" rel="stylesheet">-->
+    <link href="font/iconfont.css" rel="stylesheet">
+    <link href="css/lis-pacs-diagnosis.css" rel="stylesheet">
+    <link href="addition/drop-input/drop-input.css" rel="stylesheet">
+    <link href="css/modal.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/printScan.css">
+    <link rel="stylesheet" href="./css/prescription.css">
+    <title>诊疗</title>
+</head>
+<body style="overflow-x: hidden;">
+<!-- 隐藏副本域 -->
+<div class="d-n" id="symptom-form-copy-domain"></div>
+
+<div class="container clearfix" id="container">
+    <div class="group">
+        <label>主诉</label>
+        <div class="box-r-s">
+            <div class="choose d-n" style="min-height: 39px;border: none">
+                <div class="content"></div>
+            </div>
+            <input type="text">
+            <div class="symptom-all box-r-s d-n">
+                <div class="title">
+                    <div class="button-group"></div>
+                    <div class="arrow">
+                        <!--<i class="iconfont icon-shangsanjiao"></i>-->
+                    </div>
+                </div>
+                <div class="wrap"></div>
+            </div>
+            <div class="symptom-container box-r-s d-n">
+                <div class="symptom-wrap"></div>
+                <div class="button">
+                    <div class="arrow detail">
+                        <!--<i class="iconfont icon-sanjiaoxia"></i>-->
+                        <img src="img/icss/more.png">
+                    </div>
+                    <div class="arrow right">
+                        <!--<i class="iconfont icon-xiangyou4"></i>-->
+                    </div>
+                    <div class="arrow left disabled">
+                        <!--<i class="iconfont icon-xiangzuo1"></i>-->
+                    </div>
+                    <div class="arrow-shadow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="group" typenum="1">
+        <label>现病史</label>
+        <div class="box-r-s">
+            <div class="choose d-n">
+                <div class="content"></div>
+            </div>
+            <input type="text">
+            <div class="symptom-all box-r-s d-n">
+                <div class="title">
+                    <div class="button-group"></div>
+                    <div class="arrow"></div>
+                </div>
+                <div class="wrap"></div>
+            </div>
+            <div class="symptom-container box-r-s d-n">
+                <div class="symptom-wrap"></div>
+                <div class="button">
+                    <div class="arrow detail">
+                        <img src="img/icss/more.png">
+                    </div>
+                    <div class="arrow right"></div>
+                    <div class="arrow left"></div>
+                    <div class="arrow-shadow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="group" typenum="2">
+        <label>既往史</label>
+        <div class="box-r-s">
+            <div class="choose d-n" data-transcode="SJFL002001">
+                <div class="title">
+                    <span>疾病史:</span>
+                </div>
+                <div class="content"></div>
+            </div>
+            <div class="choose d-n" data-transcode="SJFL002002">
+                <div class="title">
+                    <span>传染病史:</span>
+                </div>
+                <div class="content"></div>
+            </div>
+            <div class="choose d-n" data-transcode="waishangshi">
+                <div class="title">
+                    <span>手术外伤史:</span>
+                </div>
+                <div class="content"></div>
+            </div>
+            <div class="choose d-n" data-transcode="SJFL002003">
+                <div class="title">
+                    <span>过敏史:</span>
+                </div>
+                <div class="content"></div>
+            </div>
+            <div class="choose d-n" data-transcode="shuxueshi">
+                <div class="title">
+                    <span>输血史:</span>
+                </div>
+                <div class="content"></div>
+            </div>
+            <div class="choose d-n" data-transcode="SJFL002004">
+                <div class="title">
+                    <span>接种史:</span>
+                </div>
+                <div class="content"></div>
+            </div>
+            <div class="choose d-n">
+                <div class="content"></div>
+            </div>
+            <input type="text">
+            <div class="symptom-all box-r-s d-n">
+                <div class="title">
+                    <div class="button-group"></div>
+                    <div class="arrow"></div>
+                </div>
+                <div class="wrap"></div>
+            </div>
+            <div class="symptom-container box-r-s d-n">
+                <div class="symptom-wrap"></div>
+                <div class="button">
+                    <div class="arrow detail">
+                        <img src="img/icss/more.png">
+                    </div>
+                    <div class="arrow right"></div>
+                    <div class="arrow left disabled"></div>
+                    <div class="arrow-shadow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="group" typenum="3">
+        <label>其他史</label>
+        <div class="box-r-s">
+            <div class="choose d-n" data-transcode="SJFL003001">
+                <div class="title">
+                    <span>家族史:</span>
+                </div>
+                <div class="content"></div>
+            </div>
+            <div class="choose d-n" data-transcode="SJFL003002">
+                <div class="title">
+                    <span>个人史:</span>
+                </div>
+                <div class="content"></div>
+            </div>
+            <div class="choose d-n" data-transcode="SJFL003003">
+                <div class="title">
+                    <span>月经史:</span>
+                </div>
+                <div class="content"></div>
+            </div>
+            <div class="choose d-n" data-transcode="SJFL003004">
+                <div class="title">
+                    <span>婚育史:</span>
+                </div>
+                <div class="content"></div>
+            </div>
+            <div class="choose d-n">
+                <div class="content"></div>
+            </div>
+            <input type="text">
+            <div class="symptom-all box-r-s d-n">
+                <div class="title">
+                    <div class="button-group"></div>
+                    <div class="arrow"></div>
+                </div>
+                <div class="wrap"></div>
+            </div>
+            <div class="symptom-container box-r-s d-n">
+                <div class="symptom-wrap"></div>
+                <div class="button">
+                    <div class="arrow detail">
+                        <img src="img/icss/more.png">
+                    </div>
+                    <div class="arrow right"></div>
+                    <div class="arrow left disabled"></div>
+                    <div class="arrow-shadow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="group" typenum="4">
+        <label>体征</label>
+        <div class="box-r-s">
+            <div class="choose d-n">
+                <div class="content"></div>
+            </div>
+            <input type="text">
+            <div class="symptom-all box-r-s d-n">
+                <div class="title">
+                    <div class="button-group"></div>
+                    <div class="arrow"></div>
+                </div>
+                <div class="wrap"></div>
+            </div>
+            <div class="symptom-container box-r-s d-n">
+                <div class="symptom-wrap"></div>
+                <div class="button">
+                    <div class="arrow detail">
+                        <img src="img/icss/more.png">
+                    </div>
+                    <div class="arrow right"></div>
+                    <div class="arrow left disabled"></div>
+                    <div class="arrow-shadow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="group lis" typenum="5">
+        <label>化验</label>
+        <div class="box-r-s">
+            <div class="choose d-n">
+                <div class="content"></div>
+            </div>
+            <input type="text" class="lis-main-input">
+            <div class="symptom-all box-r-s d-n">
+                <div class="title">
+                    <div class="button-group">
+                        <!--<div class="setting"></div>-->
+                    </div>
+
+                    <div class="arrow"></div>
+                </div>
+                <div class="wrap">
+
+                </div>
+            </div>
+            <div class="symptom-container box-r-s d-n">
+                <div class="symptom-wrap">
+                </div>
+                <div class="button">
+                    <div class="arrow detail">
+                        <img src="img/icss/more.png">
+                    </div>
+                    <div class="arrow right"></div>
+                    <div class="arrow left"></div>
+                    <div class="arrow-shadow"></div>
+                </div>
+                <div class="symptom-form"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="group pacs" typenum="6">
+        <label>器查</label>
+        <div class="box-r-s">
+            <div class="choose d-n">
+                <div class="content"></div>
+            </div>
+            <input type="text" class="pacs-main-input">
+            <div class="symptom-all box-r-s d-n">
+                <div class="title">
+                    <div class="button-group">
+                        <!--<div class="setting"></div>-->
+                    </div>
+                    <div class="arrow"></div>
+                </div>
+                <div class="wrap"></div>
+            </div>
+            <div class="symptom-container box-r-s d-n">
+                <div class="symptom-wrap">
+                </div>
+                <div class="button">
+                    <div class="arrow detail">
+                        <img src="img/icss/more.png">
+                    </div>
+                    <div class="arrow right"></div>
+                    <div class="arrow left"></div>
+                    <div class="arrow-shadow"></div>
+                </div>
+                <div class="symptom-form"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="group diagnosis">
+        <label>诊断</label>
+        <div class="box-r-s">
+            <div class="choose d-n">
+                <div class="content"></div>
+            </div><input type="text" class="diagnosis-main-input">
+            <div class="symptom-all box-r-s d-n">
+                <div class="title">
+                    <div class="button-group">
+
+                        <!--<div class="setting"></div>-->
+                    </div>
+
+                    <div class="arrow"></div>
+                </div>
+                <div class="wrap">
+
+                </div>
+            </div>
+            <div class="symptom-container box-r-s d-n">
+                <div class="symptom-wrap">
+                </div>
+                <div class="button">
+                    <div class="arrow detail">
+                        <img src="img/icss/more.png">
+                    </div>
+                    <div class="arrow right"></div>
+                    <div class="arrow left disabled"></div>
+                    <div class="arrow-shadow"></div>
+                </div>
+                <div class="diagnosis-list-buttons">
+                    <button class="come-again usable" type="button">待查</button>
+                    <button class="go-away unusable" type="button">转诊</button>
+                </div>
+                <div class="symptom-form"></div>
+                <div class="div-for-go-away d-n">
+                    <div class="detail-list" style="">
+                        <h3><b style="float:left;">转诊</b>
+                            <div class="c-r checkbox">
+                                <div class="box-r-s"><i class="iconfont icon-duigou1"></i></div>
+                                加急
+                            </div>
+                        </h3>
+                        <div class="form-area">
+                            <div class="row diagnosis-check-hospital" style="float:left;">
+                                <div class="form-group">
+                                    <label>医院</label>
+                                    <div class="select box-r-s w-100px"><input name="diagnosisHospital" type="text" readonly="">
+                                        <div class="down-arrow">
+                                            <i class="iconfont icon-triangle-down-copy"></i>
+                                        </div>
+                                        <ul class="box-r-s d-n">
+                                            <li><a>邵逸夫医院</a></li>
+                                            <li><a>浙一医院</a></li>
+                                            <li><a>浙二医院</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row diagnosis-check-dept" style="float:left;">
+                                <div class="form-group">
+                                    <label>科室</label>
+                                    <div class="select box-r-s w-100px"><input name="diagnosisDept" type="text" readonly="">
+                                        <div class="down-arrow">
+                                            <i class="iconfont icon-triangle-down-copy"></i>
+                                        </div>
+                                        <ul class="box-r-s d-n">
+                                            <li><a>儿科</a></li>
+                                            <li><a>内科</a></li>
+                                            <li><a>外科</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row diagnosis-check-doctor" style="float:left;">
+                                <div class="form-group">
+                                    <label>医生</label>
+                                    <div class="select box-r-s w-100px"><input name="diagnosisDoctor" type="text" readonly="">
+                                        <div class="down-arrow">
+                                            <i class="iconfont icon-triangle-down-copy"></i>
+                                        </div>
+                                        <ul class="box-r-s d-n">
+                                            <li><a>赵医生</a></li>
+                                            <li><a>钱医生</a></li>
+                                            <li><a>孙医生</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+                        <p class="submit-bt">
+                            <button class="make-sure usable" type="button">确定</button>
+                            <button class="cancle unusable" type="button">取消</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="group treatment">
+        <label>治疗</label>
+        <div class="box-r-s">
+            <div class="choose d-n">
+                <div class="content"></div>
+            </div>
+            <input type="text" class="treatment-main-input">
+            <div class="symptom-all box-r-s d-n">
+                <div class="title">
+                    <div class="button-group">
+                    </div>
+                    <div class="arrow"></div>
+                </div>
+                <div class="wrap">
+
+                </div>
+            </div>
+            <div class="symptom-container box-r-s d-n">
+                <div class="symptom-wrap"></div>
+                <div class="button">
+                    <div class="arrow detail">
+                        <img src="img/icss/more.png">
+                    </div>
+                    <div class="arrow right"></div>
+                    <div class="arrow left disabled"></div>
+                    <div class="arrow-shadow"></div>
+                </div>
+                <div class="symptom-form" active style="display:none"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=""></div>
+<!--是否删除主诉并删除现病史？-->
+<div class="confirm-model animated flipInY d-n" id="confirm-model-one">
+    <div class="title">
+        <p>提示</p>
+        <p class="close"></p>
+    </div>
+    <div class="body">
+        <div class="img"></div>
+        <p>是否进行以下操作？</p>
+    </div>
+    <div class="button">
+        <div class="left">
+            <div class="img"></div>
+            <p>删除并保留现病史中该条</p>
+        </div>
+        <div class="right">
+            <div class="img"></div>
+            <p>同时删除现病史中该条</p>
+        </div>
+    </div>
+</div>
+<div id="shade" class="d-n"></div>
+		<!--病历打印-->
+		<div id="treate-container" class="d-n">
+		</div>
+		<!--病历模板-->
+		<script id="treatement" type="text/x-jquery-tmpl">
+			<div id="medical-record">
+				<div class="print-container">
+					<div class="print__head">
+						<span class="print__head--close"></span>
+					</div>
+					<div class="print__title">
+						普通门诊病历
+					</div>
+					<div class="print__context">
+						<div class="print__patient clearfix">
+							<ul class="print__patient__lists clearfix">
+								<li>卡号：${patient.cardId}</li>
+								<li>性别：${patient.sex}</li>
+								<li>职业：${patient.occupation}</li>
+								<li>医保享受：${patient.insurance}</li>
+								<li>姓名：${patient.patientName}</li>
+								<li>婚姻：${patient.marry}</li>
+								<li>单位：${patient.unit}</li>
+								<li>医保卡号：${patient.insuranceId}</li>
+								<li>年龄：${patient.age}</li>
+								<li>民族：${patient.nation}</li>
+								<li>手机：${patient.phone}</li>
+                                <li>门诊号：${doctor.outpatientId}</li>
+								<li>就诊时间：${doctor.treatmentTime}</li>
+							</ul>
+						</div>
+						<div class="print_doctor clearfix d-n">
+							<ul class="print__patient__lists clearfix">
+								<li>部门：${doctor.section}</li>
+								<li>姓名：${doctor.doctor}</li>
+								<li>门诊号：${doctor.outpatientId}</li>
+								<li>就诊时间：${doctor.treatmentTime}</li>
+								<li>类型：${doctor.type}</li>
+							</ul>
+						</div>
+						<div class="print__content">
+							{{if main_suit.length}}
+							<div class="main-suit">
+								<span>主诉</span>
+								<ul>
+									{{each(i, item) main_suit}}
+									<li><i>●</i>
+										<p>${item}</p>
+									</li>
+									{{/each}}
+								</ul>
+							</div>
+							{{/if}} {{if current_history.length}}
+							<div class="current-history">
+								<span>现病史</span>
+								<ul>
+									{{each(i, item) current_history}}
+									<li><i>●</i>
+										<p>${item}</p>
+									</li>
+									{{/each}}
+								</ul>
+							</div>
+							{{/if}} {{if bypast_history.length}}
+							<div class="bypast-history clearfix">
+								<span>既往史</span>
+								<ul class="bypast-history__ul">
+									{{each(i, item) bypast_history}}
+									<li class="bypast-history__detail clearfix">
+										<div class="bypast-history__detail__title">${item.title}</div>
+										<ul class="bypast-history__detail__context clearfix">
+											{{each(index,list) item.value}}
+											<li><i>●</i>
+												<p>${list}</p>
+											</li>
+											{{/each}}
+										</ul>
+									</li>
+									{{/each}}
+								</ul>
+							</div>
+							{{/if}} {{if other_history.length}}
+							<div class="other-history">
+								<span>其他史</span>
+								<ul class="bypast-history__ul ">
+									{{each(i, item) other_history}}
+									<li class="bypast-history__detail clearfix">
+										<div class="bypast-history__detail__title">${item.title}</div>
+										<ul class="bypast-history__detail__context">
+											{{each(index,list) item.value}}
+											<li><i>●</i>
+												<p>${list}</p>
+											</li>
+											{{/each}}
+										</ul>
+									</li>
+									{{/each}}
+								</ul>
+							</div>
+							{{/if}} {{if body_sign.length}}
+							<div class="body-sign">
+								<span>体征</span>
+								<ul>
+									{{each(i, item) body_sign}}
+									<li><i>●</i>
+										<p>${item}</p>
+									</li>
+									{{/each}}
+								</ul>
+							</div>
+							{{/if}} {{if assay.length}}
+							<div class="diagnose">
+								<span class="diagnose__title">化验</span>
+								<ul class="diagnose__detail">
+									{{each(i, item) assay}} {{if item.title}}
+									<ul class="clearfix">
+										<div class="diagnose__detail__title"><i>●</i>${item.title}</div>
+										<ul class="diagnose__detail__list">
+											{{each(ind,list) item.value}}
+											<li>${list}</li>
+											{{/each}}
+										</ul>
+
+										<div class="diagnose__detail__time">${item.time}</div>
+									</ul>
+									{{else}}
+									<li>
+										<p><i>●</i>${item}</p>
+									</li>
+									{{/if}} {{/each}}
+								</ul>
+							</div>
+							{{/if}} {{if instrument_test.length}}
+							<div class="instrument-test">
+								<span>器查</span>
+								<ul>
+									{{each(i, item) instrument_test}}
+									<li><i>●</i>
+										<p>${item}</p>
+									</li>
+									{{/each}}
+								</ul>
+							</div>
+							{{/if}} {{if diagnose.length}}
+							<div class="diagnose">
+								<span>诊断</span>
+								<ul>
+									{{each(i, item) diagnose}}
+									<li><i>●</i>
+										<p>${item}</p>
+									</li>
+									{{/each}}
+								</ul>
+							</div>
+							{{/if}} {{if treat.length}}
+							<div class="treat">
+								<span>治疗</span>
+								<ul>
+									{{each(i, item) treat}}
+									<li><i>●</i>
+										<p>${item}</p>
+									</li>
+									{{/each}}
+								</ul>
+							</div>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+
+		<!-- 处方单 -->
+		<script id="prescription" type="text/x-jquery-tmpl">
+			<div>
+				<div class="print-container">
+					<div class="print__head">
+						<span class="print__head--close"></span>
+					</div>
+					<div class="print__title">
+						门诊西药处方笺（普通）
+					</div>
+					<div class="print__context">
+						<div class="print__patient clearfix">
+							<ul class="print__patient__lists clearfix pli">
+								<li>姓名：${patient.patientName}</li>
+								<li>费别：${patient.insurance}</li>
+								<li>科室：${doctor.section}</li>
+								<li>性别：${patient.sex}</li>
+								<li>手机：${patient.phone}</li>
+                                <li>门诊号：${doctor.outpatientId}</li>
+								<li>年龄：${patient.age}</li>
+								<li>住址：${patient.address}</li>
+								<li>编号：${patient.cardId}</li>
+							</ul>
+						</div>
+						<div class="print__content prescription_content">
+							{{if diagnose.length}}
+							<div class="diagnose">
+								<span>诊断：</span>
+								<ul>
+									{{each(i, item) diagnose}}
+									<li><i>●</i>
+										<p>${item}</p>
+									</li>
+									{{/each}}
+								</ul>
+							</div>
+							{{/if}}
+							{{if treat.length}}
+							<div class="treat">
+								<span>Rp：</span>
+								<ul>
+									{{each(i, item) treat}}
+									<li><i>●</i>
+										<p>${item}</p>
+									</li>
+									{{/each}}
+								</ul>
+							</div>
+						    {{/if}}
+						</div>
+						<div class="prescription_bottom">
+							<ul class="print__patient__lists clearfix">
+								<li>医生：${doctor.doctor}</li>
+								<li>开具日期：${doctor.issueTime}</li>
+								<li></li>
+								<li>总金额：150</li>
+								<li>审核：${doctor.doctor}</li>
+								<li>调配：${doctor.doctor}</li>
+                                <li>核对：${doctor.doctor}</li>
+								<li>发药：${doctor.doctor}</li>
+							</ul>
+							<div class="prescription_remark">
+								<p>注：1.本处方2日内有效</p>
+								<p class="remark_p">2.取药时请您当面核对药品名称、规格、数量</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+
+<div class="sk-spinner sk-spinner-fading-circle d-n" id="loading">
+    <div class="sk-circle1 sk-circle"></div>
+    <div class="sk-circle2 sk-circle"></div>
+    <div class="sk-circle3 sk-circle"></div>
+    <div class="sk-circle4 sk-circle"></div>
+    <div class="sk-circle5 sk-circle"></div>
+    <div class="sk-circle6 sk-circle"></div>
+    <div class="sk-circle7 sk-circle"></div>
+    <div class="sk-circle8 sk-circle"></div>
+    <div class="sk-circle9 sk-circle"></div>
+    <div class="sk-circle10 sk-circle"></div>
+    <div class="sk-circle11 sk-circle"></div>
+    <div class="sk-circle12 sk-circle"></div>
+</div>
+<div class="d-n" id="save-modal">
+    <div class="animated">
+        <h3>保存成功</h3>
+    </div>
+</div>
+<div class="panel-list">
+    <a class="animated bounceInUp" id="beforePrint" title="打印预览" >
+        <!--<i class="iconfont icon-dayin"></i>-->
+        <img src="img/icss/print.png">
+    </a>
+    <a class="animated bounceInUp" id="lastSave" title="提交">
+        <!--<i class="iconfont icon-baocun"></i>-->
+        <img src="img/icss/submit.png">
+    </a>
+</div>
+
+</body>
+<!--器查 表单模板-->
+<script type="text/html" id="tmplPacsForm">
+        <label>
+            结果
+            <span style="color: red;">*</span>
+        </label>
+        <div class="date-toggle box-r-s" data-name="date_toggle" style="left: 40px;">
+            <div class="background-color"></div>
+            <span class="focus">正常</span>
+            <span>异常</span>
+        </div>
+        <div class="form-group" style="margin-top:10px;width:700px;">
+            {{each(i,item) data}}
+            <div class="c-r checkbox d-n" data-param-code="${item.paramCode}" pacs-checked-list-id="${item.id}" pacsId = "${item.pacsId}" standardId="${item.standardId}" status="${item.status}"  style="float:none;font-weight:700;margin-top:5px;">
+                <div class="box-r-s ">
+                    <i class="iconfont icon-duigou1"></i>
+                </div>
+                <input calss="w-70" type="text" model="t${i}" value="${item.name}">
+            </div>
+            {{/each}}
+        </div>
+        <div class="form-group" data-code="null" data-id="8" data-type="6">
+            <label>补充</label>
+            <textarea model="text" class="box-r-s" name="question_13" data-param-code="WZYD999999"></textarea>
+        </div>
+</script>
+
+<!--诊断依据概要-->
+<script type="text/html" id="informationSample">
+        <ul>
+            <li class="information-link focus" tagtop="0">
+                <span></span>
+                <span>诊断依据</span>
+            </li>
+            
+            <li class="information-line"></li>
+            <li class="information-link" tagtop="1">
+                <span></span>
+                <span>诊断指南</span>
+            </li>
+            
+            <li class="information-line"></li>
+            <li class="information-link" tagtop="2">
+                <span></span>
+                <span>NICE</span>
+            </li>
+        </ul>
+</script>
+<!--诊断依据列表-->
+<script type="text/html" id="informationLists">
+        <dt>
+            <span>诊断依据</span><hr>
+        </dt>
+        <dd>
+            <ul>
+                {{each(i,item) data}}
+                <li>
+                    <span class="${item.className}"></span>
+                    <span>${i+1}.</span><span>${item.description}</span>
+                </li>
+                {{/each}}
+            </ul>
+        </dd>
+</script>
+
+<!--诊断依据模板-->
+<script type="text/html" id="information1">
+    <div class="information d-n">
+        <div class="information-close">
+            <div></div>
+        </div>
+        <div class="information-main">
+            <div class="information-list">
+                <ul>
+                    <!--<li class="information-link"><span></span><span>NICE</span></li>-->
+                </ul>
+            </div>
+            <div class="information-content">
+                <dl class="information-dependence">
+
+                </dl>
+                <dl class="information-zdzn">
+                    <dt><span>诊断指南</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+                                 
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl class="information-nice">
+                    <dt><span>NICE</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+</script>
+
+
+<!--诊断表单模板B-->
+
+<script type="text/html" id="dateunit1">
+    <div class="form-group" style="width:700px;">
+        <label>检查时间<span style="color: red;"> *</span></label>
+        <div class="date">
+            <div class="select box-r-s w-70px focus">
+                <input name="lisTimeYear" model="y" type="text" readonly="">
+                <div class="down-arrow"><i class="iconfont icon-triangle-down-copy"></i></div>
+                <ul class="box-r-s d-n">
+                     <li><a>2017</a></li>
+                    <li><a>2016</a></li>
+                    <li><a>2015</a></li>
+                    <li><a>2014</a></li>
+                    <li><a>2013</a></li>
+                    <li><a>2012</a></li>
+                    <li><a>2011</a></li>
+                    <li><a>2010</a></li>
+                    <li><a>2009</a></li>
+                    <li><a>2008</a></li>
+                </ul>
+            </div>
+            <span>年</span>
+            <div class="select box-r-s w-70px">
+                <input model="m" name="lisTimeMonth" type="text" readonly="">
+                <div class="down-arrow"><i class="iconfont icon-triangle-down-copy"></i></div>
+                <ul class="box-r-s d-n">
+                    <li><a>1</a></li>
+                    <li><a>2</a></li>
+                    <li><a>3</a></li>
+                    <li><a>4</a></li>
+                    <li><a>5</a></li>
+                    <li><a>6</a></li>
+                    <li><a>7</a></li>
+                    <li><a>8</a></li>
+                    <li><a>9</a></li>
+                    <li><a>10</a></li>
+                    <li><a>11</a></li>
+                    <li><a>12</a></li>
+                </ul>
+            </div>
+            <span>月</span>
+            <div class="select box-r-s w-70px get-date-own">
+                <input model="d" name="lisTimeDay" type="text" readonly="">
+                <div class="down-arrow"><i class="iconfont icon-triangle-down-copy"></i></div>
+                <ul class="box-r-s d-n">
+
+                </ul>
+            </div>
+            <span>日</span>
+        </div>
+        <!--<div class="validate d-n"><p>请正确填写时间</p></div>-->
+    </div>
+</script>
+<!--诊断表单模板E-->
+
+<!-- 用药指南 -->
+<script type="text/html" id="druginformation">
+    <div class="information">
+        <div class="information-close">
+            <div></div>
+        </div>
+        <div class="information-main">
+            <div class="information-list">
+                <ul>
+					<li class="information-link"><span></span><span>药品名称</span></li>
+                    <li class="information-line"></li>
+                    <li class="information-link"><span></span><span>生产厂商</span></li>
+                    <li class="information-line"></li>
+                    <li class="information-link"><span></span><span>成分</span></li>
+                    <li class="information-line"></li>
+                    <li class="information-link"><span></span><span>适应症</span></li>
+                    <li class="information-line"></li>
+                    <li class="information-link"><span></span><span>用法用量</span></li>
+                    <li class="information-line"></li>
+                    <li class="information-link"><span></span><span>不良反应</span></li>
+                    <li class="information-line"></li>
+                    <li class="information-link"><span></span><span>注意事项</span></li>
+                    <li class="information-line"></li>
+                    <li class="information-link"><span></span><span>药理相互作用</span></li>
+                    <li class="information-line"></li>
+                    <li class="information-link"><span></span><span>主要成分</span></li>
+                    <li class="information-line"></li>
+                    <li class="information-link"><span></span><span>功能主治</span></li>
+                </ul>
+            </div>
+            <div class="information-content">
+                <dl class="information-drgName">
+                    <dt><span>药品名称</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl class="information-drgRegionName">
+                    <dt><span>生产厂商</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+				<dl class="information-drgComponent">
+                    <dt><span>成分</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+				<dl class="information-drgIndication">
+                    <dt><span>适应症</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+				<dl class="information-drgUsageInstructions">
+                    <dt><span>用法用量说明</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+				<dl class="information-drgReactions">
+                    <dt><span>不良反应</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>				
+				<dl class="information-drgConsiderations">
+                    <dt><span>注意事项</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+				<dl class="information-drgMutual">
+                    <dt><span>药理相互作用</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+				<dl class="information-drgIngredients">
+                    <dt><span>主要成分</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+				<dl class="information-drgAppDisease">
+                    <dt><span>适应症/功能主治</span>
+                    <hr>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- <script src="js/jquery-1.8.3.min.js"></script> -->
+<script src="js/jquery-1.11.1.js"></script>
+<!--[if IE 8]>
+<script src="js/polyfill.js"></script>
+<script src="js/jquery.xdomainrequest.min.js"></script>
+<![endif]-->
+
+<script src="js/jquery.tmpl.min.js"></script>
+<script src="js/blueTip.js"></script>
+<script src="js/param.js"></script>
+<script src="js/cache.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/common.js"></script>
+<script src="js/jQuery-drop-input.js"></script>
+<script src="js/main-suit.js"></script>
+<script src="js/icss-lis-modal.js"></script>
+<script src="js/icss-pacs-modal.js"></script>
+<script src="js/icss-diagnosis-modal.js"></script>
+<script src="js/icss-treatment-modal.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/treatment-print.js"></script>
+<!-- <script src="js/prescription.js"></script> -->
+</html>

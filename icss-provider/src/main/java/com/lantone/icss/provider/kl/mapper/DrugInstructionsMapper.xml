@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.DrugInstructionsMapper">
+	<resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.wrapper.DrugInstructionsWrapper">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="drg_name" property="drgName" jdbcType="VARCHAR" />
+		<result column="drg_id" property="drgId" jdbcType="BIGINT" />
+		<result column="drg_region_name" property="drgRegionName"
+			jdbcType="VARCHAR" />
+		<result column="drg_reactions" property="drgReactions"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_contraindication" property="drgContraindication"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_medication" property="drgMedication"
+			jdbcType="VARCHAR" />
+		<result column="drg_mutual" property="drgMutual" jdbcType="LONGVARCHAR" />
+		<result column="drg_pharmacokinetics" property="drgPharmacokinetics"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_action" property="drgAction" jdbcType="LONGVARCHAR" />
+		<result column="drg_considerations" property="drgConsiderations"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_ingredients" property="drgIngredients"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_component" property="drgComponent"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_app_disease" property="drgAppDisease"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_child_desc" property="drgChilDesc"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_elderly_desc" property="drgElderlyDesc"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_gravida_desc" property="drgGravidaDesc"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_overdose" property="drgOverdose" jdbcType="LONGVARCHAR" />
+		<result column="drg_virulence" property="drgVirulence"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_indication" property="drgIndication"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_usage_instructions" property="drgUsageInstructions"
+			jdbcType="LONGVARCHAR" />
+		<result column="drg_instruction" property="drgInstruction"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<select id="getDrugInstructionsByDrgId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select * from kl_drug_instructions where drg_id = #{drgId}
+	</select>
+</mapper>

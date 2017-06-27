@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>icss 主页面</title>
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/common.css" rel="stylesheet">
+		<link href="css/index.css" rel="stylesheet">
+		<link href="http://at.alicdn.com/t/font_yn3irknr762h85mi.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker.css" />
+		<script src="js/jquery-1.11.1.js"></script>
+		<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	</head>
+
+	<body style="overflow-y: hidden">
+		<!--左侧菜单开始-->
+		<nav class="container-left">
+			<div class="menu">
+				<div class="menu-logo"></div>
+				<div class="menu-body" style="left:0px;">
+					<div class="menu-change d-n"><i class="iconfont icon-er-right"></i></div>
+					<!--搜索框开始-->
+					<div class="menu-search">
+						<input class="search-input" id="clinic_date" type="date" placeholder="姓名/诊疗卡/医疗卡">
+						<img src="img/index/search.png" class="search-img" style="display:none">
+						<div class="search-arrow" title="高级搜索" style="display:none"></div>
+						<div id="search_res_box" style="display:none">
+						</div>
+					</div>
+					<!--搜索框结束-->
+					<!--下拉列表开始-->
+					<div class="menu-drop">
+						<ul class="first-level">
+							<li id="first_level">
+								<a>
+									<span class="arrow"></span>
+									<span class="font">待诊</span>
+									<span class="count">0</span>
+									<!--<span class="add" title="添加挂号"></span>-->
+								</a>
+								<ul data-drop="true" class="second-level" id="dai_zhen">
+									<li>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a>
+									<span class="arrow"></span>
+									<span class="font">诊中</span>
+									<span class="count">0</span>
+								</a>
+								<ul data-drop="true" class="second-level" id="zhen_zhong">
+									<li>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a>
+									<span class="arrow"></span>
+									<span class="font">完诊</span>
+									<span class="count">0</span>
+								</a>
+								<ul data-drop="true" class="second-level" id="wan_zhen">
+									<li id="over_user">
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<!--下拉列表结束-->
+				</div>
+				<!--menu body结束-->
+				<!--第二层menu body-->
+				<div class="menu-body" style="left:200px;">
+					<div class="menu-change"><i class="iconfont icon-xiangzuo"></i></div>
+					<!--搜索框开始-->
+					<div class="menu-search">
+						<input class="search-input c-p" placeholder="疾病/科室" id="search_dis_dept">
+						<div class="search-arrow"></div>
+						<div id="serach_menz">
+							<li data-type="1" data-filter="type">
+								<a><span>门诊病历</span></a>
+							</li>
+							<li data-type="2" data-filter="type">
+								<a><span>住院病历</span></a>
+							</li>
+							<li data-type="sign" data-filter="type">
+								<a><span>标签病历</span></a>
+							</li>
+							<li id="search_disease">
+								<a>
+									<span class="font">疾病</span>
+									<span class="arrow-right"></span>
+								</a>
+								<ol class="ol_disease serach_menz_second_level">
+									<ul class="ul_disease" style="height: 10000px;position: relative;">
+									</ul>
+									<ul class="ul_disease ul_disease_icon" style="height: 24px;bottom: 0px;position: absolute; margin-left: 80px;">
+										<li style="text-align: center;"><i class="iconfont icon-up"></i><i class="iconfont icon-down"></i></li>
+									</ul>
+								</ol>
+							</li>
+							<li id="search_dept">
+								<a>
+									<span class="font">科室</span>
+									<span class="arrow-right"></span>
+								</a>
+								<ol class="ol_dept serach_menz_second_level">
+									<ul class="ul_dept" style="height: 10000px;position: relative;">
+									</ul>
+									<ul class="ul_dept ul_dept_icon" style="height: 24px;bottom: 0px;position: absolute; margin-left: 80px;">
+										<li style="text-align: center;"><i class="iconfont icon-up"></i><i class="iconfont icon-down"></i></li>
+									</ul>
+								</ol>
+							</li>
+							<li id="search_clinic_time" data-filter="type">
+								<div class="date-range"></div>
+								<input type="text" id="clinic_time_range" class="form-control">
+							</li>
+						</div>
+					</div>
+					<!--搜索框结束-->
+					<div class="menu-drop">
+						<ul class="first-level" id="second_level_ul">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!--左侧菜单结束-->
+		<div class="container-right">
+			<div class="content-top">
+				<div class="content-nav">
+					<span class="focus" data-url="icss.html">门诊</span>
+					<!--<span data-url="testPage/ceshi2.html">一级目录</span>
+					<span data-url="testPage/ceshi3.html">一级目录</span>-->
+					<div class="underline"></div>
+				</div>
+				<div class="content-doctor">
+					<div class="head"></div>
+					<div class="name">李时珍</div>
+				</div>
+			</div>
+			<div class="content-diagnosis">
+				<div class="patient">
+					<div class="simple-info">
+						<div class="icon" title="详细信息"></div>
+						<div class="name">subrina</div>
+						<div class="sex">2</div>
+						<div class="age">0岁</div>
+						<div class="tijiao d-n" title="提交"></div>
+						<!--<div class="iconfont icon-iconfontfanhui fanhui " title="返回 "></div>-->
+						<div class="fanhui" title="返回"></div>
+						<!--<div class="iconfont icon-anjianfengexian fengexian "></div>-->
+						<div class="fengexian"></div>
+						<div id="dayin" class="dayin d-n" title="打印"></div>
+						<div id="lishijilu" class="lishijilu" title="历史纪录"></div>
+					</div>
+					<div class="detail">
+						<div class="identity">
+							<div class="title">
+								<div class="icon"></div>
+								<div class="font">身份信息</div>
+							</div>
+							<div class="info">
+								<div class="info-detail">
+								</div>
+								<div class="photo">照片</div>
+							</div>
+						</div>
+						<div class="contact">
+							<div class="title">
+								<div class="icon"></div>
+								<div class="font">联系信息</div>
+							</div>
+							<div class="info">
+								<div class="info-detail">
+								</div>
+							</div>
+						</div>
+						<div class="company">
+							<div class="title">
+								<div class="icon"></div>
+								<div class="font">单位</div>
+							</div>
+							<div class="info">
+								<div class="info-detail">
+								</div>
+							</div>
+						</div>
+						<div class="relatives">
+							<div class="title">
+								<div class="icon"></div>
+								<div class="font">亲属</div>
+							</div>
+							<div class="info">
+								<div class="info-detail">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<iframe id="icss" frameborder="0" name="icss" seamless src="icss.html?clinicId=-1" data-url="icss"></iframe>
+				<iframe id="diagnose" frameborder="0" name="diagnose" seamless src="diagnose.html" data-url="diagnose"></iframe>
+				<iframe id="diagnose_log" frameborder="0" name="diagnose_log" seamless src="diagnose_log.html" data-url="diagnose_log" class="d-n"></iframe>
+				<div class="diagnosis-button ">
+					<button class="save green " style="display:none ">保存</button>
+					<button class="print blue " style="display:none ">打印</button>
+				</div>
+			</div>
+		</div>
+		<!--是否保存当前病历？-->
+		<div class="confirm-model animated flipInY d-n" id="confirm-model-save">
+			<div class="title ">
+				<p>提示</p>
+				<p class="close "></p>
+			</div>
+			<div class="body ">
+				<div class="img "></div>
+				<p>是否保存当前病历？</p>
+			</div>
+			<div class="button ">
+				<div class="left ">
+					<div class="img "></div>
+					<p>是</p>
+				</div>
+				<div class="right ">
+					<div class="img "></div>
+					<p>否</p>
+				</div>
+			</div>
+		</div>
+		<!--是否恢复上次数据？-->
+		<div class="confirm-model animated flipInY d-n" id="confirm-model-recover">
+			<div class="title ">
+				<p>恢复</p>
+				<p class="close"></p>
+			</div>
+			<div class="body">
+				<div class="img"></div>
+				<p></p>
+			</div>
+			<div class="button">
+				<div class="left">
+					<div class="img"></div>
+					<p>是</p>
+				</div>
+				<div class="right">
+					<div class="img"></div>
+					<p>否</p>
+				</div>
+			</div>
+		</div>
+		<!--是否删除主诉并删除现病史？-->
+		<div class="confirm-model animated flipInY d-n" id="confirm-model-one">
+			<div class="title ">
+				<p>提示</p>
+				<p class="close "></p>
+			</div>
+			<div class="body ">
+				<div class="img "></div>
+				<p>是否进行以下操作？</p>
+			</div>
+			<div class="button ">
+				<div class="left ">
+					<div class="img "></div>
+					<p>删除并保留现病史中该条</p>
+				</div>
+				<div class="right ">
+					<div class="img "></div>
+					<p>同时删除现病史中该条</p>
+				</div>
+			</div>
+		</div>
+		<!-- 确认删除主诉？-->
+		<div class="confirm-model animated flipInY d-n" id="confirm-model-to">
+			<div class="title ">
+				<p>提示</p>
+				<p class="close "></p>
+			</div>
+			<div class="body ">
+				<div class="img "></div>
+				<p>确定删除该条主诉？</p>
+			</div>
+			<div class="button ">
+				<div class="left ">
+					<p>确定</p>
+				</div>
+				<div class="right ">
+					<p>取消</p>
+				</div>
+			</div>
+		</div>
+		<div id="shade " class="d-n "></div>
+	</body>
+	<script src="js/jquery-1.11.1.js "></script>
+	<script src="js/jquery.tmpl.js "></script>
+	<script src="js/param.js "></script>
+	<script src="js/tools.js "></script>
+	<script src="js/timer.js "></script>
+	<script src="js/index.js "></script>
+	<script type="text/javascript " src="js/moment.js "></script>
+	<script type="text/javascript " src="js/daterangepicker.js "></script>
+	<script type="text/javascript ">
+		$(function() {
+			$(".print ").click(function() {
+				print();
+			});
+			$("body ").on('click', '.first-level li a', function(event) {
+				if($(this).parent().find('ul').css("display ") == "block ") {
+					$(this).addClass('active');
+				} else {
+					$(this).removeClass('active')
+				};
+				$(this).parent().find('ul').toggle(400);
+			});
+		});
+	</script>
+
+</html>

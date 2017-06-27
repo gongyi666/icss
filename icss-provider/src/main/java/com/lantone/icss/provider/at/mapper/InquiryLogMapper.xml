@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.at.dao.InquiryLogMapper" >
+  <resultMap id="resultLog" type="com.lantone.icss.api.at.model.wrapper.InquiryLogWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="inquiry_id" property="inquiryId" jdbcType="BIGINT" />
+    <result column="item_id" property="itemId" jdbcType="BIGINT" />
+    <result column="doctor_name" property="doctorName" jdbcType="VARCHAR" />
+    <result column="item_describe" property="itemDescribe" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="clinic_time" property="clinicTime" jdbcType="TIMESTAMP" />
+    <result column="operation" property="operation" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="index" parameterType="com.lantone.icss.api.at.model.wrapper.InquiryLogWrapper" resultMap="resultLog">
+	 	select * from at_inquiry_log i where 1=1
+	 	<if test="id != null and id != ''">
+	 		and id = #{id}
+	 	</if>
+	 	<if test="itemId != null and itemId != ''">
+	 		and item_id = #{itemId}
+	 	</if>
+	 	<if test="inquiryId != null and inquiryId != ''">
+	 		and inquiry_id = #{inquiryId}
+	 	</if>
+	 	<if test="doctorName != null and doctorName != ''">
+	 		and	doctor_name = #{doctorName}
+	 	</if>
+	 	<if test="type != null and type != ''">
+	 		and type = #{type}
+	 	</if>
+	 	order by clinic_time desc
+	 </select>
+	 
+	 
+	 <insert id="insertLog" parameterType="java.util.List">
+	  insert into at_inquiry_log (inquiry_id,item_id,doctor_name,item_describe,type,clinic_time,remark,operation) values
+		  <foreach collection="list" item="item" index="index" separator=",">
+		  	(#{item.inquiryId}, #{item.itemId}, #{item.doctorName},#{item.itemDescribe}, #{item.type},#{item.clinicTime},#{item.remark},#{item.operation})
+	  	  </foreach>
+  	  </insert>
+ 
+</mapper>

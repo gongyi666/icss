@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:kie="http://drools.org/schema/kie-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans        
+    http://www.springframework.org/schema/beans/spring-beans.xsd        
+    http://code.alibabatech.com/schema/dubbo        
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd 
+	http://drools.org/schema/kie-spring http://drools.org/schema/kie-spring.xsd">
+	
+	<kie:kmodule id="kModule">
+        <kie:kbase name="rules" packages="rules">
+        	<kie:ksession name="ksession-rules" type="stateless"/>
+    	</kie:kbase>
+    	<kie:kbase name="drugs" packages="drugs">
+        	<kie:ksession name="ksession-drug-rules" type="stateless"/>
+    	</kie:kbase>
+    	<kie:kbase name="lisrules" packages="lisrules">
+        	<kie:ksession name="ksession-lis-rules" type="stateless"/>
+    	</kie:kbase>
+    	<kie:kbase name="subitemdrugs" packages="subitemdrugs">
+        	<kie:ksession name="ksession-subitem-rules" type="stateless"/>
+    	</kie:kbase>
+    </kie:kmodule>
+    <bean id="kiePostProcessor" class="org.kie.spring.KModuleBeanFactoryPostProcessor"/>
+    
+</beans>

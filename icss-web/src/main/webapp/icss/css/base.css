@@ -1,0 +1,692 @@
+/*=== base style===*/
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dt, dd, li, img {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+body {
+    font-size: 12px;
+    font-family:"微软雅黑";
+    background: #f1f4f9;
+}
+ul,li {
+    list-style: none;
+}
+h1,h2,h3,h4, h5,h6{
+    font-weight:normal;
+}
+.clearfix:after,.detail-list dl:after{
+    content:"\0020";
+    height:0;
+    display:block;
+    clear:both;
+}
+.clearfix,.detail-list dl{
+    zoom:1;
+}
+img{
+    vertical-align:top;
+}
+#main-ct{
+    width: 778px;
+    margin: 0 auto;
+    color: #33475f;
+    padding-bottom: 100px;
+}
+.check-box{
+    display:inline-block;
+    line-height: 24px;
+    padding-left: 30px;
+    background: url("../img/2.png") no-repeat;
+    user-select: none;
+}
+.radio{
+    display:inline-block;
+    line-height: 24px;
+    padding-left: 30px;
+    background: url("../img/diagnose/option.png") no-repeat;
+    user-select: none;
+    background-size: 24px 24px;
+}
+
+.check-box.check-state{
+    background: url("../img/3.png") no-repeat;
+
+}
+
+.radio.check-state{
+    background: url("../img/diagnose/option-clicked.png") no-repeat;
+    background-size: 24px 24px;
+}
+
+/*****************病历单***************************/
+.medical-record-sheet li{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    position: relative;
+}
+.medical-record-sheet li.list{
+    min-height:80px;
+}
+.medical-record-sheet .open-list1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.medical-record-sheet .detail-list{
+    position: absolute;
+    left: 0;
+    z-index: 3;
+}
+.medical-record-sheet li label{
+    line-height: 30px;
+    font-weight: bold;
+    display: block;
+}
+.medical-record-sheet li .txt-area{
+    min-height: 35px;
+    position: relative;
+}
+.medical-record-sheet li input{
+    border: 1px solid #e5e5e5;
+    width: 766px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+.choose-list{
+    position: relative;
+    height: auto;
+    background: #fff;
+    display: block;
+    padding: 0 0 0 10px;
+    border-radius: 5px;
+}
+.choose-list span{
+    display: block;
+    height: 35px;
+}
+.choose-list span b,.choose-list span i{
+    display:block;
+    height: 28px;
+    float: left;
+}
+.choose-list span b{
+    line-height: 28px;
+    font-weight: normal;
+}
+.choose-list span i{
+    width: 28px;
+    margin: 0 5px;
+}
+
+.choose-list span:hover :nth-child(2){
+    background: url("../img/diagnose/arrow-top.png") top right no-repeat;
+    background-size: 28px 28px;
+}
+
+.choose-list span:hover :nth-child(3) {
+    background: url("../img/9.png") top right no-repeat;
+}
+
+/********************推送列表*****************************/
+#push-area{
+    display: none;
+}
+.open-list1{
+    border: 1px #ddd solid;
+    width: 776px;
+    border-radius: 5px;
+    background: #fff;
+}
+.push-list{
+    padding: 10px 0;
+    height: 50px;
+    position: relative;
+}
+.push-list li,.past-history ul li{
+    float: left;
+    text-align: center;
+    cursor: pointer;
+    border: 1px #fff solid;
+    border-radius: 5px;
+    -webkit-box-shadow:0 3px 3px #fff;
+    -moz-box-shadow:0 3px 3px #fff;
+    box-shadow:0 3px 3px #fff;
+}
+.push-list li{
+    width: 100px;
+    margin-left: 5px;
+    line-height: 18px;
+    margin-bottom: 8px;
+}
+.push-list li:hover{
+    background: #eee;
+    border-color: #ddd;
+    -webkit-box-shadow:0 3px 3px #ddd;
+    -moz-box-shadow:0 3px 3px #ddd;
+    box-shadow:0 3px 3px #ddd;
+}
+
+.push-list li.li-hover{
+    background: #eee;
+    border-color: #ddd;
+    -webkit-box-shadow:0 3px 3px #ddd;
+    -moz-box-shadow:0 3px 3px #ddd;
+    box-shadow:0 3px 3px #ddd;
+}
+
+.push-list li.check-state{
+    background: #0287bb;
+    color: #fff;
+}
+.push-list .more-bt{
+    position: absolute;
+    top:50%;
+    margin-top: -12.5px;
+    cursor: pointer;
+    right: 5px;
+
+}
+.push-list .more-bt img{
+    width: 20px;
+    height: 20px;
+}
+.past-history{
+    width: 745px;
+    margin: 0 auto;
+    padding: 10px 0 0 10px;
+    border-top: 1px #ddd solid;
+}
+.past-history .none{
+    float: left;
+}
+.past-history .none,.past-history .all{
+    cursor: pointer;
+}
+.past-history .all{
+    display: none;
+    width: 58px;
+    line-height: 20px;
+    text-align: center;
+    float: right;
+    border: 1px #ddd solid;
+    border-radius: 5px;
+}
+.past-history .all:hover,.past-history .all.check-state,.push-list li.check-state{
+    color: #fff;
+    background: #0287bb;
+    border: 1px #0287bb solid;
+    -webkit-box-shadow:0 1px 3px #0287bb;
+    -moz-box-shadow:0 1px 3px #0287bb;
+    box-shadow:0 1px 3px #0287bb;
+}
+.past-history ul{
+    float: left;
+    border-right: 1px #ccc solid;
+    width: 630px;
+    display: none;
+}
+.past-history ul li{
+    width: 90px;
+    line-height: 20px;
+    margin-left: 10px;
+}
+.past-history ul li:hover,.past-history ul li.check-state{
+    color: #fff;
+    background: #e5e5e5;
+    border-color: #e5e5e5;
+    -webkit-box-shadow:0 3px 3px #e5e5e5;
+    -moz-box-shadow:0 3px 3px #e5e5e5;
+    box-shadow:0 3px 3px #e5e5e5;
+}
+
+ul.cr-hsy>li{
+    margin-top: 0;
+}
+/*************************详情表单***************************************/
+.detail-list{
+    display: none;
+    width: 756px;
+    background: #fff;
+    padding: 10px;
+    border: 1px #ddd solid;
+    border-radius: 5px;
+}
+/*.detail-list input{*/
+    /*min-width: 130px;*/
+/*}*/
+.pro-name{
+    border-bottom: 1px #ddd solid;
+    line-height: 30px;
+}
+.pro-name b{
+    padding: 0 20px 0 10px;
+}
+.detail-list dl{
+    margin: 15px 0;
+}
+.detail-list dt{
+    width: 70px;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+}
+.detail-list dd{
+    /*width: 670px;*/
+    float: left;
+}
+.detail-list textarea{
+    width: 665px;
+    height: 85px;
+    border: 1px #ddd solid;
+}
+.detail-list .describe{
+    padding: 10px;
+    display: none;
+}
+.detail-list .submit-bt{
+    text-align: center;
+}
+.detail-list button{
+    width: 68px;
+    line-height: 24px;
+    text-align: center;
+    color: #fff;
+    border: 1px #ccc solid;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+.detail-list button.usable{
+    background: #0287bb;
+}
+.detail-list button.unusable{
+    background: #ccc;
+}
+.medical-record-sheet .detail-list input,.detail-list input{
+    width: 87px;
+    height: 26px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #ddd;
+    margin-right: 10px;
+    border: 1px solid #e5e5e5;
+}
+
+.detail-list select{
+    border: 1px #e0e0e0 solid;
+    height: 30px;
+    color: #33475f;
+    min-width: 100px;
+    margin-right: 10px;
+}
+
+
+.medical-record-sheet .detail-list .form-area dl{
+    line-height: 30px;
+}
+/*************************弹层******************************/
+.fancy-box{
+    position:fixed;
+    top:0;
+    color: #33475f;
+    z-index:10;
+    display: none;
+}
+.fancy-ct .det-form{
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    left: 1px;
+}
+.fancy-mask{
+    background-color:#666;
+    opacity:0.6;
+    position:fixed;
+    top:0;
+}
+.fancy-ct{
+    width:770px;
+    height:435px;
+    border-radius: 10px;
+    background-color:#fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /*margin-top: -300px;*/
+    /*margin-left:-385px;*/
+}
+.nav-bar{
+    height: 45px;
+    padding: 0 15px;
+    margin-bottom: 3px;
+    border-bottom: 1px #eee solid;
+    -webkit-box-shadow: 0 0 3px #ccc;
+    -moz-box-shadow: 0 0 3px #ccc;
+    box-shadow: 0 0 3px #ccc;
+}
+.first-level{
+    float: left;
+}
+.first-level li{
+    float: left;
+    cursor: pointer;
+    padding: 0 10px;
+    line-height: 40px;
+    border-top: 2px #fff solid;
+    margin-right: 10px;
+}
+.first-level li.check-state{
+    font-weight: bold;
+    color: #0287bb;
+    border-top: 2px #0287bb solid;
+}
+.toolbar{
+    float: right;
+}
+.toolbar p{
+    float: left;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.toolbar .seach-box{
+    padding-top: 10px;
+}
+.toolbar .seach-box input{
+    width: 180px;
+    height: 24px;
+    border: none;
+    background: #eee;
+}
+.toolbar .set-up{
+    padding-top: 15px;
+}
+#close{
+    padding-top: 15px;
+}
+.detail-category .level-list{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.level-list .push-list{
+    height: auto;
+}
+.second-level{
+    width: 119px;
+    height: 386px;
+    background: #f1f4f9;
+    border-right: 1px #eee solid;
+    float: left;
+    margin-right: 10px;
+    border-radius: 0 0 0 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.method dt{
+    line-height: 30px;
+    padding-left: 35px;
+}
+.method dt.check-state{
+    background:url("../img/4.png") 20px 10px #fff no-repeat;
+    cursor: pointer;
+    font-weight: bold;
+}
+.method .third-level{
+    background:url("../img/4.png") 20px 10px #f1f4f9 no-repeat;
+}
+.method .third-level b{
+    cursor: pointer;
+    line-height: 24px;
+    padding-left: 45px;
+    display: none;
+    font-weight: normal;
+    width: 75px;
+    margin-left: -35px;
+}
+.method .third-level b.check-state{
+    background:#fff;
+}
+.method .third-level.check-state{
+    background:url("../img/10.png") 20px 13px #f1f4f9 no-repeat;
+}
+.method .third-level.check-state b{
+    display: block;
+}
+.method .third-level.check-state b.check-state{
+    background: #fff;
+}
+.detail-category .level-list{
+    margin-left: 130px;
+}
+.second-levl{
+    display: none;
+    position: absolute;
+    z-index: 2;
+}
+
+.det-form{
+    position: fixed;
+    display: inline-block;
+    z-index: 3;
+}
+
+/*************************治疗的两种表单***************************************/
+.pro-name-arrow-container{
+    border-radius: 4px;
+    border: 1px solid #33475f;
+    width: 10px;
+    height: 25px;
+    display: inline-block;
+    margin-left: -20px;
+    padding: 0;
+    position: relative;
+    top: 6px;
+    cursor: pointer;
+}
+
+.pro-name-arrow{
+    background: none;
+    margin: 0 auto;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #33475f;
+    position: relative;
+    top: 11px;
+}
+
+.light-border{
+    border-color: #0287bb;
+}
+
+.light-border .pro-name-arrow{
+    border-top-color: #0287bb;
+}
+
+.pro-name-box{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.row{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: auto;
+}
+
+.row .form-group{
+    width: auto;
+    display: inline-block;
+    margin-left: 10px;
+
+    position: relative;
+}
+
+.row .form-group .select{
+    display: inline-block;
+    min-width: 40px;
+    max-width: 100px;
+    padding-right: 15px;
+    border: 1px solid #ccc;
+    height: 18px;
+    padding-top: 4px;
+    padding-bottom: 3px;
+    position: relative;
+    padding-left: 6px;
+}
+
+.row .form-group p{
+    margin-bottom: 5px;
+}
+
+
+.row .form-group textarea{
+    width: 95%;
+    resize: none;
+}
+
+.row .form-group .arrow{
+    position: absolute;
+    margin: 0 auto;
+    height: 100%;
+    width: 10px;
+    right: 2px;
+    top: 0;
+}
+
+.row .form-group .arrow>img{
+    margin-top: 11px;
+}
+
+.submit-bt{
+    margin-top: 10px;
+}
+
+.add-drug{
+    border-radius: 5px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    border: 1px solid #0287bb;
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    color: #0287bb;
+    cursor: pointer;
+    height: 20px;
+}
+
+.add-medicine-detail{
+    width: 700px;
+    height: auto;
+    overflow-y: auto;
+    position: absolute;
+    top:45px;
+    left: 18px;
+    background-color: #fff;
+    border: 1px solid #cccccc;
+    z-index: 1;
+    height: 200px;
+}
+
+.add-medicine-detail>table{
+    width: 100%;
+    table-layout: fixed;
+}
+.add-medicine-detail>table tr:hover{
+    color: #0287bb;
+}
+
+/*************************器查***************************************/
+.input-arrow{
+    position: absolute;
+    right: 0;
+    top: 22px;
+    height: 22px;
+    padding-top: 6px;
+    width: 20px;
+}
+
+.iconfont.input-arrow-font{
+    color: #ccc;
+    font-size: 12px;
+}
+
+.p-r-20{
+    padding-right: 20px !important;
+}
+
+input.focus{
+    border-color: #66afe9 !important;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.title{
+    height: 20px;
+    width: auto;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.serial-number{
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.form-area{
+    position: relative;
+}
+
+.p-l-10{
+    padding-left: 10px !important;
+}
+
+.iconfont.li-right-arrow{
+    font-size: 12px;
+    color: #ccc;
+    float: right;
+    position: relative;
+    right: 5px;
+    top: 3px;
+    display: none;
+}
+
+ul>li{
+    position: relative;
+}
+
+ul>li>a{
+    position: relative;
+    padding-left: 10px;
+    display: block;
+}
+
+ul>li>a:hover{
+    background-color: #eee;
+}
+
+.level-list>p{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #ccc;
+}
+.level-list>div{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.first-lv>li{
+    padding-left: 10px;
+}
+.first-lv>li>.input-drop>ul>li{
+    padding-left: 20px;
+}

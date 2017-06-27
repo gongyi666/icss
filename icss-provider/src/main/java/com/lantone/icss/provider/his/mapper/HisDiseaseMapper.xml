@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.his.dao.HisDiseaseMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.his.model.Wrapper.HisDiseaseInfoWrapper" >
+   	<id column="his_disease_code" property="hisDiseaseCode" jdbcType="VARCHAR" />
+    <result column="hospital_code" property="hospitalCode" jdbcType="VARCHAR" />
+    <result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="spell" property="spell" jdbcType="VARCHAR" />
+    <result column="five_stroke" property="fiveStroke" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="icss_disease_id" property="icssDiseaseId" jdbcType="VARCHAR" />
+  </resultMap>
+	
+
+	<select id="selectHisWarpperByDiseaseId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+	SELECT
+			a.*
+		FROM
+			his_disease_info a
+		INNER JOIN his_mapping_disease b ON 
+		a.his_disease_code = b.his_disease_code and b.icss_disease_id=#{icssId}
+	</select>
+	
+	<select id="searchHisDiseases" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select a.*,b.icss_disease_id from his_disease_info a
+			left join his_mapping_disease b on a.his_disease_code = b.his_disease_code and a.hospital_code = b.hospital_code
+			WHERE a.hospital_code = #{hospitalCode}
+			and a.status = '1'
+			and (a.spell like CONCAT(#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))
+			limit 0,#{size}
+	</select>
+	
+	<select id="getDiseaseinfoByHospitalList"
+		parameterType="com.lantone.icss.api.his.model.Wrapper.HisDiseaseInfoWrapper"
+		resultMap="BaseResultMap">
+		select * from his_disease_info where hospital_code = #{hospitalCode}
+	</select>
+	
+	<select id="getCount" parameterType="com.lantone.icss.api.his.model.Wrapper.HisDiseaseInfoWrapper" 
+		resultType="java.lang.Integer">		
+		select count(*) from his_disease_info  where hospital_code = #{hospitalCode}
+	</select>
+
+	<insert id="insertDiseaseinfo"
+		parameterType="com.lantone.icss.api.his.model.Wrapper.HisDiseaseInfoWrapper">
+		insert into
+		his_disease_info(
+		his_disease_code,
+		hospital_code,
+		parent_code,
+		code,
+		name,
+		short_name,
+		spell,
+		five_stroke,
+		status,
+		remark
+		)
+		values(
+		#{hisDiseaseCode},
+		#{hospitalCode},
+		#{parentCode},
+		#{code},
+		#{name},
+		#{shortName},
+		#{spell},
+		#{fiveStroke},
+		#{status},
+		#{remark}
+		)
+	</insert>
+
+	<delete id="deleteDiseaseinfoList" parameterType="java.lang.Long">
+		delete from his_disease_info where hospital_code = #{hospitalCode}
+	</delete>
+	
+	<select id="getHisMappingDisease"
+		parameterType="com.lantone.icss.api.his.model.Wrapper.HisDiseaseInfoWrapper"
+		resultMap="BaseResultMap">
+		select distinct i.* from his_disease_info i, his_mapping_disease d where i.his_disease_code = d.his_disease_code and d.hospital_code = #{hospitalCode} and d.icss_disease_id = #{icssDiseaseId}
+	</select>
+	
+</mapper>

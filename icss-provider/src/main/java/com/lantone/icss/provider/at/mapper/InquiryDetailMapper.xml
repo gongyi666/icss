@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.at.dao.InquiryDetailMapper" >
+  <resultMap id="resultInquiryDetail" type="com.lantone.icss.api.at.model.wrapper.InquiryDetailWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="inquiry_id" property="inquiryId" jdbcType="BIGINT" />
+    <result column="item_id" property="itemId" jdbcType="BIGINT" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="item_describe" property="itemDescribe" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="content_json" property="contentJson" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="doctor_name" property="doctorName" jdbcType="VARCHAR" />
+    <result column="clinic_time" property="clinicTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+ 	<insert id="insertDetail" parameterType="java.util.List">
+	  insert into at_inquiry_detail (inquiry_id,item_id,item_name,item_describe,type,content_json,order_no,remark,clinic_time,doctor_name) values
+	  <foreach collection="list" item="item" index="index" separator=",">
+	  	(#{item.inquiryId}, #{item.itemId}, #{item.itemName},#{item.itemDescribe}, #{item.type},#{item.contentJson}, #{item.orderNo},#{item.remark}, #{item.clinicTime},#{item.doctorName})
+  	  </foreach>
+  	</insert>
+  
+  	<delete id="delDetailByQuiryId">
+  		delete from at_inquiry_detail where inquiry_id = #{quiryId}
+  	</delete>
+
+	<select id="findByInquiryId"  resultMap="resultInquiryDetail">
+		select * from at_inquiry_detail where inquiry_id = #{inquiryId}
+	</select>
+
+	 <select id="getLatest"  parameterType="com.lantone.icss.api.at.model.wrapper.InquiryInfoWrapper" resultMap="resultInquiryDetail">
+		select d.* from at_inquiry_detail d,at_inquiry_info i 
+		where d.inquiry_id = i.id and i.hospital_code = #{hospitalCode} and patient_id = #{patientId} and i.status = '1' and d.type = #{type}
+		order by i.clinic_time desc 
+		limit 1
+	</select>
+	
+	
+	<select id="index" parameterType="com.lantone.icss.api.at.model.wrapper.InquiryDetailWrapper" resultMap="resultInquiryDetail">
+	 	select i.* from at_inquiry_detail i where 1=1
+	 	<if test="id != null and id != ''">
+	 		and id = #{id}
+	 	</if>
+	 	<if test="itemId != null and itemId != ''">
+	 		and item_id = #{itemId}
+	 	</if>
+	 	<if test="inquiryId != null and inquiryId != ''">
+	 		and inquiry_id = #{inquiryId}
+	 	</if>
+	 	<if test="type != null and type != ''">
+	 		and type = #{type}
+	 	</if>
+	 	order by id desc
+	 </select>
+	 
+	 <select id="getDiseaseByInquery" parameterType="com.lantone.icss.api.at.model.wrapper.InquiryInfoWrapper" resultMap="resultInquiryDetail">
+		 select distinct b.item_id,b.item_name from at_inquiry_info a,at_inquiry_detail b where a.id=b.inquiry_id and b.type='7'
+		 		and a.patient_id = #{patientId}
+		 		and a.hospital_code = #{hospitalCode} order by a.clinic_time desc 
+	 </select>
+</mapper>

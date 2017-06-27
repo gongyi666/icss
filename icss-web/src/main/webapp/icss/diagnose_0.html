@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/diagnose_0.css">
+    <title>诊疗</title>
+</head>
+ 
+<body style="overflow-x: hidden;">
+    <div class="container">
+        <div class="group">
+            <label>主诉</label>
+            <div class="box-r-s">
+                <div class="choose" id="visSymptom">
+                    <p>
+                        <span class="dot"></span>胸痛5天，在劳累情况下，中度，呈间隙性(有时在睡眠中发作)
+                        <i></i>
+                        <i></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="group">
+            <label>现病史</label>
+            <div class="box-r-s">
+                <div class="choose" id="visPresentHis">
+                    <p>
+                        <span class="dot"></span>高血压2年
+                        <i></i>
+                        <i></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="group">
+            <label>既往史</label>
+            <div class="box-r-s">
+                <div class="choose" id="visPreviousHis">
+                    <p>
+                        <span class="dot"></span>心脏病家族史：母亲，发现于1990年
+                        <i></i>
+                        <i></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="group">
+            <label>其他史</label>
+            <div class="box-r-s">
+                <div class="choose" id="visOtherHis">
+                    <p>
+                        <span class="dot"></span>饮食不规律（高脂、高盐）
+                        <i></i>
+                        <i></i>
+                    </p>
+                    <p>
+                        <span class="dot"></span>吸烟
+                        <i></i>
+                        <i></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="group">
+            <label>体征</label>
+            <div class="box-r-s">
+                <div class="choose" id="signDiv">
+                    <p>
+                        <span class="dot"></span>正常
+                        <i></i>
+                        <i></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="group">
+            <label>化验</label>
+            <div class="box-r-s">
+                <div class="choose" id="testDiv">
+                    <p>
+                        <span class="dot"></span>胸痛5天，在劳累情况下，中度，呈间隙性(有时在睡眠中发作)
+                        <i></i>
+                        <i></i>
+                    </p>
+                    <p>
+                        <span class="dot"></span>咳嗽三天，轻度，呈阵发性
+                        <i></i>
+                        <i></i>
+                    </p>
+                    <p>
+                        <span class="dot"></span>胸痛5天，在劳累情况下，中度，呈间隙性(有时在睡眠中发作)
+                        <i></i>
+                        <i></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="group">
+            <label>器查</label>
+            <div class="box-r-s">
+                <div class="choose" id="organDiv">
+                    <p>
+                        <span class="dot"></span>心电图：st轻度压低<span class="eeg"><img src="img/u1034.png"></span>
+                        <i></i>
+                        <i></i>
+                    </p>
+                    <p>
+                        <span class="dot"></span>冠脉造影：狭窄度＞70%<span class="photo"><img src="img/u1032.png"></span>
+                        <i></i>
+                        <i></i>
+                    </p>
+                    <p>
+                        <span class="dot"></span>OCT：见斑块
+                        <i></i>
+                        <i></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="group">
+            <label>诊断</label>
+            <div class="box-r-s">
+                <div class="choose" id="diagnosisDiv">
+                    <p>
+                        <span class="dot"></span>心电图：st轻度压低<span class="eeg"><img src="img/u1034.png" alt=""></span>
+                        <i></i>
+                        <i></i>
+                    </p>
+                    <p>
+                        <span class="dot"></span>冠脉造影：狭窄度＞70%<span class="photo"><img src="img/u1032.png"></span>
+                        <i></i>
+                        <i></i>
+                    </p>
+                    <p>
+                        <span class="dot"></span>OCT：见斑块
+                        <i></i>
+                        <i></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="group">
+            <label>治疗</label>
+            <div class="box-r-s">
+                <div class="choose" id="treatDiv">
+                    <p>
+                        <span class="dot"></span>胸痛5天，在劳累情况下，中度，呈间隙性(有时在睡眠中发作)
+                        <i></i>
+                        <i></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var getIndexId = sessionStorage.getItem("getIndexId");
+        $.ajax({
+            url: 'http://192.168.2.165:8090/icss-web/at/inquiry_detail/find_by_id',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                "inquiryId": 23
+            },
+            success: function(res) {
+                $.each(res.data,function(index,value) {
+                   if(value.type==1){//==1 是症状
+                    $("#visSymptom").html("<p><span class='dot'></span>" + value.itemDescribe + "<i></i><i></i></p>");
+                   }
+                   if(value.type==2){//==2 是既往史
+                    $("#visPreviousHis").html("<p><span class='dot'></span>" + value.itemDescribe+ "<i></i><i></i></p>");
+                   }
+                   if(value.type==3){//==3 是其他史
+                    $("#visOtherHis").html("<p><span class='dot'></span>" + value.itemDescribe + "<i></i><i></i></p>");
+                   }
+                   if(value.type==4){//==4 是体征
+                    $("#signDiv").html("<p><span class='dot'></span>" + value.itemDescribe + "<i></i><i></i></p>");
+                   }
+                   if(value.type==5){//==1 是化验
+                    $("#testDiv").html("<p><span class='dot'></span>" + value.itemDescribe + "<i></i><i></i></p>");
+                   }
+                   if(value.type==6){//==1 是器官
+                    $("#organDiv").html("<p><span class='dot'></span>" + value.itemDescribe + "<i></i><i></i></p>");
+                   }
+                   if(value.type==7){//==1 是诊断
+                    $("#diagnosisDiv").html("<p><span class='dot'></span>" + value.itemDescribe + "<i></i><i></i></p>");
+                   }
+                   if(value.type==8){//==1 是治疗
+                    $("#treatDiv").html("<p><span class='dot'></span>" + value.itemDescribe + "<i></i><i></i></p>");
+                   }
+                   if(value.type==9){//==9 是现病史
+                   $("#visPresentHis").html("<p><span class='dot'></span>" + value.itemDescribe  + "<i></i><i></i></p>");
+                   }
+                })
+                // $(".content-diagnosis").siblings("iframe").css("display", "none");
+                $(".content-diagnosis").find("iframe").attr("src", "diagnose_0.html");
+                
+                
+                
+                
+            }
+        })
+    })
+    </script>
+</body>
+
+</html>

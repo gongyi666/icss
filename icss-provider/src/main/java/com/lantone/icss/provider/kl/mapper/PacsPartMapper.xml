@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.PacsPartMapper" >
+  <resultMap id="baseResultMap" type="com.lantone.icss.api.kl.model.wrapper.PacsPartWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level_num" property="levelNum" jdbcType="VARCHAR" />
+   	<result column="max_level" property="maxLevel" jdbcType="VARCHAR" />
+    <result column="end_level" property="endLevel" jdbcType="VARCHAR" />
+    <result column="direction" property="direction" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ 	<select id="getPacsPartByApparatusCode" parameterType="java.lang.String" resultMap="baseResultMap">
+ 		select a.* from kl_pacs_part a,
+			kl_apparatus_part b
+			where a.status = '1'
+			and a.code = b.part_code
+			and b.apparatus_code = #{apparatusCode}
+ 	</select>
+ 	
+ 	<select id="getPacsPartByCode" parameterType="java.lang.String" resultMap="baseResultMap">
+ 		select * from kl_pacs_part where code = #{code}
+ 	</select>
+ 	
+ 	<select id="getPacsPartByApparatusAndOrgan" parameterType="java.util.Map" resultMap="baseResultMap">
+		select a.* from kl_pacs_part a,
+			kl_apparatus_part b
+			where a.status = '1'
+			and a.code = b.part_code
+			and b.apparatus_code = #{apparatusCode}
+			and b.organ_code = #{organCode}
+ 	</select>
+ 	
+ 	<select id="getPacsPartLeveLOne" resultMap="baseResultMap">
+ 		select * from kl_pacs_part where status = '1' and level_num = '1'
+ 	</select>
+ 	
+ 	<select id="getPacsPartByParentId" parameterType="java.lang.Long" resultMap="baseResultMap">
+ 		select * from kl_pacs_part where status = '1' and parent_id = #{parentId}
+ 	</select>
+ 	
+ 	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="baseResultMap">
+ 		select * from kl_pacs_part p, kl_pacs_info i where p.id = i.part_id and i.id = #{id} and i.status = '1' 
+ 	</select>
+ 	
+ 	
+</mapper>

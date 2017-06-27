@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.KeyWordMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.KeyWord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="mean" property="mean" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+ 	<select id="selectMedicineWords"  resultMap="BaseResultMap">
+		select * from kl_key_word a where a.type='6'
+	</select>
+ 	 <select id="selectMedicineWordByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select * from kl_key_word a where a.type='6' and name=#{name}
+	</select>
+ 	 <select id="selectKeyWordByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select * from kl_key_word a where  and name=#{name}
+	</select>
+	<select id="selectAllWords"  resultMap="BaseResultMap">
+		select * from kl_key_word 
+	</select> 
+</mapper>

@@ -1,0 +1,131 @@
+.lis-checked-label{
+
+}
+.lis-checked-label input[type=checkbox]{
+
+}
+.pacs-checked-label{
+
+}
+.pacs-checked-label input[type=checkbox]{
+
+}
+.like-select,.like-select-method{
+    overflow: hidden;
+}
+.like-select input,.like-select-method input{
+    float: left!important;
+    border:1px solid #ddd!important;
+    border-right:none!important;
+    font-size: 14px!important;
+    padding:5px!important;
+    height:16px!important;
+    border-radius: 0px!important;
+    cursor: pointer;
+}
+.like-select span,.like-select-method span{
+    cursor: pointer;
+    float: left!important;
+    border-top:1px solid #ddd!important;
+    border-right:1px solid #ddd!important;
+    border-bottom:1px solid #ddd!important;
+    height:26px!important;
+    width: 20px!important;
+    background:url(../img/11.png)!important;
+    background-repeat: no-repeat!important;
+    background-position: center!important;
+}
+.like-select-div{
+    z-index: 2
+}
+.like-select-method-div{
+    z-index: 1
+}
+.like-select-div,.like-select-method-div{
+    display: none;
+    max-width:600px;
+    border: 1px solid #ddd;
+    /*
+    position: relative;
+    top:29px;
+    */
+    background: #fff;
+    position: relative;
+}
+.like-select-div dt,.like-select-div dd,.like-select-method-div dt,.like-select-method-div dd{
+    float: none!important;
+}
+.checkbox-label{
+    display: inline!important;
+    line-height: 30px;
+    margin-right: 20px;
+}
+.checkbox-label input{
+    vertical-align: -10%;
+    width: 13px!important;
+    height: 13px!important;
+    min-width: 13px!important;
+}
+.like-select-method-div li{
+    /*position: static;為了覆蓋base。css里的position*/
+    margin-bottom: 0px;
+}
+
+.diagnosis-list button{
+    width: 68px;
+    line-height: 24px;
+    text-align: center;
+    color: #fff;
+    border: 1px #ccc solid;
+    border-radius: 5px;
+    margin: 5px 10px;
+    background: #0287bb;
+}
+
+.pacs-relation-ul{
+    display:none;
+    position:absolute;
+    left:230px;
+    top:0px;
+    border:1px solid #ddd;
+    padding:0px;
+}
+.pacs-relation-ul li{
+    min-width: 100px;
+    text-align: center;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+.pacs-relation-ul li:hover{
+    background-color: #ddd;
+}
+.diagnosis-list-explain{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.form-area-checked-lis dt{
+    float: none;
+    text-align: left;
+}
+.form-area-checked-lis dd{
+    float: none;
+}
+.pacs-check-method .input-arrow,.pacs-check-parts .input-arrow,.lis-check-some .input-arrow{
+    right:5px!important
+}
+.pacs-check-method .form-group{
+    margin-left: 0px;
+}
+.diagnosis-forth-levl dl{
+    float: left;
+    margin-right: 50px;
+    margin-left: 10px;
+}
+.diagnosis-forth-levl dt{
+    float: none;
+    text-align: left;
+    margin-bottom: 5px;
+}
+.diagnosis-forth-levl dd{
+    float: none;
+}

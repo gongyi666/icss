@@ -1,0 +1,774 @@
+.container-shade {
+    position: fixed !important;
+    z-index: 2;
+    height: 100%;
+    top: 0;
+    background-color: #f1f4f9;
+}
+
+.container {
+    width: 778px;
+    margin: 0 auto;
+    min-height: 100%;
+    color: #33475f;
+    padding-bottom: 10px;
+}
+
+/* 主诉、现病史等 */
+.group {
+    height: auto;
+    width: 778px;
+    color: #33475f;
+}
+
+.group {
+    padding-bottom: 10px;
+}
+
+.group > label {
+    display: block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+}
+
+.group > div {
+    width: 100%;
+    min-height: 39px;
+    position: relative;
+}
+
+.group.focus > div {
+    border-color: #0088be;
+}
+
+.group > div > input {
+    width: 100%;
+    padding-left: 10px;
+    height: 39px;
+    border: none;
+    outline: none;
+    position: relative;
+    z-index: 0;
+    line-height: 39px;
+    font-size: 13px;
+}
+
+.group > div > div.choose {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.group > div > div.choose p {
+    cursor: pointer;
+    padding: 5px 12px;
+    font-weight: normal;
+    line-height: 17px;
+    width: 100%;
+    position: relative;
+}
+
+.group > div > div.choose > div.title {
+    display: inline-block;
+    width: 78px;
+    position: relative;
+    height: 100%;
+    float: left;
+    text-align: left;
+    color: #33475f !important;
+    font-weight: bold !important;
+    padding-right: 0;
+    padding-left: 6px;
+    border-radius: 5px;
+    padding-top: 5px;
+}
+
+.group > div > div.choose > div.content {
+    display: inline-block;
+    height: 100%;
+    width: 776px;
+    position: relative;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.group > div > div.choose[data-transcode] > div.content {
+    width: 696px;
+}
+
+.group > div > div.choose p:hover {
+    color: #0088be;
+    font-weight: bold;
+}
+
+.group > div > div.choose p > span.dot {
+    height: 6px;
+    width: 6px;
+    background-color: #aaa;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 1px;
+    vertical-align: middle;
+    border-radius: 6px;
+}
+
+.group > div > div.choose p:hover > span.dot {
+    background-color: #0088be;
+}
+
+.group > div > div.choose p:hover i {
+    height: 17px;
+    width: 17px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 8px;
+}
+
+.group > div > div.choose p:hover i.d-n {
+    display: none;
+}
+
+.group > div > div.choose p:hover i:nth-of-type(1) {
+    background: url("../img/icss/top.png") no-repeat center;
+    background-size: 17px 17px;
+}
+
+.group > div > div.choose p:hover i:nth-of-type(2) {
+    background: url("../img/icss/close.png") no-repeat center;
+    background-size: 17px 17px;
+}
+
+.treatment-del {
+    height: 17px;
+    width: 17px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+}
+
+.treatment-del:nth-of-type(1) {
+    background: url("../img/icss/close.png") no-repeat center;
+    background-size: 17px 17px;
+}
+
+/* 点击主诉等框出现的症状的样式*/
+.group > div > div.symptom-container {
+    position: absolute;
+    width: 778px;
+    padding: 10px;
+    left: -1px;
+    top: calc(100% + 1px);
+    z-index: 1;
+    margin-bottom: 40px;
+}
+
+.group > div > div.symptom-container.symptom {
+    padding-top: 0;
+    padding-bottom: 0;
+    box-shadow: none;
+}
+
+.group > div > div.symptom-container > .symptom-wrap {
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+    float: left;
+    width: 10000px;
+    padding-left: 5px;
+}
+
+.group > div > div.symptom-container.symptom > .symptom-wrap {
+    display: none;
+}
+
+.group > div > div.symptom-container.symptom > div.button {
+    display: none;
+}
+
+.group > div > div.symptom-container.symptom > div.symptom-else {
+    display: none;
+}
+
+.group > div > div.symptom-container > .symptom-wrap > div.symptom {
+    height: 20px;
+    width: auto;
+    font-weight: normal;
+    cursor: pointer;
+    position: relative;
+    float: left;
+    z-index: 1;
+}
+
+.group > div > div.symptom-container > .symptom-wrap > div.symptom.focus {
+    color: #4faad9;
+    font-weight: bold;
+}
+.group > div > div.symptom-container > .symptom-wrap > div.symptom.hover {
+    color: #4faad9;
+}
+.group > div > div.symptom-container > .symptom-wrap > div.symptom:hover {
+    color: #4faad9; 
+}
+
+.group > div > div.symptom-container > .symptom-wrap > div.symptom > i {
+    margin-left: 5px;
+    visibility: hidden;
+    color: #4faad9;
+    position: relative;
+    top: 1px;
+    left: -3px;
+}
+
+/*.group:nth-of-type(n+3) > div > div.symptom-container > .symptom-wrap > div.symptom:hover > i {*/
+    /*visibility: visible;*/
+/*}*/
+.group > div > div.symptom-container > .symptom-wrap > div.symptom > i:hover >.detail-info {
+    display: block;
+}
+
+.group > div > div.symptom-container > .symptom-wrap > div.symptom > i >.detail-info {
+    position: absolute;
+    top: 18px;
+    left: -10px;
+    height: auto;
+    width: 650px;
+    padding: 10px 15px;
+    font-size: 12px;
+    display: none;
+}
+.group > div > div.symptom-container > .symptom-wrap > div.symptom > i >.detail-info.d-n {
+    display: none;
+}
+
+.group > div > div.symptom-container > .symptom-wrap > div.symptom > i >.detail-info > .title {
+    color: #33475f;
+    font-weight: bold;
+    cursor: auto;
+}
+
+.group > div > div.symptom-container > .symptom-wrap > div.symptom > i >.detail-info > .info {
+    color: #33475f;
+    cursor: auto;
+}
+
+.group > div > div.symptom-container > .symptom-wrap > div.symptom > i >.detail-info > .info >span:first-child{
+    cursor: pointer;
+}
+
+/*箭头的样式*/
+.group > div div.arrow {
+    border: 1px solid #eee;
+    background-color: #e5e5e5;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+
+.arrow-shadow {
+    width: 1px;
+    height: 20px;
+    position: absolute;
+    right: -1px;
+    border-left: 1px solid #e5e5e5;
+    background-color: #e5e5e5;
+}
+
+.group > div > div.symptom-container div.arrow > i {
+    font-size: 11px;
+}
+
+.group > div > div.symptom-container div.arrow.disabled {
+    cursor: not-allowed;
+    color: #aaa;
+}
+
+.group > div > div.symptom-container > div.button {
+    position: absolute;
+    width: auto;
+    max-width: 90px;
+    background-color: #fff;
+    right: 0;
+    z-index: 100;
+}
+
+.group > div > div.symptom-container > div.button > div.right,
+.group > div > div.symptom-container > div.button > div.left {
+    display: none;
+}
+
+.group > div > div.symptom-container:hover > div.button > div.right,
+.group > div > div.symptom-container:hover > div.button > div.left {
+    display: block;
+}
+
+.group > div > div.symptom-container:hover > div.button > div.right.d-n,
+.group > div > div.symptom-container:hover > div.button > div.left.d-n {
+    display: none;
+}
+
+.group > div > div.symptom-container > div.button > div.arrow {
+    margin-right: 10px;
+    float: right;
+}
+
+.group > div > div.symptom-container > div.button > div.arrow.detail {
+    position: relative;
+    /*background: url("../img/icss/more.png") no-repeat center;*/
+    /*background-size: 20px 20px;*/
+}
+.group > div > div.symptom-container > div.button > div.arrow.detail > img{
+    width: 100%;
+    height: 100%;
+}
+
+.group > div > div.symptom-container > div.button > div.arrow.left {
+    margin-right: 2px;
+    background: url("../img/icss/left.png") no-repeat center;
+    background-size: 20px 20px;
+}
+.group > div > div.symptom-container > div.button > div.arrow.left.disabled {
+    background: url("../img/icss/left_gray.png") no-repeat center;
+    background-size: 20px 20px;
+}
+.group > div > div.symptom-container > div.button > div.arrow.right {
+    background: url("../img/icss/right.png") no-repeat center;
+    background-size: 20px 20px;
+}
+.group > div > div.symptom-container > div.button > div.arrow.right.disabled {
+    background: url("../img/icss/right_gray.png") no-repeat center;
+    background-size: 20px 20px;
+}
+
+/*所有疾病列表*/
+.group > div > div.symptom-all {
+    position: absolute;
+    height: auto;
+    width: 778px;
+    float: left;
+    left: -1px;
+    top: calc(100% + 1px);
+    z-index: 5;
+    max-height: 350px;
+}
+
+.group > div > div.symptom-all > div.title {
+    padding: 10px;
+    height: 45px;
+    position: relative;
+    text-align: center;
+}
+
+.group > div > div.symptom-all > div.title > div.button-group {
+    width: auto;
+    height: 25px;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.group > div > div.symptom-all > div.title > div.button-group > button {
+    float: left;
+    border-radius: 0;
+    outline: none;
+    height: 25px;
+    width: auto;
+    min-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #fff;
+    border-top: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    color: #33475f;
+    cursor: pointer;
+}
+
+.group > div > div.symptom-all > div.title > div.button-group > button.focus {
+    font-weight: bold;
+    color: #fff;
+    background-color: #4faad9;
+    border-color: #4faad9 !important;
+}
+
+.group > div > div.symptom-all > div.title > div.button-group > button:first-of-type {
+    border-top-left-radius: 12.5px;
+    border-bottom-left-radius: 12.5px;
+    border-left: 1px solid #e5e5e5;
+}
+
+.group > div > div.symptom-all > div.title > div.button-group > button:last-of-type {
+    border-top-right-radius: 12.5px;
+    border-bottom-right-radius: 12.5px;
+}
+
+.group > div > div.symptom-all > div.title > div.button-group > div.setting {
+    height: 16px;
+    width: 16px;
+    margin-left: 10px;
+    background: url("../img/icss/setting.png") center no-repeat;
+    background-size: 16px 16px;
+    cursor: pointer;
+    float: left;
+    margin-top: 4px;
+}
+
+.group > div > div.symptom-all div.arrow {
+    position: absolute;
+    right: 10px;
+    top: 13px;
+    color: #fff;
+    background-image: url("../img/icss/up.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+
+.group > div > div.symptom-all div.arrow > i {
+    font-size: 11px;
+}
+
+.group > div > div.symptom-all > div.wrap {
+    border-top: 1px solid #e5e5e5;
+    width: 100%;
+    height: auto;
+    float: left;
+    max-height: 305px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content {
+    width: 100%;
+    float: left;
+    height: auto;
+    position: relative;
+    max-height: 305px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.menu {
+    background-color: #eee;
+    width: 120px;
+    float: left;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 302px;
+    border-bottom-left-radius: 5px;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.menu::-webkit-scrollbar-track {
+    background-color: #F0F5FA;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.menu::-webkit-scrollbar {
+    width: 4px;
+    background-color: #F0F5FA;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.menu::-webkit-scrollbar-thumb {
+    background-color: #e5e5e5;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.menu ul.first-level > li > a {
+    display: block;
+    height: 25px;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: normal;
+    line-height: 15px;
+}
+
+/*.group > div > div.symptom-all > div.wrap > div.wrap-content div.menu ul.first-level > li > a > i {*/
+/*visibility: hidden;*/
+/*}*/
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.menu ul.first-level > li > a.focus > i {
+    visibility: visible !important;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.menu ul.first-level > li > a > i {
+    font-size: 13px;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+div.menu a {
+    cursor: pointer;
+}
+
+div.menu a.focus {
+    background-color: #fff;
+    font-weight: bold !important;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.menu ul.second-level > li > a {
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    padding-left: 40px;
+    font-weight: normal;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.content {
+    width: 656px;
+    float: left;
+    height: 100%;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 302px;
+    border-bottom-right-radius: 5px;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.content::-webkit-scrollbar {
+    width: 5px;
+    background-color: #fff;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.content::-webkit-scrollbar-thumb {
+    background-color: #e5e5e5;
+    height: 90px;
+}
+
+.group > div > div.symptom-all > div.wrap > div.wrap-content div.content::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+.group > div > div.symptom-all > div.wrap div.content > p.title {
+    width: 636px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-left: 15px;
+    margin-right: 5px;
+    font-weight: normal;
+    color: #A3A4A5;
+    float: left;
+}
+
+.group > div > div.symptom-all > div.wrap div.content > p.symptom {
+    width: 80px;
+    height: 20px;
+    margin: 12px 12px 0 15px;
+    float: left;
+    font-weight: normal;
+    cursor: pointer;
+    text-align: center;
+    line-height: 20px;
+}
+
+.group > div > div.symptom-all > div.wrap div.content > p.symptom:hover {
+    color: #4faad9;
+}
+
+.group > div > div.symptom-all > div.wrap div.content > p.symptom.focus {
+    color: #0088be;
+    border-radius: 5px;
+    background-color: #eee;
+}
+
+/*动态表单*/
+.group > div > div.symptom-container > div.symptom-form {
+    position: relative;
+    width: calc(100% + 20px);
+    height: auto;
+    float: left;
+    margin-left: -10px;
+    margin-top: 10px;
+    border-top: 1px solid #e5e5e5;
+    z-index: 5;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #fff;
+}
+
+.group > div > div.symptom-container.symptom > div.symptom-form {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 2px 2px 6px rgba(154, 152, 152, 0.25);
+    border-radius: 5px;
+}
+
+.group > div > div.symptom-container > div.symptom-form > div.title {
+    height: 30px;
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #e5e5e5;
+    padding-top: 5px;
+}
+
+.group > div > div.symptom-container > div.symptom-form > div.title > span {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.group > div > div.symptom-container > div.symptom-form > div.title > i {
+    display: inline-block;
+    font-size: 18px;
+    margin-right: 5px;
+    float: left;
+    margin-top: -2.5px;
+    margin-left: -8px;
+    color: #4faad9;
+    cursor: pointer;
+    visibility: hidden;
+}
+/*.group > div > div.symptom-container > div.symptom-form > div.title:hover > i {*/
+    /*visibility: visible;*/
+/*}*/
+
+.group > div > div.symptom-container > div.symptom-form > div.button {
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+}
+
+.group > div > div.symptom-container > div.symptom-form > div.button > button {
+    float: right;
+    height: 25px;
+    margin-left: 10px;
+    font-size: 11px;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+    font-weight: bold;
+    width: 70px;
+    margin-right: 0;
+}
+
+.group > div > div.symptom-container > div.symptom-form.disabled div.date-toggle,
+.group > div > div.symptom-container > div.symptom-form.disabled label,
+.group > div > div.symptom-container > div.symptom-form.disabled div.select,
+.group > div > div.symptom-container > div.symptom-form.disabled div.select.focus,
+.group > div > div.symptom-container > div.symptom-form.disabled div.date-toggle > span.focus,
+.group > div > div.symptom-container > div.symptom-form.disabled div.select > div.down-arrow,
+.group > div > div.symptom-container > div.symptom-form.disabled div.select > input,
+.group > div > div.symptom-container > div.symptom-form.disabled textarea,
+.group > div > div.symptom-container > div.symptom-form.disabled input,
+.group > div > div.symptom-container > div.symptom-form.disabled div.form-group > div.checkbox,
+.group > div > div.symptom-container > div.symptom-form.disabled div.form-group > div.radio,
+.group > div > div.symptom-container > div.symptom-form.disabled div.validate > p {
+    cursor: not-allowed;
+    color: #aaa !important;
+    border-color: #ddd;
+}
+
+.group > div > div.symptom-container > div.symptom-form.disabled div.form-group > div.radio > div.box-r-s,
+.group > div > div.symptom-container > div.symptom-form.disabled div.form-group > div.checkbox > div.box-r-s {
+    background-color: #fff;
+}
+
+.group > div > div.symptom-container > div.symptom-form.disabled > div.title > span {
+    color: #33475f;
+}
+
+.group > div > div.symptom-container > div.symptom-form.disabled div.date-toggle > div.background-color {
+    background-color: #fff;
+}
+
+.group > div > div.symptom-container > div.symptom-else {
+    height: 30px;
+    width: 756px;
+    position: relative;
+    float: left;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 10px;
+    padding-top: 5px;
+    margin-left: 5px;
+}
+
+.group > div > div.symptom-container > div.symptom-else > div.checkbox {
+    margin-top: 4px;
+    margin-right: 20px;
+}
+
+.group > div > div.symptom-container > div.symptom-else > p {
+    height: 20px;
+    line-height: 20px;
+    padding: 0 15px;
+    cursor: pointer;
+    color: #33475f;
+    font-weight: normal;
+    margin-top: 3px;
+    text-align: center;
+    display: inline-table;
+    border-left: 1px solid #e5e5e5;
+    margin-right: 0;
+}
+
+/*.group > div > div.symptom-container > div.symptom-else > p.all {*/
+    /*margin-top: 0;*/
+    /*float: right;*/
+    /*width: 60px;*/
+    /*height: 24px;*/
+    /*line-height: 24px;*/
+    /*border: 1px solid #e5e5e5;*/
+    /*font-weight: bold;*/
+/*}*/
+
+.group > div > div.symptom-container > div.symptom-else > p:hover {
+    background-color: #e5e5e5;
+}
+
+.group > div > div.symptom-container > div.symptom-else > p.focus {
+    background-color: #0088be;
+    color: #fff;
+
+}
+
+/*.group > div > div.symptom-container > div.symptom-else > p.all:hover {*/
+    /*background-color: #e5e5e5;*/
+/*}*/
+
+/*.group > div > div.symptom-container > div.symptom-else > p.all.focus {*/
+    /*color: #fff;*/
+    /*border-color: #0088be;*/
+    /*background-color: #0088be;*/
+/*}*/
+
+.lis div.form-group label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.lis .lis-check-some2 {
+    width: calc(100% - 20px);
+    height: 100%;
+    outline: none;
+    background: none;
+    border: none;
+    width: 84px;
+    height: 30px;
+    outline: none;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    outline: none;
+}
+.lis .form-area .row{
+    width: 100px;
+}
+.lis-check-some3 {
+    width: 100px;
+}
+.lis .lis-check-some2 input,
+.lis .lis-check-some3 input {
+    width: 100px ;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5 !important;
+}
+
+.lis .lis-check-some2 div.down-arrow,
+.lis .lis-check-some3 div.down-arrow {
+    position: absolute;
+    top: 27px;
+}

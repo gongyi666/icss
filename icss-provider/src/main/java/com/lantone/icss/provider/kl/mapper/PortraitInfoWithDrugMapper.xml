@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.PortraitInfoWithDrugMapper" >
+  <resultMap id="ResultMap" type="com.lantone.icss.api.kl.model.wrapper.PortraitInfoWithDrugWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="transverse_id" property="transverseId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="end_level" property="endLevel" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="group_type" property="groupType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getPortraitWithDrugByParent" parameterType="java.lang.Long" resultMap="ResultMap">
+  		select * from kl_portrait_info 
+  		where status = '1' 
+  		and parent_id = #{parentId} 
+  		order by order_no
+  </select>
+  
+  <select id="getPortraitWithDrugByTransverse" parameterType="java.lang.Long" resultMap="ResultMap">
+  		select * from kl_portrait_info 
+  		where status = '1' 
+  		and transverse_id = #{transverseId} 
+  		order by order_no
+  </select>
+    <select id="getPortraitById" parameterType="java.lang.Long" resultMap="ResultMap">
+  		select * from kl_portrait_info 
+  		where status = '1' 
+  		and id = #{portraitId} 
+  	
+  </select>
+  <insert id="insertPortraitInfoDrugBatch" useGeneratedKeys="true" parameterType="java.util.List">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	insert into kl_portrait_drug (portrait_id,drg_id,remark) 
+	values
+	<foreach collection="list" item="item" index="index" separator="," >
+		(#{item.portraitId},#{item.drgId},#{item.remark})
+	</foreach>
+</insert>
+<delete id="deletePortraitInfoDrugBatchBatch" parameterType="java.util.List">  
+    DELETE FROM kl_portrait_drug WHERE id IN  
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">   
+         id= #{item.id}     
+    </foreach>  
+</delete> 
+<delete id="deletePortraitInfoDrug" parameterType="java.util.Map">
+     DELETE FROM kl_portrait_drug WHERE   portrait_id= #{portraitId} and
+        drg_id#{drgId}   
+    
+</delete>  
+</mapper>

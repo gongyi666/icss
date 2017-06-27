@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lantone.icss.provider.kl.dao.DrugInfoMapper">
+	<resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.DrugInfo">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="sysType" property="sys_type" jdbcType="BIGINT" />
+		<result column="five_stroke" property="fiveStroke" jdbcType="VARCHAR" />
+		<result column="spell" property="spell" jdbcType="VARCHAR" />
+		<result column="sexType" property="sex_type" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="is_group" property="isGroup" jdbcType="VARCHAR" />
+		<result column="is_special" property="isSpecial" jdbcType="VARCHAR" />
+		<result column="age_begin" property="ageBegin" jdbcType="BIGINT" />
+		<result column="age_end" property="ageEnd" jdbcType="BIGINT" />
+		<result column="has_question" property="hasQuestion" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="doctor_id" property="doctorId" jdbcType="BIGINT" />
+		<result column="drug_psychotropic" property="drugPsychotropic"
+			jdbcType="BIGINT" />
+		<result column="skin_test" property="skinTest" />
+		<result column="drug_formulation" property="drugFormulation"
+			jdbcType="VARCHAR" />
+		<result column="drug_instructions" property="drugInstructions" />
+	</resultMap>
+
+
+	<resultMap id="BaseResultMapwrpper"
+		type="com.lantone.icss.api.kl.model.wrapper.DrugInfoWrapper">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sysType" property="sys_type" jdbcType="BIGINT" />
+		<result column="five_stroke" property="fiveStroke" jdbcType="VARCHAR" />
+		<result column="spell" property="spell" jdbcType="VARCHAR" />
+		<result column="sexType" property="sex_type" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="is_group" property="isGroup" jdbcType="VARCHAR" />
+		<result column="is_special" property="isSpecial" jdbcType="VARCHAR" />
+		<result column="age_begin" property="ageBegin" jdbcType="BIGINT" />
+		<result column="age_end" property="ageEnd" jdbcType="BIGINT" />
+		<result column="has_question" property="hasQuestion" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="doctor_id" property="doctorId" jdbcType="BIGINT" />
+		<result column="drug_psychotropic" property="drugPsychotropic"
+			jdbcType="BIGINT" />
+		<result column="skin_test" property="skinTest" />
+		<result column="drug_formulation" property="drugFormulation"
+			jdbcType="VARCHAR" />
+		<result column="drug_instructions" property="drugInstructions" />
+	</resultMap>
+
+	<!-- private Long id; private String name; private Long sysType; private 
+		String spell; private String fiveStroke; private String sexType; private 
+		String type; private String isGroup; private String isSpecial; private Long 
+		ageBegin; private Long ageEnd; private String hasQuestion; private String 
+		status; private String remark; -->
+
+	<!-- 搜索别名和通用名 -->
+	<select id="getDrugInfoByInput" parameterType="java.util.Map"
+		resultMap="BaseResultMapwrpper">
+		<!-- select * from kl_drug_item_info where status = '0' and (spell like 
+			CONCAT(#{inputstr},'%') or name like CONCAT('%',#{inputstr},'%') or five_stroke 
+			like CONCAT(#{inputstr},'%') ) LIMIT 0, #{size} -->
+
+		select t.name,t.* from kl_drug_item_info t
+		where
+		t.status = '0'
+		<if test="drugIds !=null and drugIds.length>0 ">
+			and t.id in
+			<foreach collection="drugIds" item="id" open="(" separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+		and (t.spell like CONCAT('%',#{inputstr},'%')
+		or t.name like
+		CONCAT('%',#{inputstr},'%')
+		or t.five_stroke like
+		CONCAT('%',#{inputstr},'%'))
+		LIMIT 0, #{size}
+		UNION
+		select f.drug_name,e.*
+		from kl_drug_name_library f ,kl_drug_item_info
+		e
+		where
+		e.status = '0'
+		<if test="drugIds !=null and drugIds.length>0 ">
+			and e.id in
+			<foreach collection="drugIds" item="id" open="(" separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+		and f.drug_id = e.id
+		and (f.spell like CONCAT('%',#{inputstr},'%')
+		or
+		f.drug_name like CONCAT('%',#{inputstr},'%')
+		or f.five_stroke like
+		CONCAT('%',#{inputstr},'%'))
+		LIMIT 0, #{size}
+
+	</select>
+	<select id="getDrugInfoByDepOrSys" parameterType="java.util.Map"
+		resultMap="BaseResultMapwrpper">
+		select DISTINCT b.* from kl_disease_drug a
+		left join
+		kl_drug_item_info b on a.drug_id = b.id
+		WHERE a.disease_id=#{disId}
+		and
+		status = '1'
+		and sys_type=#{sysType}
+		LIMIT 0, #{size}
+	</select>
+	<select id="getDrugInfoByDiseaseId" parameterType="java.util.Map"
+		resultMap="BaseResultMapwrpper">
+		select DISTINCT b.* from kl_disease_drug a
+		left join
+		kl_drug_item_info b on a.drug_id = b.id
+		WHERE a.disease_id=#{disId}
+		and
+		status = '1'
+	</select>
+	<select id="getDrugInfoTreatment" parameterType="java.util.Map"
+		resultMap="BaseResultMapwrpper">
+		select b.*,c.count_num from (
+		<choose>
+			<when test="diseaseIds!=null and diseaseIds.length!=0">
+				select drg_id from kl_diagnostic_drug where
+				1=1
+				<if test="diseaseIds!=null and diseaseIds.length!=0">
+					and code in
+					<foreach item="code" collection="diseaseIds" open="("
+						separator="," close=")">
+						#{code}
+					</foreach>
+				</if>
+			</when>
+			<otherwise>
+				select drg_id from
+				kl_department_drug
+				where 1=1
+				<if test="depId != null and depId != ''">
+					and dep_id=#{depId}
+				</if>
+				<if test="sysId != null and sysId != ''">
+					and sys_id=#{sysId}
+				</if>
+			</otherwise>
+		</choose>
+		)a
+		left join kl_drug_item_info b on a.drg_id=b.id left join
+		kl_doctor_drug_count
+		c on c.drg_id=b.id where 1=1
+		<if test="age != null and age != ''">
+			and age_begin &lt;=#{age} and age_end &gt;=#{age}
+		</if>
+		<if test="sexType != null and sexType != ''">
+			and sex_type=#{sexType}
+		</if>
+		<if test="doctorId != null and doctorId != ''">
+			and c.doctor_id=#{doctorId}
+		</if>
+		order by c.count_num desc
+		,c.doctor_id
+		<!-- limit 0,#{size} -->
+	</select>
+	<select id="getDrugInfoByPortraitId" parameterType="java.lang.Long"
+		resultMap="BaseResultMapwrpper">
+		select DISTINCT b.* from kl_portrait_drug a
+		left join
+		kl_drug_item_info b on a.drg_id = b.id
+		WHERE
+		a.portrait_id=#{portraitId}
+
+	</select>
+	<select id="getRelationDrugInfoByDrugId" parameterType="java.lang.Long"
+		resultMap="BaseResultMapwrpper">
+		<!-- select a.relation_drg_id id, a.relation_drg_name name, b.sys_type 
+			, b.spell spell , b.five_stroke , b.sex_type, b.type , b.is_group, b.is_special, 
+			b.age_begin , b.age_end , b.has_question , b.status, b.remark , b.doctor_id, 
+			a.drg_id from kl_relation_drug a left join kl_drug_item_info b on a.drg_id 
+			= b.id WHERE a.drg_id=#{drgId} -->
+
+		select b.* from kl_drug_item_info b, kl_relation_drug a where b.id =
+		a.relation_drg_id and a.drg_id = #{drgId};
+
+	</select>
+	<select id="getRelationDrugInfoByDrugIds" parameterType="java.lang.Long"
+		resultMap="BaseResultMapwrpper">
+		<!-- select a.relation_drg_id id, a.relation_drg_name name, b.sys_type 
+			, b.spell spell , b.five_stroke , b.sex_type, b.type , b.is_group, b.is_special, 
+			b.age_begin , b.age_end , b.has_question , b.status, b.remark , b.doctor_id, 
+			a.drg_id from kl_relation_drug a left join kl_drug_item_info b on a.drg_id 
+			= b.id WHERE a.drg_id=#{drgId} -->
+		select b.* from kl_drug_item_info b where b.id in
+		(
+		select
+		relation_drg_id,count(relation_drg_id) from kl_relation_drug where
+		1==1
+		<if test="drugIds!=null and drugIds.length!=0">
+			and a.drg_id in
+			<foreach item="drugId" collection="drugIds" open="("
+				separator="," close=")">
+				#{drgId}
+			</foreach>
+		</if>
+		group by relation_drg_id 
+		
+		)
+	</select>
+	<!-- 添加 -->
+	<!--<insert id="insert" parameterType="com.lantone.icss.api.kl.model.DrugInfo"> 
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long"> select 
+		LAST_INSERT_ID() </selectKey> INSERT INTO kl_drug_item_info (name,sys_type,spell,five_stroke,sex_type,type,is_group,is_special,age_begin,age_end,has_question,status,remark,doctor_id) 
+		VALUES (#{name},#{sysType},#{spell},#{fiveStroke},#{sexType},#{type},#{isGroup},#{isSpecial},#{ageBegin},#{ageEnd},#{hasQuestion},#{status},#{remark},#{doctorId}) 
+		</insert> -->
+
+	<insert id="insert" parameterType="com.lantone.icss.api.kl.model.DrugInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO kl_drug_item_info
+		(id,name,sys_type,spell,five_stroke,sex_type,type,is_group,is_special,age_begin,age_end,has_question,status,remark,doctor_id)
+		VALUES
+		(#{id},#{name},#{sysType},#{spell},#{fiveStroke},#{sexType},#{type},#{isGroup},#{isSpecial},#{ageBegin},#{ageEnd},#{hasQuestion},#{status},#{remark},#{doctorId})
+	</insert>
+
+	<select id="nextId" resultType="java.lang.Long">
+		SELECT max(id)+1 FROM
+		kl_drug_item_info;
+	</select>
+
+	<!-- 判断药品名称是否存在 -->
+	<select id="isExist" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM kl_drug_item_info t
+		<where>
+			<choose>
+				<when test="name != null and name != ''">
+					t.name = #{name}
+				</when>
+				<otherwise>
+					and 1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="getDrugInfoByRuleCode" parameterType="java.util.Map"
+		resultMap="BaseResultMapwrpper">
+		select b.* from kl_standard_info a,kl_drug_item_info b
+		where
+		a.id=b.standard_id
+		<if test="codes!=null and codes.size()!=0">
+			and a.code in
+			<foreach item="code" collection="codes" open="(" separator=","
+				close=")">
+				#{code}
+			</foreach>
+		</if>
+	</select>
+
+</mapper>

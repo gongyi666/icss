@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.LisInfoMapper">
+	<resultMap id="LisInfoWrapper"
+		type="com.lantone.icss.api.kl.model.wrapper.LisInfoWrapper">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="spell" property="spell" jdbcType="VARCHAR" />
+		<result column="five_stroke" property="fiveStroke" jdbcType="VARCHAR" />
+		<result column="sys_type" property="sysType" jdbcType="BIGINT" />
+		<result column="sex_type" property="sexType" jdbcType="VARCHAR" />
+		<result column="age_begin" property="ageBegin" jdbcType="BIGINT" />
+		<result column="age_end" property="ageEnd" jdbcType="BIGINT" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="sample" property="sample" jdbcType="VARCHAR" />
+		<result column="method" property="method" jdbcType="VARCHAR" />
+		<result column="lis_type_id" property="lisTypeId" jdbcType="BIGINT" />
+		<result column="standard_id" property="standardId" jdbcType="BIGINT" />
+
+		<!-- 扩充字段 -->
+		<result column="sub_name" property="subName" jdbcType="VARCHAR" /> 
+		<result column="param_code" property="paramCode" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+	<select id="getLisByDiseaseId" parameterType="java.lang.Long"
+		resultMap="LisInfoWrapper">
+		select c.*,(select s.code from kl_standard_info s where s.id =
+		c.standard_id) param_code from kl_lis_info c where c.id in(
+		select
+		DISTINCT b.lis_id from kl_dis_lis_detail a
+		left join kl_lis_detail b on
+		a.lis_detail_id = b.id
+		where a.disease_id = #{diseaseId})
+		order by c.id
+	</select>
+
+	<select id="getLisByInput" parameterType="com.lantone.icss.api.kl.model.wrapper.LisInfoWrapper"
+		resultMap="LisInfoWrapper">
+		select a.*,s.code param_code from kl_lis_info a 
+		left join kl_standard_info s on s.id = a.standard_id
+		where a.status = '1'
+		<if test="inputstr != null and inputstr != ''">
+			and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like
+			CONCAT('%',#{inputstr},'%'))
+		</if>
+		<if test="notIdsArr != null and notIdsArr.length > 0">
+			and a.id not in 
+			<foreach item="item" index="index" collection="notIdsArr" 
+                        open="(" separator="," close=")">
+                 #{item}
+            </foreach>
+		</if>
+		limit 0,#{size}
+	</select>
+	
+	
+	<select id="getCommonLis" parameterType="java.util.Map"
+		resultMap="LisInfoWrapper">
+		SELECT
+		habit_id AS CODE,
+		NAME
+		FROM
+		at_doctor_habit_count
+		WHERE
+		type = '5'
+		AND doctor_id = #{doctorId}
+		limit 0,#{size}
+	</select>
+
+	<select id="getLisByType" parameterType="java.lang.Long"
+		resultMap="LisInfoWrapper">
+		select a.*,s.code param_code from kl_lis_info a 
+		left join kl_standard_info s on s.id = a.standard_id where a.status = '1' and
+		a.lis_type_id = #{lisTypeId}
+	</select>
+
+	<select id="getLisProject" parameterType="java.util.Map"
+		resultMap="LisInfoWrapper">
+		select i.*, s.code param_code 
+		from kl_lis_info i 
+		left join kl_lis_project p on i.code = p.lis_code
+		left join kl_standard_info s on s.id = i.standard_id
+		where i.code = #{code}
+		and i.status = '1'
+	</select>
+	
+	<select id="getLisInfosByCode"  resultMap="LisInfoWrapper">
+		select c.*,s.code param_code from kl_lis_info c 
+		left join kl_standard_info s on s.id = c.standard_id where c.id in
+		   (select a.lis_id from kl_lis_diagnose a,kl_lis_rule b where a.rule_id = b.id and b.code in 
+		   <foreach item="code" collection="list" open="(" separator="," close=")">
+			#{code}
+		  </foreach>
+		   )
+	</select>
+
+	 <select id="getHisDetailCodeByInfo" parameterType="com.lantone.icss.api.kl.model.wrapper.LisInfoWrapper" 
+		resultType="java.lang.String"> select distinct his_lis_code from his_mapping_lis 
+		where hospital_code = #{hospitalCode} and icss_lis_code in (select id from 
+		kl_lis_detail where status = '1' and lis_id = #{id}) </select> 
+
+	<select id="getHisListCodeByInfo"
+		parameterType="com.lantone.icss.api.kl.model.wrapper.LisInfoWrapper"
+		resultType="com.lantone.icss.api.kl.model.wrapper.LisInfoWrapper">
+		select distinct a.his_lis_code code,b.`name` from his_mapping_lis a,his_lis_info
+		b where
+		a.his_lis_code=b.his_lis_code and a.hospital_code = #{hospitalCode}
+		and a.icss_lis_code=#{id}
+	</select>
+
+	<!-- 取高频>2 -->
+	<select id="getHighFrequencyPush"
+		parameterType="com.lantone.icss.api.kl.model.wrapper.LisInfoWrapper"
+		resultMap="LisInfoWrapper">
+		select a.*,b.*, s.code param_code 
+		from kl_lis_info a
+		left join at_doctor_habit_count b on a.id = b.habit_id and b.doctor_id = #{doctorId} and b.type = '5' 
+		left join kl_standard_info s on s.id = a.standard_id
+		where a.status = '1' and b.count_num > 2
+		<if test="notIdsArr != null and notIdsArr.length > 0">
+			and a.id not in
+			<foreach collection="notIdsArr" item="item" index="index"
+				close=")" separator="," open="(">
+				#{item}
+			</foreach>
+		</if>
+		<if test="age != null and age != ''">
+			<![CDATA[ and a.age_begin <= #{age} ]]>
+			<![CDATA[ and a.age_end >= #{age} ]]>
+		</if>
+		<if test="standardIds != null and standardIds.size() != 0 ">
+			and a.standard_id in
+			<foreach collection="standardIds" item="standardId" open="("
+				separator="," close=")">
+				#{standardId}
+			</foreach>
+		</if>
+		<if test="sexType == 3">
+			and a.sex_type in ('1','2','3')
+		</if>
+		<if test="sexType != 3">
+			and a.sex_type in ('3',#{sexType})
+		</if>
+		<!-- <if
+			test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+			and a.sys_type in (select c.icss_sys_id from
+			his_mapping_dept c
+			where c.hospital_code = #{hospitalCode}
+			and c.his_dept_code = #{deptNo})
+		</if> -->
+		<if test="inputstr != null and inputstr != ''">
+			and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like
+			CONCAT('%',#{inputstr},'%'))
+		</if>
+		order by b.count_num desc,a.order_no asc
+		limit 0,#{size}
+	</select>
+	
+	<!-- ***等大国录入数据后替用原先的*** -->
+	<!-- <select id="getLisInfoByDoctorId"
+		parameterType="com.lantone.icss.api.kl.model.wrapper.LisInfoWrapper"
+		resultMap="LisInfoWrapper">
+		select a.*,b.*, s.code param_code 
+		from kl_lis_info a 
+		left join at_doctor_habit_count b on a.id = b.habit_id and b.doctor_id = #{doctorId} and b.type = '5'
+		left join kl_standard_info s on s.id = a.standard_id
+		<if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != '' 
+						and (standardIds == null or standardIds.size()==0 )">
+				inner join (select mm.item_id from kl_dept_item mm, his_mapping_dept nn
+				where mm.usual = '1' and mm.type = #{type} and mm.icss_sys_id = nn.icss_sys_id
+				and nn.hospital_code = #{hospitalCode} and nn.his_dept_code = #{deptNo}) h
+		</if>
+		where a.status = '1'
+		<if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != '' 
+						and (standardIds == null or standardIds.size()==0) ">
+				and a.id = h.item_id
+			</if>
+		<if test="notIdsArr != null and notIdsArr.length > 0">
+			and a.id not in
+			<foreach collection="notIdsArr" item="item" index="index"
+				close=")" separator="," open="(">
+				#{item}
+			</foreach>
+		</if>
+		<if test="age != null and age != ''">
+		<![CDATA[ and a.age_begin <= #{age} ]]>
+		<![CDATA[ and a.age_end >= #{age} ]]>
+		</if>
+		<choose>
+			<when test="standardIds != null and standardIds.size() != 0">
+				and a.standard_id in
+				<foreach collection="standardIds" item="standardId" open="("
+					separator="," close=")">
+					#{standardId}
+				</foreach>
+			</when>
+			<otherwise>
+				and a.usual = '1' 
+			</otherwise>
+		</choose>
+		<if test="sexType == 3">
+			and a.sex_type in ('1','2','3')
+		</if>
+		<if test="sexType != 3">
+			and a.sex_type in ('3',#{sexType})
+		</if>
+		<if
+			test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+			and a.sys_type in (select c.icss_sys_id from
+			his_mapping_dept c
+			where c.hospital_code = #{hospitalCode}
+			and c.his_dept_code = #{deptNo})
+		</if>
+		<if test="inputstr != null and inputstr != ''">
+			and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like
+			CONCAT('%',#{inputstr},'%'))
+		</if>
+		order by b.count_num desc,a.order_no asc
+		limit 0,#{size}
+	</select> -->
+	
+	
+	<select id="getLisInfoByDoctorId"
+		parameterType="com.lantone.icss.api.kl.model.wrapper.LisInfoWrapper"
+		resultMap="LisInfoWrapper">
+		select a.*,b.*, s.code param_code 
+		from kl_lis_info a 
+		left join at_doctor_habit_count b on a.id = b.habit_id and b.doctor_id = #{doctorId} and b.type = '5'
+		left join kl_standard_info s on s.id = a.standard_id
+		where a.status = '1'
+		<if test="notIdsArr != null and notIdsArr.length > 0">
+			and a.id not in
+			<foreach collection="notIdsArr" item="item" index="index"
+				close=")" separator="," open="(">
+				#{item}
+			</foreach>
+		</if>
+		<if test="age != null and age != ''">
+		<![CDATA[ and a.age_begin <= #{age} ]]>
+		<![CDATA[ and a.age_end >= #{age} ]]>
+		</if>
+		<choose>
+			<when test="standardIds != null and standardIds.size() != 0">
+				and a.standard_id in
+				<foreach collection="standardIds" item="standardId" open="("
+					separator="," close=")">
+					#{standardId}
+				</foreach>
+			</when>
+			<otherwise>
+				and a.usual = '1' 
+			</otherwise>
+		</choose>
+		<if test="sexType == 3">
+			and a.sex_type in ('1','2','3')
+		</if>
+		<if test="sexType != 3">
+			and a.sex_type in ('3',#{sexType})
+		</if>
+		<!-- <if
+			test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+			and a.sys_type in (select c.icss_sys_id from
+			his_mapping_dept c
+			where c.hospital_code = #{hospitalCode}
+			and c.his_dept_code = #{deptNo})
+		</if> -->
+		<if test="inputstr != null and inputstr != ''">
+			and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like
+			CONCAT('%',#{inputstr},'%'))
+		</if>
+		order by b.count_num desc,a.order_no asc
+		limit 0,#{size}
+	</select>
+	
+	<select id="getLisByRetrieval" parameterType="com.lantone.icss.api.kl.model.wrapper.RetrievalInfoWrapper" resultMap="LisInfoWrapper">	
+		select t.*,b.* from 
+			(select s.*, ksi.code param_code, r.name as sub_name  
+				from kl_lis_info s 
+				left join kl_retrieval_mapping m on m.search_id = s.id 
+				left join kl_retrieval_info r on m.retrieval_id = r.id and r.type = #{type} and r.status = '1' 
+				left join kl_standard_info ksi on ksi.id = s.standard_id 
+			where s.status = '1'  
+			and (r.spell like CONCAT('%',#{inputstr},'%') or r.name like CONCAT('%',#{inputstr},'%'))) t 
+		left join at_doctor_habit_count b on t.id = b.habit_id and b.doctor_id = #{doctorId} and b.type = '5'
+		where 1=1 
+		<if test="notIdsArr != null and notIdsArr.length >= 0">
+			and t.id not in
+			<foreach collection="notIdsArr" item="item" index="index"
+				close=")" separator="," open="(">
+				#{item}
+			</foreach>
+		</if>
+		<if test="age != null and age != ''">
+		<![CDATA[ and t.age_begin <= #{age} ]]>
+		<![CDATA[ and t.age_end >= #{age} ]]>
+		</if>
+		<if test="standardIds != null and standardIds.size() != 0 ">
+			and t.standard_id in
+			<foreach collection="standardIds" item="standardId" open="("
+				separator="," close=")">
+				#{standardId}
+			</foreach>
+		</if>
+		<if test="sexType == 3">
+			and t.sex_type in ('1','2','3')
+		</if>
+		<if test="sexType != 3">
+			and t.sex_type in ('3',#{sexType})
+		</if>
+		<!-- 搜索不用过滤科室2017.6.10
+		<if
+			test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+			and t.sys_type in (select c.icss_sys_id from
+			his_mapping_dept c
+			where c.hospital_code = #{hospitalCode}
+			and c.his_dept_code = #{deptNo})
+		</if>-->
+		order by b.count_num desc,t.order_no asc
+		limit 0,#{size}
+	</select>
+
+	<select id="getLisInfoByPortrait" parameterType="java.lang.Long"
+		resultMap="LisInfoWrapper">
+		select i.*, s.code param_code from kl_lis_info i
+		left join kl_portrait_lis p on i.id = p.lis_id
+		left join kl_standard_info s on s.id = i.standard_id
+		 where i.status = '1' and p.portrait_id = #{id} order by
+		i.id
+	</select>
+</mapper>

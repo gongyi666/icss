@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.at.dao.RecordLisMapper" >
+  <resultMap id="RecordLisWrapper" type="com.lantone.icss.api.at.model.wrapper.RecordLisWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="record_id" property="recordId" jdbcType="BIGINT" />
+    <result column="lis_id" property="lisId" jdbcType="BIGINT" />
+    <result column="lis_result" property="lisResult" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="lis_name" property="lisName" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<insert id="insertRecordLis" parameterType="com.lantone.icss.api.at.model.wrapper.RecordLisWrapper">
+		insert into
+			at_record_lis(
+				record_id,
+				lis_id,
+				lis_result,
+				order_no,
+				remark
+			)
+			values(
+				#{recordId},
+				#{lisId},
+				#{lisResult},
+				#{orderNo},
+				#{remark}
+			)
+	</insert>
+	
+	<delete id="deleteRecordLisByRecordId" parameterType="java.lang.Long">
+		delete from at_record_lis where record_id = #{recordId}
+	</delete>
+	
+	<select id="getRecordLisByRecordId" parameterType="java.lang.Long" resultMap="RecordLisWrapper"> 
+		select a.*,b.name as lis_name from at_record_lis a
+		left join kl_lispacs_menu_detail b on a.lis_id = b.id
+		where record_id = #{recordId}
+	</select>
+</mapper>

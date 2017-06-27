@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.DiseaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.wrapper.DiseaseInfoWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="standard_id" property="standardId" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="spell" property="spell" jdbcType="VARCHAR" />
+    <result column="five_stroke" property="fiveStroke" jdbcType="VARCHAR" />
+    <result column="sys_type" property="sysType" jdbcType="BIGINT" />
+    <result column="sex_type" property="sexType" jdbcType="VARCHAR" />
+    <result column="age_begin" property="ageBegin" jdbcType="BIGINT" />
+    <result column="age_end" property="ageEnd" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+ 	<result column="accasdiag" property="accasdiag" jdbcType="VARCHAR" />
+ 	<!-- 扩充字段 -->
+ 	<result column="sub_name" property="subName" jdbcType="VARCHAR" /> 
+  	<result column="param_code" property="paramCode" jdbcType="VARCHAR" />
+ 
+  </resultMap>
+  
+  <!-- 疾病分类 -->
+  <resultMap id="TypeResultMap" type="com.lantone.icss.api.kl.model.wrapper.DiseaseTypeWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<select id="getDiseaseByInput" parameterType="com.lantone.icss.api.kl.model.wrapper.DiseaseInfoWrapper" resultMap="BaseResultMap">
+		select a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_disease_info a
+			where a.status = '1' 
+			<if test="inputstr != null and inputstr != ''">
+				and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))
+			</if>
+			<if test="notIdsArr != null and notIdsArr.length > 0">
+				and a.id not in 
+				<foreach item="item" index="index" collection="notIdsArr" 
+	                        open="(" separator="," close=")">
+	                 #{item}
+           		 </foreach>
+			</if>
+			limit 0,#{size}
+	</select>
+	
+	<select id="selectDiseaseidBysymptomFactor" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 	a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_disease_info a 
+		where a.type='1'  and  a.id  
+		in  
+		(select DISTINCT(b.disease_id) from kl_symptom_factor_detail b 
+		<where>
+		<if test="symptom != null">
+			and  b.syptom_stand_id=#{symptom}
+		</if>		
+		
+		<if test="position != null">
+			and (b.position_stand_id=#{position} or b.position_stand_id is null)
+		</if> 
+
+		<if test="cause != null">
+			and  (b.cause_stand_id=#{cause} or b.cause_stand_id is null)
+		</if> 		 
+
+		<if test="degree != null">			
+			and (b.degree_stand_id=#{degree}  or b.degree_stand_id is null)
+		</if> 		 
+
+		<if test="nature != null">			
+			and (b.nature_stand_id=#{nature} or b.nature_stand_id is null)
+		</if> 
+
+		</where>
+		)		
+	</select>
+	<select id="selectDiseaseidBypastStandId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_disease_info a where a.type='1'  and a.id in (select DISTINCT(b.disease_id) from kl_dis_past_history b where  (b.past_stand_id =#{pastStandId} or b.past_stand_id is null))
+	</select>
+	<select id="selectDiseaseidByFamilyStandId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_disease_info a where a.type='1'  and a.id in (select DISTINCT(b.disease_id) from kl_dis_family_history b where  (b.family_stand_id =#{familyStandId} or b.family_stand_id is null))		
+	</select>
+	<select id="selectByDiseaseId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_disease_info a where a.id =#{diseaseId}
+	</select>	
+		<select id="selectDiseaseidByDiseasePhysical" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_disease_info a where a.type='1'  and a.id in(
+		select DISTINCT(b.disease_id) from kl_disease_physical b 
+		<where>
+		<if test="phyStandId != null">
+			and  (b.phy_stand_id=#{phyStandId} or b.phy_stand_id is null)
+		</if>	
+		<if test="detailStandId != null">
+			and  (b.detail_stand_id=#{detailStandId} or b.detail_stand_id is null)
+		</if>		
+	</where>
+	)
+	</select>
+	
+	<select id="getDiseaseByRecordId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select b.* from at_record_disease a
+		left join kl_disease_info b on a.disease_id = b.id
+		where a.record_id = #{recordId}
+		order by a.order_no
+	</select>
+	
+	<select id="selectAllList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select b.* from kl_disease_info b where b.status = #{status}
+	</select>
+	
+	<select id="getDiseaseByDiagnoseId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select c.* from kl_disease_info c,kl_disease_diagnose a where c.id = a.disease_id and a.diagnose_id = #{DiagnoseId}
+		
+	</select>
+	
+	
+	<select id="getDiseaseByListDiagnoseCode" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select c.*,(SELECT f.code FROM kl_standard_info f where f.id=c.standard_id) param_code from kl_disease_info c where c.id in
+		   (select a.disease_id from kl_disease_diagnose a,kl_diagnose_info b where a.ismust = 1 and a.diagnose_id = b.id and b.code in 
+		   <foreach item="code" collection="list" open="(" separator="," close=")">
+			#{code}
+		  </foreach>
+		   )
+	</select>
+	
+	<select id="getDiseaseByDiseaseIdForGrade" resultMap="BaseResultMap">
+		select *,(SELECT f.code FROM kl_standard_info f where f.id=a.standard_id) param_code from kl_disease_info a where id in 
+		<foreach item="ids" collection="list" open="(" separator="," close=")">
+			#{ids}
+		</foreach>
+            and not EXISTS (select 1 from kl_disease_info b where id in 
+            <foreach item="ids" collection="list" open="(" separator="," close=")">
+			     #{ids}
+		    </foreach>  and a.parent_id = b.parent_id and a.second_id=b.second_id and b.child_id > a.child_id )
+	    </select>
+	
+	<select id="getDiseaseByDiagnoseCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select c.* from kl_disease_info c where  c.id in
+		(select a.disease_id from kl_disease_diagnose a,kl_diagnose_info b where a.diagnose_id = b.id and b.code = #{code})
+	</select>
+	
+	
+	<select id="getByDiseaseType"  resultMap="TypeResultMap">
+		select * from kl_disease_type where status = '1' order by order_no desc
+	</select>
+	
+	<select id="getByTypeId"  parameterType="java.util.Map" resultMap="BaseResultMap">
+		select a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_disease_info a where a.status = '1' and a.type = #{type} order by id asc limit 0, #{size}
+	</select>
+	
+	
+	<!-- ***疾病推送改进版****-->
+	<!-- <select id="getDiseasePush" parameterType="com.lantone.icss.api.kl.model.wrapper.DiseaseInfoWrapper" resultMap="BaseResultMap">
+		select (select s.code from kl_standard_info s where s.id = a.standard_id) param_code , a.*,b.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_disease_info a
+			left join at_doctor_habit_count b on a.id = b.habit_id and b.doctor_id = #{doctorId} and b.type = '7'
+			<if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != '' 
+						and (standardIds == null or standardIds.size()==0 )">
+				inner join (select mm.item_id from kl_dept_item mm, his_mapping_dept nn
+				where mm.usual = '1' and mm.type = #{type} and mm.icss_sys_id = nn.icss_sys_id
+				and nn.hospital_code = #{hospitalCode} and nn.his_dept_code = #{deptNo}) h
+			</if>
+			where a.status = '1'
+			<if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != '' 
+						and (standardIds == null or standardIds.size()==0 )">
+				and a.id = h.item_id
+			</if>
+			<if test="notIdsArr != null and notIdsArr.length > 0">
+				and a.id not in 
+				<foreach item="item" index="index" collection="notIdsArr" 
+                         open="(" separator="," close=")">
+                     #{item}
+                </foreach>
+			</if>
+			<if test="age != null and age != ''">
+				<![CDATA[ and a.age_begin <= #{age} ]]>
+				<![CDATA[ and a.age_end >= #{age} ]]>
+			</if>
+			<if test="standardIds != null and standardIds.size() != 0">
+				and a.standard_id in 
+				<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+			</if>
+			<if test="sexType == 3">
+				and a.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and a.sex_type in ('3',#{sexType})
+			</if>
+			<if test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+				and a.sys_type in (select c.icss_sys_id from 
+										his_mapping_dept c 
+										where c.hospital_code = #{hospitalCode}
+										and c.his_dept_code = #{deptNo})
+			</if>
+			<if test="inputstr != null and inputstr != ''">
+				and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))
+			</if>
+			order by b.count_num desc,a.id asc
+			limit 0,#{size}
+	</select> -->
+	
+	
+	<select id="getDiseasePush" parameterType="com.lantone.icss.api.kl.model.wrapper.DiseaseInfoWrapper" resultMap="BaseResultMap">
+		select (select s.code from kl_standard_info s where s.id = a.standard_id) param_code , a.*,b.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_disease_info a
+			left join at_doctor_habit_count b on a.id = b.habit_id and b.doctor_id = #{doctorId} and b.type = '7'
+			
+			where a.status = '1'
+			<if test="notIdsArr != null and notIdsArr.length > 0">
+				and a.id not in 
+				<foreach item="item" index="index" collection="notIdsArr" 
+                         open="(" separator="," close=")">
+                     #{item}
+                </foreach>
+			</if>
+			<if test="age != null and age != ''">
+				<![CDATA[ and a.age_begin <= #{age} ]]>
+				<![CDATA[ and a.age_end >= #{age} ]]>
+			</if>
+			<choose>
+				<when test="standardIds != null and standardIds.size() != 0">
+					and a.standard_id in 
+					<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+						#{standardId}
+					</foreach>
+				</when>
+				<otherwise>
+					and a.usual = '1' 
+				</otherwise>
+			</choose>
+		<!-- 	<if test="standardIds != null and standardIds.size() != 0 ">
+				and a.standard_id in 
+				<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+			</if> -->
+			<if test="sexType == 3">
+				and a.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and a.sex_type in ('3',#{sexType})
+			</if>
+			<!-- <if test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+				and a.sys_type in (select c.icss_sys_id from 
+										his_mapping_dept c 
+										where c.hospital_code = #{hospitalCode}
+										and c.his_dept_code = #{deptNo})
+			</if> -->
+			<if test="inputstr != null and inputstr != ''">
+				and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))
+			</if>
+			order by b.count_num desc,a.id asc
+			limit 0,#{size}
+	</select>
+	
+	
+	<!-- 高频数据 -->
+	<select id="getHighFrequencyPush" parameterType="com.lantone.icss.api.kl.model.wrapper.DiseaseInfoWrapper" resultMap="BaseResultMap">
+		select (select s.code from kl_standard_info s where s.id = a.standard_id) param_code , a.*,b.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_disease_info a,
+			 at_doctor_habit_count b 
+		where a.id = b.habit_id and b.doctor_id = #{doctorId} and b.type = '7'
+			 and a.status = '1' and b.count_num > 2
+			<if test="notIdsArr != null and notIdsArr.length > 0">
+				and a.id not in 
+				<foreach item="item" index="index" collection="notIdsArr" 
+                         open="(" separator="," close=")">
+                     #{item}
+                </foreach>
+			</if>
+			<if test="age != null and age != ''">
+				<![CDATA[ and a.age_begin <= #{age} ]]>
+				<![CDATA[ and a.age_end >= #{age} ]]>
+			</if>
+			<if test="standardIds != null and standardIds.size() != 0 ">
+				and a.standard_id in 
+				<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+			</if>
+			<if test="sexType == 3">
+				and a.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and a.sex_type in ('3',#{sexType})
+			</if>
+			<!-- <if test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+				and a.sys_type in (select c.icss_sys_id from 
+										his_mapping_dept c 
+										where c.hospital_code = #{hospitalCode}
+										and c.his_dept_code = #{deptNo})
+			</if> -->
+			<if test="inputstr != null and inputstr != ''">
+				and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))
+			</if>
+			order by b.count_num desc,a.id asc
+			limit 0,#{size}
+	</select>
+	<select id="getDiseaseByRetrieval" parameterType="com.lantone.icss.api.kl.model.wrapper.RetrievalInfoWrapper" resultMap="BaseResultMap">	
+		select t.*,b.* from 
+			(select s.*, (select ksi.code from kl_standard_info ksi where ksi.id = s.standard_id) param_code,r.name as sub_name  from kl_disease_info s, kl_retrieval_mapping m, kl_retrieval_info r 
+			where s.status = '1' and m.search_id = s.id and m.retrieval_id = r.id and r.type = #{type} and r.status = '1'
+			and (r.spell like CONCAT('%',#{inputstr},'%') or r.name like CONCAT('%',#{inputstr},'%'))) t 
+		left join at_doctor_habit_count b on t.id = b.habit_id and b.doctor_id = #{doctorId} and b.type ='7'
+		where 1=1
+			<if test="notIdsArr != null">
+				and t.id not in 
+				<foreach item="item" index="index" collection="notIdsArr" 
+                         open="(" separator="," close=")">
+                     #{item}
+                </foreach>
+			</if>
+			<if test="age != null and age != ''">
+				<![CDATA[ and t.age_begin <= #{age} ]]>
+				<![CDATA[ and t.age_end >= #{age} ]]>
+			</if>
+			<if test="standardIds != null and standardIds.size() != 0 ">
+				and t.standard_id in 
+				<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+			</if>
+			<if test="sexType == 3">
+				and t.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and t.sex_type in ('3',#{sexType})
+			</if>
+			<!-- <if test="deptNo != null and deptNo != '' and hospitalCode != null and hospitalCode != ''">
+				and t.sys_type in (select c.icss_sys_id from 
+										his_mapping_dept c 
+										where c.hospital_code = #{hospitalCode}
+										and c.his_dept_code = #{deptNo})
+			</if> -->
+			order by b.count_num desc,t.id asc
+			limit 0,#{size}
+	</select>
+	
+	<select id="getTypeByDiseaseIdArr" parameterType="com.lantone.icss.api.kl.model.wrapper.DiseaseInfoWrapper" resultMap="TypeResultMap">
+		select distinct t.id,t.name from kl_disease_info d, kl_disease_type t where d.type = t.id 
+		and d.id in 
+			<foreach collection="diseaseIdArr" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		 order by t.order_no asc
+	</select>
+	
+	<select id="getDiseaseInfoByPortrait" resultMap="BaseResultMap">
+  		select i.*,(select s.code from kl_standard_info s where s.id = i.standard_id) param_code  from kl_disease_info i, kl_portrait_disease p where i.id = p.disease_id and i.status = '1' and p.portrait_id = #{id} order by i.id  
+  	</select>
+</mapper>

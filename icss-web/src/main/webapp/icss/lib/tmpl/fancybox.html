@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<head>
+    <link type="text/css" rel="stylesheet" href="css/base.css">
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="js/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		//模拟数据
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: 'http://192.168.2.165:8090/icss-web/kl/transverse/get_transverse_by_type?type=2',
+            success: function (resutl) {
+                var data = resutl;
+                console.log(resutl.data)
+                $("#template1").tmpl(data).appendTo('#result1');
+            }
+        });
+
+	});
+</script>
+</head>
+<body>
+
+	<!-- Template content -->
+    <script id="template1" type="text/x-jquery-tmpl">
+
+<div id="fancy-box">
+    <div id="fancy-mask"></div>
+    <div id="fancy-ct">
+        <div class="nav-bar clearfix">
+            <ul class="first-level clearfix">
+                {{each(i, record) data}}
+                    <li class="{{if record.state == 1 || i==0}}check-state{{/if}}">${record.name}</li>
+                {{/each}}
+            </ul>
+            <div class="toolbar">
+                <p class="seach-box"><input type="text"></p>
+                <p class="set-up"><img src="img/6.png"> </p>
+                <p id="close"><img src="img/7.png"> </p>
+            </div>
+        </div>
+        {{each(i, record) data}}
+        <div class="detail-category clearfix {{if i==0}}check-state{{/if}}">
+            <div class="second-level">
+                {{if record.orderNo == 0}}
+                {{else}}
+                    <dl class="method">
+                        <dt class="check-state third-level">
+                            <b class="check-state">头颅</b>
+                            <b>神经</b>
+                        </dt>
+                    </dl>
+                {{/if}}
+
+            </div>
+            {{if record.orderNo == 0}}
+                <div class="level-list">
+                    <ul class="push-list clearfix">
+                    {{each(a, tt) data.portraitList}}
+                        <li class="check-state">${tt.name}</li>
+                    {{/each}}
+                    </ul>
+                </div>
+            {{else}}
+            {{each(a, tt) data.portraitList}}
+                <div class="level-list">
+                    <ul class="push-list clearfix">
+                        <li class="check-state">高血压</li>
+                    </ul>
+                </div>
+            {{/each}}
+            {{/if}}
+
+
+        </div>
+        {{/each}}
+
+    </div>
+</div>
+	</script>
+
+	<!-- Output elements -->
+	<div id="result1"></div>
+
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>诊疗</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+<body style="overflow-x: hidden;">
+    <div class="container">
+        <div class="group">
+            <label>主诉</label>
+            <div class="group__wrapper">
+                <!--已选-->
+                
+                <!--输入-->
+                <input class="group__wrapper--text" type="text">
+                <!--更多-->
+                <div class="wrapper__symptom--more"></div>
+                <div class="wrapper__symptom--wrapper">
+                    <!--推送条-->
+                    <div class="wrapper__symptom__push"></div>
+                    <!--更多 按钮-->
+                    <div class="button">
+                        <div class="arrow arrow--detail"></div>
+                        <div class="arrow arrow--right"></div>
+                        <div class="arrow arrow--left disabled"></div>
+                        <div class="arrow--shadow"></div>
+                    </div>
+                    <div class="wrapper__symptom__form d-n" data-param-code="JBZZ001345" data-relation-id="1132" data-standard-id="61">
+                        <div class="wrapper__symptom__form__title">
+                            <span>耳痒</span>
+                            <div class="c-r checkbox d-n">
+                                <div class="box-r-s">
+                                    <i class="iconfont icon-check--correct"></i>
+                                </div>
+                                无
+                            </div>
+                        </div>
+                        <div class="wrapper__symptom__form-group" data-code="" data-id="1" data-type="7" data-require="1">
+                            <label>
+                                时间
+                                <span class="red">*</span>
+                            </label>
+                            <div class="date-toggle box-r-s" data-name="date_toggle">
+                                <div class="background-color"></div>
+                                <span class="focus">时长</span>
+                                <span>日期</span>
+                            </div>
+                            <div class="date">
+                                <input class="box-r-s" name="date_one_time" data-param-code="WZYD999996" type="number">
+                                <div class="select box-r-s w-70px">
+                                    <input type="text" data-param-code="zzty000002" name="date_one_unit" readonly="" value="天">
+                                    <div class="down-arrow">
+                                        <i class="iconfont icon-triangle-down-copy"></i>
+                                    </div>
+                                    <ul class="box-r-s d-n">
+                                        <li><a>天</a></li>
+                                        <li><a>周</a></li>
+                                        <li><a>月</a></li>
+                                        <li><a>年</a></li>
+                                        <li><a>小时</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="date d-n">
+                                <div class="select box-r-s w-70px">
+                                    <input type="text" name="date_to_year" readonly="" data-param-code="zzty000003">
+                                    <div class="down-arrow">
+                                        <i class="iconfont icon-triangle-down-copy"></i>
+                                    </div>
+                                    <ul class="box-r-s d-n">
+                                        <li><a>2017</a></li>
+                                        <li><a>2016</a></li>
+                                        <li><a>2015</a></li>
+                                        <li><a>2014</a></li>
+                                        <li><a>2013</a></li>
+                                    </ul>
+                                </div>
+                                <span>年</span>
+                                <div class="select box-r-s w-70px">
+                                    <input type="text" readonly="" name="date_to_month" data-param-code="zzty000004">
+                                    <div class="down-arrow">
+                                        <i class="iconfont icon-triangle-down-copy"></i>
+                                    </div>
+                                    <ul class="box-r-s d-n">
+                                        <li><a>1</a></li>
+                                        <li><a>2</a></li>
+                                        <li><a>3</a></li>
+                                        <li><a>7</a></li>
+                                        <li><a>8</a></li>
+                                        <li><a>9</a></li>
+                                        <li><a>10</a></li>
+                                        <li><a>11</a></li>
+                                        <li><a>12</a></li>
+                                    </ul>
+                                    <ul class="box-r-s d-n">
+                                    </ul>
+                                </div>
+                                <span>月</span>
+                                <div class="select box-r-s w-70px">
+                                    <input type="text" readonly="" name="date_to_day" data-param-code="zzty000005">
+                                    <div class="down-arrow">
+                                        <i class="iconfont icon-triangle-down-copy"></i>
+                                    </div>
+                                    <ul class="box-r-s d-n" data-month-contain="4,6,9,11">
+                                        <li><a>9</a></li>
+                                        <li><a>10</a></li>
+                                        <li><a>11</a></li>
+                                        <li><a>28</a></li>
+                                        <li><a>29</a></li>
+                                        <li><a>30</a></li>
+                                    </ul>
+                                    <ul class="box-r-s d-n" data-month-contain="1,3,5,7,8,10,12">
+                                        <li><a>1</a></li>
+                                        <li><a>27</a></li>
+                                        <li><a>28</a></li>
+                                        <li><a>29</a></li>
+                                        <li><a>30</a></li>
+                                    </ul>
+                                    <ul class="box-r-s d-n" data-month-contain="2">
+                                        <li><a>1</a></li>
+                                        <li><a>25</a></li>
+                                        <li><a>26</a></li>
+                                        <li><a>27</a></li>
+                                        <li><a>28</a></li>
+                                    </ul>
+                                    <ul class="box-r-s d-n" data-month-contain="2">
+                                        <li><a>1</a></li>
+                                        <li><a>24</a></li>
+                                        <li><a>25</a></li>
+                                        <li><a>26</a></li>
+                                        <li><a>27</a></li>
+                                        <li><a>28</a></li>
+                                        <li><a>29</a></li>
+                                    </ul>
+                                    <ul class="box-r-s d-n">
+                                        <li><a>1</a></li>
+                                        <li><a>2</a></li>
+                                        <li><a>3</a></li>
+                                    </ul>
+                                </div>
+                                <span>日</span>
+                            </div>
+                            <div class="validate d-n">
+                                <p>请填写正确的时间!!!</p>
+                            </div>
+                        </div>
+                        <div class="wrapper__symptom__form-group" data-code="code999995" data-id="2" data-type="10">
+                            <label>诱因</label>
+                            <div class="select box-r-s w-100px">
+                                <input type="text" readonly="" name="question_cause" data-param-code="WZYD999995" data-param-value="WZNR000101">
+                                <div class="down-arrow">
+                                    <i class="iconfont icon-triangle-down-copy"></i>
+                                </div>
+                                <ul class="box-r-s d-n">
+                                    <li>
+                                        <a data-id="6" data-param-code="WZYD999994">环境<i class="iconfont icon-right-triangle"></i></a>
+                                        <ul class="box-r-s d-n">
+                                            <li><a data-id="10" data-param-code="WZNR000101">寒冷</a></li>
+                                            <li><a data-id="11" data-param-code="WZNR000102">暑热</a></li>
+                                            <li><a data-id="12" data-param-code="WZNR000103">潮湿</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-id="7" data-param-code="WZYD999993">饮食<i class="iconfont icon-right-triangle"></i></a>
+                                        <ul class="box-r-s d-n">
+                                            <li><a data-id="13" data-param-code="WZNR000104">饱餐</a></li>
+                                            <li><a data-id="14" data-param-code="WZNR000119">暴饮暴食</a></li>
+                                            <li><a data-id="15" data-param-code="WZNR000105">饮酒</a></li
+                                        ></ul>
+                                    </li>
+                                    <li>
+                                        <a data-id="8" data-param-code="WZYD999992">活动<i class="iconfont icon-right-triangle"></i></a>
+                                        <ul class="box-r-s d-n">
+                                            <li><a data-id="16" data-param-code="WZNR000106">劳累</a></li>
+                                            <li><a data-id="17" data-param-code="WZNR000107">锻炼</a></li>
+                                            <li><a data-id="18" data-param-code="WZNR000108">情绪激动</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-id="9" data-param-code="WZYD999991">医疗<i class="iconfont icon-right-triangle"></i></a>
+                                        <ul class="box-r-s d-n">
+                                            <li><a data-id="19" data-param-code="WZNR000109">药物</a></li>
+                                            <li><a data-id="20" data-param-code="WZNR000110">手术</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="wrapper__symptom__form-group" data-code="null" data-id="3" data-type="3">
+                            <label>程度</label>
+                            <div class="select box-r-s w-100px">
+                                <input type="text" readonly="" name="question_degree" data-param-code="WZYD999998">
+                                <div class="down-arrow">
+                                    <i class="iconfont icon-triangle-down-copy"></i>
+                                </div>
+                                <ul class="box-r-s d-n">
+                                    <li><a data-id="21" data-param-code="WZNR000111">轻度</a></li>
+                                    <li><a data-id="22" data-param-code="WZNR000112">中度</a></li>
+                                    <li><a data-id="23" data-param-code="WZNR000113">重度</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="wrapper__symptom__form-group" data-code="null" data-id="4" data-type="3">
+                            <label>性质</label>
+                            <div class="select box-r-s w-100px">
+                                <input type="text" readonly="" name="question_nature" data-param-code="WZYD999997">
+                                <div class="down-arrow">
+                                    <i class="iconfont icon-triangle-down-copy"></i>
+                                </div>
+                                <ul class="box-r-s d-n">
+                                    <li><a data-id="24" data-param-code="WZNR000114">持续性</a></li>
+                                    <li><a data-id="25" data-param-code="WZNR000115">阵发性</a></li>
+                                    <li><a data-id="26" data-param-code="WZNR000116">一过性</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="wrapper__symptom__form-group" data-code="null" data-id="5" data-type="6">
+                            <label>补充</label>
+                            <textarea class="box-r-s" name="question_supplement" data-param-code="WZYD999999"></textarea>
+                        </div>
+                        <div class="button">
+                            <button class="button__cancel--blue">取消</button>
+                            <button class="button__confirm--blue">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="group">
+            <label>现病史</label>
+            <div class="group__wrapper">
+                <!--已选-->
+
+                <!--输入-->
+                <input type="text">
+                <!--更多-->
+                <div class="wrapper__symptom--more"></div>
+                <div class="wrapper__symptom--wrapper">
+                    <!--推送条-->
+                    <div class="wrapper__symptom__push">
+
+                    </div>
+                    <!--更多 按钮-->
+                    <div class="button">
+                        <div class="arrow detail"></div>
+                        <div class="arrow right"></div>
+                        <div class="arrow left disabled"></div>
+                        <div class="arrow-shadow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="group">
+            <label>既往史</label>
+            <div class="group__wrapper">
+                <!--已选-->
+
+                <!--输入-->
+                <input type="text">
+                <!--更多-->
+                <div class="wrapper__symptom--more"></div>
+                <div class="wrapper__symptom--wrapper">
+                    <!--推送条-->
+                    <div class="wrapper__symptom__push">
+
+                    </div>
+                    <!--更多 按钮-->
+                    <div class="button">
+                        <div class="arrow detail"></div>
+                        <div class="arrow right"></div>
+                        <div class="arrow left disabled"></div>
+                        <div class="arrow-shadow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="group">
+            <label>其他史</label>
+            <div class="group__wrapper">
+                <!--已选-->
+
+                <!--输入-->
+                <input type="text">
+                <!--更多-->
+                <div class="wrapper__symptom--more"></div>
+                <div class="wrapper__symptom--wrapper">
+                    <!--推送条-->
+                    <div class="wrapper__symptom__push">
+
+                    </div>
+                    <!--更多 按钮-->
+                    <div class="button">
+                        <div class="arrow detail"></div>
+                        <div class="arrow right"></div>
+                        <div class="arrow left disabled"></div>
+                        <div class="arrow-shadow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="group">
+            <label>体征</label>
+            <div class="group__wrapper">
+                <!--已选-->
+
+                <!--输入-->
+                <input type="text">
+                <!--更多-->
+                <div class="wrapper__symptom--more"></div>
+                <div class="wrapper__symptom--wrapper">
+                    <!--推送条-->
+                    <div class="wrapper__symptom__push">
+
+                    </div>
+                    <!--更多 按钮-->
+                    <div class="button">
+                        <div class="arrow detail"></div>
+                        <div class="arrow right"></div>
+                        <div class="arrow left disabled"></div>
+                        <div class="arrow-shadow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="group">
+            <label>化验</label>
+            <div class="group__wrapper">
+                <!--已选-->
+
+                <!--输入-->
+                <input type="text">
+                <!--更多-->
+                <div class="wrapper__symptom--more"></div>
+                <div class="wrapper__symptom--wrapper">
+                    <!--推送条-->
+                    <div class="wrapper__symptom__push">
+
+                    </div>
+                    <!--更多 按钮-->
+                    <div class="button">
+                        <div class="arrow detail"></div>
+                        <div class="arrow right"></div>
+                        <div class="arrow left disabled"></div>
+                        <div class="arrow-shadow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="group">
+            <label>器查</label>
+            <div class="group__wrapper">
+                <!--已选-->
+
+                <!--输入-->
+                <input type="text">
+                <!--更多-->
+                <div class="wrapper__symptom--more"></div>
+                <div class="wrapper__symptom--wrapper">
+                    <!--推送条-->
+                    <div class="wrapper__symptom__push">
+
+                    </div>
+                    <!--更多 按钮-->
+                    <div class="button">
+                        <div class="arrow detail"></div>
+                        <div class="arrow right"></div>
+                        <div class="arrow left disabled"></div>
+                        <div class="arrow-shadow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="group">
+            <label>诊断</label>
+            <div class="group__wrapper">
+                <!--已选-->
+
+                <!--输入-->
+                <input type="text">
+                <!--更多-->
+                <div class="wrapper__symptom--more"></div>
+                <div class="wrapper__symptom--wrapper">
+                    <!--推送条-->
+                    <div class="wrapper__symptom__push">
+
+                    </div>
+                    <!--更多 按钮-->
+                    <div class="button">
+                        <div class="arrow detail"></div>
+                        <div class="arrow right"></div>
+                        <div class="arrow left disabled"></div>
+                        <div class="arrow-shadow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="group">
+            <label>治疗</label>
+            <div class="group__wrapper">
+                <!--已选-->
+                
+                <!--输入-->
+                <input type="text">
+                <!--更多-->
+                <div class="wrapper__symptom--more"></div>
+                <div class="wrapper__symptom--wrapper">
+                    <!--推送条-->
+                    <div class="wrapper__symptom__push">
+
+                    </div>
+                    <!--更多 按钮-->
+                    <div class="button">
+                        <div class="arrow detail"></div>
+                        <div class="arrow right"></div>
+                        <div class="arrow left disabled"></div>
+                        <div class="arrow-shadow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!--B 模板示例-->
+<div id="exapmle_content"></div>
+<script id="test" type="text/html">
+<h3>users</h3>
+    {{each(i,user) users}}
+        <div>${i+1}:{{= user.name}}</div>
+        {{if i==0}}
+            <h4>group</h4>
+            {{each(j,group) groups}}
+                <div>${group.name}</div>
+            {{/each}}
+        {{/if}}
+    {{/each}}
+    <h3>depart</h3>
+    {{each departs}}
+        <div>{{= $value.name}}</div>
+    {{/each}}
+</script>
+<!--E 模板示例-->
+
+<!--推送列表模板开始-->
+<script id="push-list-tmpl" type="text/html">
+    {{each data as v i}}
+    <div class="" data-id="{{v.id}}" data-standard-id="{{v.standardId}}" data-param-id="{{v.paramId}}" data-symptom-name="{{v.name}}">
+        {{v.name}}
+        <i class=""></i>
+    </div>
+    {{/each}}
+</script>
+<!--推送列表模板结束-->
+
+
+<!--B 症状已选 模块-->
+<script id="mutli_selected" type="text/html">
+    <div class="wrapper__choose clearfix" data-transcode="SJFL002001">
+        {{if isHistory}}
+        <div class="wrapper__choose__title">
+            <span>${title}:</span>
+        </div>
+        {{/if}}
+        <div class="wrapper__choose__content">
+            {{if hasChecked}}
+                {{tmpl($data) '#select_checked'}}
+            {{else}}
+                {{tmpl($data) '#sample_selected'}}
+            {{/if}}
+        </div>
+    </div>
+</script>
+
+<!--单个的已选条-->
+<script id="sample_selected" type="text/html">
+    {{each(i, item) text}}
+    <div class="symptom-item" data-relation-id="${i}" data-time="1" data-time-unit="天" data-symptom-name="耳痒" data-standard-id="61">
+        <span class="icon-dot"></span>
+        <span>${item}</span>
+        <span class="d-n">${item}</span>
+        <i class="icon-move-top"></i>
+        <i class="icon-remove"></i>
+    </div>
+    {{/each}}
+</script>
+
+<!--已检-->
+<script id="select_checked" type="text/html">
+    <div class="symptom-item over-hide" data-relation-id="111" data-standard-id="2093" data-liscode="lisCode1">
+        <span class="icon-dot fl"></span>
+        <ul>${name}:</ul>
+        <ul>
+            {{each(i,item) text}}
+            <li class="over-hide w-280">
+                <span class="w-150">${item.txt}</span>
+                <span>${item.vol}</span>
+                <span class="bold">${item.unit}</span>
+            </li>
+            {{/each}}
+        </ul>
+        <ul class="gray">2017年6月26日</ul>
+        <i class="icon-remove"></i>
+    </div>
+</script>
+<!--E 症状已选 模块-->
+
+<!--B 日期组件 模板-->
+<script id="date_component" type="text/html">
+    <div class="form-group" data-code="null" data-id="6" data-type="7">
+        <label>发生时间</label>
+        <div class="date-toggle box-r-s" data-name="date_toggle" style="left: 50px;">
+            <div class="background-color" style="width: 37px; left: 0px;"></div>
+            <span class="focus">时长</span>
+            <span class="">日期</span>
+        </div>
+        <div class="date" style="display: block;">
+            <input class="box-r-s" name="date_one_time" data-param-code="WZYD999996" type="number" style="width: 70px;height: 30px;float: left;margin-right: 5px">
+            <div class="select box-r-s w-70px">
+                <input type="text" data-param-code="zzty000002" name="date_one_unit" readonly="" value="天">
+                <div class="down-arrow">
+                    <i class="iconfont icon-triangle-down-copy"></i>
+                </div>
+                <ul class="box-r-s d-n">
+                    <li><a>天</a></li>
+                    <li><a>周</a></li>
+                    <li><a>月</a></li>
+                    <li><a>年</a></li>
+                    <li><a>小时</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="date d-n" style="display: none;">
+            <div class="select box-r-s w-70px">
+                <input type="text" name="date_to_year" readonly="" data-param-code="zzty000003">
+                <div class="down-arrow">
+                    <i class="iconfont icon-triangle-down-copy"></i>
+                </div>
+                <ul class="box-r-s d-n">
+                    <li><a>2017</a></li>
+                </ul>
+            </div>
+            <span>年</span>
+            <div class="select box-r-s w-70px">
+                <input type="text" readonly="" name="date_to_month" data-param-code="zzty000004">
+                <div class="down-arrow">
+                    <i class="iconfont icon-triangle-down-copy"></i>
+                </div>
+                <ul class="box-r-s d-n">
+                    <li><a>1</a></li>
+                </ul>
+                <ul class="box-r-s d-n">
+                    <li><a>1</a></li>
+                </ul>
+            </div>
+            <span>月</span>
+            <div class="select box-r-s w-70px">
+                <input type="text" readonly="" name="date_to_day" data-param-code="zzty000005"
+                ><div class="down-arrow">
+                    <i class="iconfont icon-triangle-down-copy"></i>
+                </div>
+                <ul class="box-r-s d-n" data-month-contain="4,6,9,11">
+                    <li><a>1</a></li>
+                </ul>
+                <ul class="box-r-s d-n" data-month-contain="1,3,5,7,8,10,12">
+                    <li><a>1</a></li>
+                </ul>
+                <ul class="box-r-s d-n" data-month-contain="2">
+                    <li><a>1</a></li>
+                </ul>
+                <ul class="box-r-s d-n" data-month-contain="2">
+                    <li><a>1</a></li>
+                </ul>
+                <ul class="box-r-s d-n">
+                    <li><a>1</a></li>
+                </ul>
+            </div>
+            <span>日</span>
+        </div>
+        <div class="validate d-n">
+            <p>请填写正确的时间!!!</p>
+        </div>
+    </div>
+</script>
+<!--E 日期组件 模板-->
+
+<!--这是requireJS，data-main是作为入口模块，在这里就是js/main-->
+<script data-main="js/main" src="lib/require.js"></script>
+
+</html>

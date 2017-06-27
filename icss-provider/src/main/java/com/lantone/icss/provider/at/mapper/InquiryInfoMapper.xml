@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.at.dao.InquiryInfoMapper" >
+  <resultMap id="resultInquiryInfo" type="com.lantone.icss.api.at.model.wrapper.InquiryInfoWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="his_code" property="hisCode" jdbcType="VARCHAR" />
+    <result column="patient_id" property="patientId" jdbcType="VARCHAR" />
+    <result column="doctor_id" property="doctorId" jdbcType="VARCHAR" />
+   	<result column="doctor_name" property="doctorName" jdbcType="VARCHAR" />
+    <result column="dept" property="dept" jdbcType="VARCHAR" />
+    <result column="dept_code" property="deptCode" jdbcType="VARCHAR" />
+    <result column="hospital_code" property="hospitalCode" jdbcType="VARCHAR" />
+    <result column="clinic_time" property="clinicTime" jdbcType="TIMESTAMP" />
+	<result column="reg_visited_state" jdbcType="CHAR" property="regVisitedState" />
+    <result column="diagnose" property="diagnose" jdbcType="VARCHAR" />
+    <result column="disease_id" property="diseaseId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="data_json" property="dataJson" jdbcType="VARCHAR" />
+    
+     <!-- 重命名字段，与前端相对应 -->
+    <result column="diagnose" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  	<select id="selectByPrimaryKey" resultMap="resultInquiryInfo">
+  		select * from at_inquiry_info where id = #{id}
+  	</select>
+  	
+ 	<insert id="insertInfo" parameterType="com.lantone.icss.api.at.model.wrapper.InquiryInfoWrapper" useGeneratedKeys="true" keyProperty="id">
+       insert into at_inquiry_info(patient_id,his_code,doctor_name,dept,dept_code,doctor_id,hospital_code,clinic_time,reg_visited_state,diagnose,disease_id,status,sign,remark,data_json,type)
+       values(#{patientId},#{hisCode},#{doctorName},#{dept},#{deptCode},#{doctorId},#{hospitalCode},now(),#{regVisitedState}, #{diagnose},#{diseaseId},'1','0',#{remark},#{dataJson},
+       		<choose>
+       			<when test="type != null and type != ''">#{type}</when>
+       			<otherwise>'1'</otherwise>
+       		</choose>
+       	)  
+	</insert> 
+	 
+	 <update id="updateInfo" parameterType="com.lantone.icss.api.at.model.wrapper.InquiryInfoWrapper">
+	 	update at_inquiry_info 
+	 	<set>
+	 		<if test="patientId != null and patientId != ''">
+	 			patient_id = #{patientId},
+	 		</if>
+	 		<if test="hisCode != null and hisCode != ''">
+	 			his_code = #{hisCode},
+	 		</if>
+	 		<if test="doctorId != null and doctorId != ''">
+	 			doctor_id = #{doctorId},
+	 		</if>
+	 		<if test="doctorName != null and doctorName != ''">
+	 			doctor_name = #{doctorName},
+	 		</if>
+	 		<if test="dept != null and dept != ''">
+	 			dept= #{dept},
+	 		</if>
+	 		<if test="hospitalCode != null and hospitalCode != ''">
+	 			hospital_code = #{hospitalCode},
+	 		</if>
+			<if test="regVisitedState != null and regVisitedState != ''">
+				reg_visited_state = #{regVisitedState},
+			</if>
+	 		<if test="diagnose != null and diagnose != ''">
+	 			diagnose = #{diagnose},
+	 		</if>
+	 		<if test="diseaseId != null and diseaseId != ''">
+	 			disease_id = #{diseaseId},
+	 		</if>
+	 		<if test="type != null and type != ''">
+	 			type = #{type},
+	 		</if>
+	 		<if test="sign != null and sign != ''">
+	 			sign = #{sign},
+	 		</if>
+	 		<if test="status != null and status != ''">
+	 			status = #{status},
+	 		</if>
+	 		<if test="remark != null and remark != ''">
+	 			remark = #{remark},
+	 		</if>
+	 		<if test="sign == null or sign == '' or sign == 0">
+	 			clinic_time = now(),
+	 		</if>
+	 		<if test="dataJson != null and dataJson != ''">
+	 			data_json = #{dataJson},
+	 		</if>
+	 	</set>
+	 	where id = #{id}
+	 </update>
+	 
+	 <select id="index" parameterType="com.lantone.icss.api.at.model.wrapper.InquiryInfoWrapper" resultMap="resultInquiryInfo">
+	 	select * from at_inquiry_info i where 1=1
+	 	<if test="id != null and id != ''">
+	 		and id = #{id}
+	 	</if>
+	 	<if test="hisCode != null and hisCode != ''">
+	 		and	his_code = #{hisCode}
+	 	</if>
+	 	<if test="doctorName != null and doctorName != ''">
+	 		and	doctor_name = #{doctorName}
+	 	</if>
+ 		<if test="dept != null and dept != ''">
+ 			and	dept like concat('%',#{dept},'%') 
+ 		</if>
+ 		<if test="deptCode != null and deptCode != ''">
+ 			and dept_code = #{deptCode}
+ 		</if>
+	 	<if test="doctorId != null and doctorId != ''">
+	 		and doctor_id = #{doctorId}
+	 	</if>
+	 	<if test="patientId != null and patientId != ''">
+	 		and patient_id = #{patientId}
+	 	</if>
+ 		<if test="diseaseId != null and diseaseId != ''">
+ 			and disease_id = #{diseaseId}
+ 		</if>
+ 		<if test="startTime != null and startTime != ''">
+ 			<![CDATA[ and date_format(clinic_time,'%Y%m%d') >= date_format(#{startTime},'%Y%m%d') ]]>
+ 		</if>
+ 		<if test="endTime != null and endTime != ''">
+ 			<![CDATA[ and date_format(clinic_time, '%Y%m%d') <= date_format(#{endTime},'%Y%m%d') ]]>
+ 		</if>
+		 <if test="regVisitedState != null and regVisitedState != ''">
+			 and reg_visited_state = #{regVisitedState}
+		 </if>
+	 	<if test="hospitalCode != null and hospitalCode != ''">
+	 		and hospital_code = #{hospitalCode}
+	 	</if>
+	 	<choose>
+	 		<when test="status != null and status != ''">
+	 			and status = #{status}
+	 		</when>
+	 		<otherwise>
+	 			and status = '1'
+	 		</otherwise>
+	 	</choose>
+	 	<if test="type != null and type != ''">
+	 		and type = #{type}
+	 	</if>
+	 	<if test="sign != null and sign != ''">
+	 		and sign = #{sign}
+	 	</if>
+	 	<if test="diseaseType != null and diseaseType != ''">
+	 		and disease_id in (select id from kl_disease_info  where type = #{diseaseType})
+	 	</if>
+	 		<if test="deptOrDiagnose != null and deptOrDiagnose != ''">
+	 		and ((dept like concat('%',#{deptOrDiagnose},'%')) or (diagnose like concat('%',#{deptOrDiagnose},'%')))
+	 	</if>
+	 	order by clinic_time desc
+	 </select>
+	 
+	 
+	 <select id="getNameAndId" parameterType="com.lantone.icss.api.at.model.wrapper.InquiryInfoWrapper" resultMap="resultInquiryInfo">
+	 	select distinct diagnose,disease_id from at_inquiry_info where 1=1 and status = '1'
+	 	<if test="doctorId != null and doctorId != ''">
+	 		and doctor_id = #{doctorId}
+	 	</if>
+	 	<if test="patientId != null and patientId != ''">
+	 		and patient_id = #{patientId}
+	 	</if>
+	 	<if test="hospitalCode != null and hospitalCode != ''">
+	 		and hospital_code = #{hospitalCode}
+	 	</if>
+	 	order by clinic_time desc
+	 </select>
+	 
+	  <select id="getDeptAndCode" parameterType="com.lantone.icss.api.at.model.wrapper.InquiryInfoWrapper" resultMap="resultInquiryInfo">
+	 	select distinct dept,dept_code from at_inquiry_info where 1=1 and status = '1'
+	 	<if test="doctorId != null and doctorId != ''">
+	 		and doctor_id = #{doctorId}
+	 	</if>
+	 	<if test="patientId != null and patientId != ''">
+	 		and patient_id = #{patientId}
+	 	</if>
+	 	<if test="hospitalCode != null and hospitalCode != ''">
+	 		and hospital_code = #{hospitalCode}
+	 	</if>
+	 	order by clinic_time desc
+	 </select>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.PacsResultMapper" >
+  <resultMap id="PacsResultWrapper" type="com.lantone.icss.api.kl.model.wrapper.PacsResultWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pacs_id" property="pacsId" jdbcType="BIGINT" />
+    <result column="standard_id" property="standardId" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="spell" property="spell" jdbcType="VARCHAR" />
+    <result column="five_stroke" property="fiveStroke" jdbcType="VARCHAR" />
+    <result column="label_prefix" property="labelPrefix" jdbcType="VARCHAR" />
+    <result column="text_name" property="textName" jdbcType="VARCHAR" />
+    <result column="label_suffix" property="labelSuffix" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    
+    <!-- 扩充字段 -->
+  	<result column="param_code" property="paramCode" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+
+ 
+ <select id="getPacsResultById" resultMap="PacsResultWrapper">
+	select a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_pacs_result a where a.status = '1' and a.pacs_id = #{id}
+ </select>
+ 
+</mapper>

@@ -1,0 +1,1075 @@
+body {
+	min-width: 950px;
+	font-weight: normal;
+}
+
+.container-left {
+	height: 100%;
+	width: 200px;
+	float: left;
+}
+
+.container-right {
+	height: 100%;
+	width: calc(100% - 200px);
+	float: right;
+	min-width: 750px;
+}
+
+
+/*左侧菜单的类*/
+
+.menu {
+	height: 100%;
+	width: 100%;
+	background-color: #354052;
+	position: relative;
+}
+
+.menu-logo {
+	width: 100%;
+	height: 50px;
+	background: url("../img/index/logo.png") #0287bb no-repeat center;
+	background-size: 100px 50px;
+}
+
+.menu-body {
+	position: absolute;
+	height: calc(100% - 50px);
+	width: 100%;
+}
+
+div.menu-body:nth-child(n+3) {
+	left: 200px;
+}
+
+.menu-search {
+	width: 100%;
+	position: relative;
+}
+
+.menu-search> #search_list {
+	position: absolute;
+	top: 39px;
+	left: 7px;
+	background: #fff;
+	z-index: 100;
+	width: 168px;
+}
+
+.menu-search> #search_list span {
+	display: block;
+	line-height: 30px;
+	text-indent: 10px;
+	cursor: pointer;
+	border-bottom: 1px #ddd solid;
+}
+
+.menu-search:nth-child(2) {
+	height: 62.5px;
+	padding: 20px 5px 12.5px;
+}
+
+.menu-search>.search-input {
+	width: 100%;
+	height: 30px;
+	border: 1px solid #354052;
+	background-color: rgba(41, 50, 63, 0.7);
+	color: #fff;
+	padding-left: 5px;
+	/*padding-right: 20px;*/
+	/*padding-right: 40px;*/
+}
+
+.menu-search>.search-input::-webkit-outer-spin-button,
+.menu-search>.search-input::-webkit-inner-spin-button {
+	-webkit-appearance: none !important;
+	margin: 0;
+}
+
+.menu-search>img.search-img {
+	height: 15px;
+	width: 15px;
+	position: absolute;
+	right: 35px;
+	top: 27.5px;
+	cursor: pointer;
+	right: 10px;
+}
+
+.search-arrow {
+	position: absolute;
+	right: 5px;
+	background: url("../img/index/arrow-down.png") center #121619 no-repeat;
+	background-size: 8px 8px;
+	border-bottom-right-radius: 6px;
+	border-top-right-radius: 6px;
+	width: 20px;
+	height: 28px;
+	cursor: pointer;
+}
+
+.menu-body:nth-child(2) .search-arrow {
+	top: 21px;
+}
+
+.menu-drop {
+	width: 100%;
+	height: calc(100% - 70px);
+}
+
+.first-level:hover {
+	height: 507px;
+	overflow-y: auto;
+}
+
+::-webkit-scrollbar-track-piece {
+	background-color: #354052;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 0px 3px;
+	background: #2a323f;
+}
+
+ul.first-level li {
+	width: 100%;
+	position: relative;
+}
+
+ul.first-level a {
+	width: 100%;
+	display: block;
+	cursor: pointer;
+	position: relative;
+	text-decoration: none;
+}
+
+ul.first-level>li>ul.second-level>li>a.select {
+	color: #0aa8a7 !important;
+}
+
+.menu-body:nth-child(2) ul.first-level a {
+	padding: 7.5px 5px;
+	height: 32px;
+	text-decoration: none;
+}
+
+ul.first-level a>span {
+	display: block;
+	float: left;
+	color: #fff;
+	margin-right: 5px;
+	height: 17px;
+}
+
+ul.first-level>li>a>span.arrow {
+	background: url("../img/index/arrow-down.png") center no-repeat;
+	background-size: 7px 7px;
+	width: 8px;
+}
+
+#second_level_ul>li>a>span.arrow {
+	background: transparent;
+	background: url("../img/index/to right.png") center no-repeat;
+	background-size: 12px 12px;
+	width: 8px;
+	height: 17px;
+}
+
+ul.first-level>li> .active .arrow {
+	background: url("../img/icss/right_b.png") center no-repeat;
+}
+
+ul.first-level>li>a>span.count {
+	width: 17px;
+	border-radius: 6px;
+	text-align: center;
+}
+
+ul.first-level>li>a>span.add {
+	background: none;
+	background: url("../img/index/add.png") no-repeat center;
+	background-size: 17px 17px;
+	width: 17px;
+	float: right;
+	margin-right: 5px;
+}
+
+ul.first-level>li>a>span.add:hover {
+	background: url("../img/add_blue.png") no-repeat center;
+	background-size: 17px 17px;
+	width: 17px;
+}
+
+.menu-body:nth-child(2) ul.first-level ul.second-level>li>a {
+	padding-left: 18px;
+	color: #ddd;
+}
+
+.menu-body:nth-child(2) ul.first-level ul.second-level>li>a:hover {
+	background-color: rgb(38, 56, 71) !important;
+}
+
+ul.first-level>li:nth-child(1)>a>span.count {
+	background-color: #5bbcdc;
+}
+
+ul.first-level>li:nth-child(2)>a>span.count {
+	background-color: #0aa8a7;
+}
+
+ul.first-level>li:nth-child(3)>a>span.count {
+	background-color: #9d9d9d;
+}
+
+ul.first-level a.select>span {
+	color: #0aa8a7 !important;
+}
+
+ul.first-level a.focus>span.font {
+	color: #fff !important;
+}
+
+ul.second-level a.focus:hover {}
+
+ul.second-level>li>a>span.font {
+	color: #ddd;
+}
+
+#second_level_ul li a>span.font {
+	margin-left: 8px;
+	position: absolute;
+}
+
+
+/*第二个menu body的类*/
+
+.menu-change {
+	text-align: center;
+	color: #fff;
+	height: 15px;
+	background-color: rgb(14, 22, 26);
+	cursor: pointer;
+}
+
+.menu-change .iconfont {
+	position: relative;
+	top: -1px;
+	font-size: 12px;
+}
+
+#serach_menz {
+	width: 95%;
+	background: #2a323f;
+	color: #fff;
+	position: absolute;
+	top: 42px;
+	z-index: 100;
+	left: 5px;
+	display: none;
+	border-radius: 6px;
+	padding-bottom: 6px;
+}
+
+#serach_menz li {
+	position: relative;
+	height: 24px;
+}
+
+#serach_menz li>a {
+	width: 100%;
+	display: block;
+	cursor: pointer;
+	position: relative;
+	height: 24px;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+#serach_menz .ul_disease>li>a,
+.ul_dept>li>a {
+	padding: 0;
+}
+
+#serach_menz li>a>span {
+	color: #fff;
+	margin-right: 5px;
+	height: 24px;
+	display: inline-block;
+	line-height: 24px;
+	text-indent: 10px;
+	vertical-align: top;
+	cursor: pointer;
+	border: none;
+}
+
+#serach_menz>li>a>span.arrow-right {
+	background: none;
+	background: url("../img/index/arrow-right.png") no-repeat center;
+	background-size: 17px 17px;
+	width: 17px;
+	float: right;
+	margin-right: 5px;
+}
+
+#serach_menz>li#search_clinic_time div.date-range {
+	background: url("../img/index/calender.png") no-repeat center;
+	background-size: 18px 18px;
+	background-color: #050505;
+	width: 24px;
+	height: 24px;
+	float: left;
+	margin: 3px 0 3px 5px;
+}
+
+#serach_menz>li#search_clinic_time input {
+	background-color: #354052;
+	width: 155px;
+	height: 24px;
+	float: left;
+	margin-right: 5px;
+	color: #fff;
+	border: none;
+	border-radius: 0;
+	font-size: xx-small;
+	padding: 0 0 0 3px;
+	font-weight: normal;
+	margin: 3px 0;
+}
+
+#serach_menz li>a:hover {
+	background-color: #121619;
+	background-size: 24px 24px;
+	border-radius: 0;
+}
+
+#serach_menz li:first-child>a:hover {
+	background-color: #121619;
+	background-size: 24px 24px;
+	border-radius: 6px 6px 0 0;
+}
+
+#serach_menz>li>a>span.date_icon {
+	background: none;
+	background: url("../img/index/date.png") no-repeat center;
+	background-size: 17px 17px;
+	width: 17px;
+	float: left;
+	margin-right: 5px;
+}
+
+#serach_menz .date_input {
+	width: 30%;
+	height: 30px;
+	border: 1px solid #354052;
+	background-color: rgba(41, 50, 63, 0.7);
+	color: #fff;
+	padding-left: 5px;
+	padding-right: 40px;
+}
+
+#serach_menz li>ol,
+.serach_menz_second_level {
+	top: 0;
+	width: 100%;
+	background: #2a323f;
+	color: #fff;
+	position: absolute;
+	z-index: 100;
+	border-radius: 6px;
+	left: 100%;
+	padding: 5px 0px 5px 0px;
+	display: none;
+	cursor: pointer;
+	height: auto;
+	/*height: 80px;*/
+	max-height: 180px;
+	/*min-height: 48px;*/
+}
+
+#serach_menz li>ol,
+.serach_menz_second_level {
+	top: 0;
+	width: 100%;
+	background: #2a323f;
+	color: #fff;
+	position: absolute;
+	z-index: 100;
+	border-radius: 6px;
+	left: 100%;
+	display: none;
+	cursor: pointer;
+	padding: 0;
+	height: auto;
+	max-height: 144px;
+}
+
+#search_res_box {
+	background: #fff;
+	height: 100px;
+	position: relative;
+	z-index: 10;
+}
+
+#search_res_box span {
+	width: 100%;
+	display: inline-block;
+	text-indent: 10px;
+	line-height: 30px;
+	border-bottom: 1px #ddd solid;
+	cursor: pointer;
+}
+
+.menu-body:nth-child(n+3) .menu-search {
+	height: 45px;
+	padding: 10px 5px 5px;
+}
+
+.menu-body:nth-child(n+3) .search-arrow {
+	top: 11px;
+}
+
+.menu-drop:nth-child(1) {
+	background-color: #fff;
+}
+
+.menu-body:nth-child(n+3) ul:first-child a {
+	padding: 4.5px 5px;
+	height: 26px;
+}
+
+ul.first-level {
+	height: 100%!important;
+}
+
+ul.first-level>li>a>span.date {
+	width: 70px;
+	float: right;
+	text-align: right;
+}
+
+.menu-body:nth-child(n+3) ul.first-level>li>a>span.add {
+	background: url("../img/icss/remarks.png") no-repeat center;
+	background-size: 13px 13px;
+}
+
+.menu-body:nth-child(n+3) ul.first-level>li>a>span.add.focus {
+	background: url("../img/icss/remarks-clicked.png") no-repeat center;
+	background-size: 13px 13px;
+}
+
+
+/*右侧内容*/
+
+.content-top {
+	height: 50px;
+	background-color: #fff;
+	box-shadow: 2px 2px 6px #ccc;
+}
+
+.content-nav {
+	float: left;
+	position: relative;
+}
+
+.content-nav>span {
+	display: block;
+	float: left;
+	margin-left: 35px;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	color: #777;
+	cursor: pointer;
+}
+
+.content-nav>span:hover {
+	color: rgb(28, 139, 183);
+}
+
+.content-nav>span.focus {
+	color: rgb(28, 139, 183);
+}
+
+.content-nav>.underline {
+	position: absolute;
+	width: 24px;
+	top: 46px;
+	height: 4px;
+	background-color: rgb(20, 137, 187);
+	left: 35px;
+}
+
+.content-doctor {
+	float: right;
+	height: 50px;
+	width: 150px;
+	background-color: #eee;
+}
+
+.content-doctor>div.head {
+	background: url("../img/index/head-portrait.png") no-repeat center;
+	background-size: 35px 35px;
+	width: 35px;
+	height: 50px;
+	margin-left: 20px;
+	float: left;
+}
+
+.content-doctor>div.name {
+	width: auto;
+	height: 50px;
+	color: #777;
+	margin-left: 10px;
+	float: left;
+	line-height: 50px;
+}
+
+
+/* 右侧诊疗 */
+
+.content-diagnosis {
+	height: calc(100% - 50px);
+	width: 100%;
+	background-color: rgb(240, 245, 250);
+	position: relative;
+}
+
+.patient {
+	padding: 5px calc(50% - 389px) 5px calc(50% - 389px);
+	height: 30px;
+	color: #33475f;
+	background-color: #f1f4f9;
+	/*border-radius: 5px;*/
+	box-shadow: 1px 1px 2px rgba(154, 152, 152, 0.35);
+	position: absolute;
+	height: auto;
+	z-index: 2;
+	top: 10px;
+	margin: 0 auto;
+	/*left: -6px;*/
+	left: 0;
+	right: 0;
+	/*max-width: 778px;*/
+	max-width: 100%;
+}
+
+.patient>div.simple-info {
+	width: 100%;
+	height: 30px;
+	cursor: pointer;
+}
+
+.simple-info> .print {
+	width: 20px;
+	height: 30px;
+	background: url("../img/print.png") no-repeat 50%;
+	background-size: 20px;
+	float: right!important;
+	margin-right: 30px;
+	margin-left: 0px !important;
+}
+
+.simple-info> .fanhui {
+	width: 28px;
+	height: 30px;
+	background: url("../img/index/exit.png") no-repeat 50%;
+	background-size: 28px;
+	float: right!important;
+	margin-right: 0;
+	margin-left: 5px !important;
+}
+
+.simple-info> .tijiao {
+	width: 28px;
+	height: 30px;
+	background: url("../img/index/save.png") no-repeat 50%;
+	background-size: 28px;
+	float: right!important;
+	margin-right: 0;
+	margin-left: 5px !important;
+}
+
+.simple-info> .dayin {
+	width: 28px;
+	height: 30px;
+	background: url("../img/index/print.png") no-repeat 50%;
+	background-size: 28px;
+	float: right!important;
+	margin-right: 0;
+	margin-left: 5px !important;
+}
+
+.simple-info> .dayin:hover {
+	background: url("../img/index/print_hover&clicked.png") no-repeat 50%;
+	background-size: 28px;
+}
+
+.simple-info> .dayin_hover_clicked {
+	width: 28px;
+	height: 30px;
+	background: url("../img/index/print_hover&clicked.png") no-repeat 50%;
+	background-size: 28px;
+	float: right!important;
+	margin-right: 0;
+	margin-left: 5px !important;
+}
+
+.simple-info> .fengexian {
+	/*width: 28px;*/
+	margin-top: 5px;
+	border-left: 2px solid #e5e5e5;
+	vertical-align: middle;
+	height: 20px;
+	line-height: 20px;
+	float: right!important;
+	margin-right: 0;
+	margin-left: 5px !important;
+}
+
+.simple-info> .lishijilu {
+	width: 28px;
+	height: 30px;
+	background: url("../img/index/history.png") no-repeat 50%;
+	background-size: 28px;
+	float: right!important;
+	margin-right: 0;
+	margin-left: 5px !important;
+}
+
+.simple-info> .lishijilu:hover {
+	background: url("../img/index/history_hover&clicked.png") no-repeat 50%;
+	background-size: 28px;
+}
+
+.simple-info> .lishijilu_hover_clicked {
+	width: 28px;
+	height: 30px;
+	background: url("../img/index/history_hover&clicked.png") no-repeat 50%;
+	background-size: 28px;
+	float: right!important;
+	margin-right: 0;
+	margin-left: 5px !important;
+}
+
+.patient>div.simple-info>div {
+	float: left;
+	margin-left: 15px;
+	line-height: 30px;
+	position: relative;
+}
+
+.patient>div.simple-info:hover {
+	color: #0088be
+}
+
+.patient>div.simple-info>.icon {
+	background: url("../img/index/health-management .png") center no-repeat;
+	background-size: 15px 15px;
+	height: 30px;
+	width: 15px;
+	cursor: pointer;
+	margin-left: 0;
+}
+
+.patient>div.simple-info>div:nth-child(n+3) {
+	margin-left: 30px;
+}
+
+.patient>div.detail {
+	/*height: 668px;*/
+}
+
+.diagnosis-button {
+	height: 30px;
+	position: absolute;
+	bottom: 20px;
+	width: auto;
+	right: 20px;
+	z-index: 1;
+}
+
+.diagnosis-button>button {
+	margin-left: 15px;
+}
+
+.content-diagnosis>iframe {
+	margin-top: 55px;
+	height: calc(100% - 40px);
+	width: 100%;
+}
+
+.detail div.font {
+	line-height: 30px;
+	margin-left: 15px;
+	width: auto;
+	float: left;
+}
+
+.detail div.title {
+	height: 30px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.detail div.icon {
+	width: 15px;
+	height: 30px;
+	background-size: 15px 15px;
+	background-position: center;
+	background-repeat: no-repeat;
+	/*margin-left: 15px;*/
+	float: left;
+}
+
+.detail>div.identity>div.title>div.icon {
+	background-image: url("../img/index/personal-information.png");
+}
+
+.detail>div.contact>div.title>div.icon {
+	background-image: url("../img/index/tel2.png");
+}
+
+.detail>div.company>div.title>div.icon {
+	background-image: url("../img/index/stock-management.png");
+}
+
+.detail>div.relatives>div.title>div.icon {
+	background-image: url("../img/index/patient.png");
+}
+
+.detail div.info {
+	height: auto;
+	padding-top: -5px;
+	/*padding-left: 45px;*/
+	padding-left: 30px;
+	position: relative;
+}
+
+.detail div.info>div.info-detail>span.font:nth-of-type(1),
+.detail div.info>div.info-detail>span.font:nth-of-type(2),
+.detail div.info>div.info-detail>span.font:nth-of-type(3) {
+	padding-top: 10px;
+}
+
+.detail div.info>div.info-detail>span.font {
+	width: 30.33333333333%;
+	display: inline-block;
+	height: auto;
+	padding-top: 15px;
+}
+
+.detail>div.relatives>div.info>div.info-detail>span.font {
+	width: 100%;
+}
+
+.detail>div {
+	margin-bottom: 20px;
+}
+
+.detail>div.identity>div.info>div.photo {
+	height: 100px;
+	width: 80px;
+	background-color: #eee;
+	text-align: center;
+	line-height: 100px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	margin-right: 25px;
+}
+
+
+/**/
+
+
+/* 2017-4-9 新增样式 */
+
+.second-level li> a span:last-child {
+	display: none;
+}
+
+.second-level li> a .icon {
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	float: right;
+	background: url("../img/appointment_white.png") no-repeat 50%;
+	background-size: 17px 17px;
+}
+
+.second-level li> a:hover .icon {
+	display: inline-block;
+	background-size: 17px 17px;
+}
+
+.second-level li> a .icon:hover {
+	background: url("../img/appointmen_blue.png") no-repeat 50%;
+	background-size: 17px 17px;
+}
+
+#second_level_ul li a> .arrow {
+	display: block;
+}
+
+
+/*#second_level_ul li>a.select>.arrow {
+	display: block;
+}*/
+
+#second_level_ul li>a>.d-n {
+	display: none;
+}
+
+
+/* 遮罩层 */
+
+#shade {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(160, 160, 160, .6);
+	margin-bottom: 0;
+	z-index: 998;
+}
+
+
+/* 弹窗显示的动画效果*/
+
+.animated {
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	z-index: 100
+}
+
+@-webkit-keyframes flipInY {
+	0% {
+		-webkit-transform: perspective(400px) rotateY(90deg);
+		transform: perspective(400px) rotateY(90deg);
+		opacity: 0
+	}
+	40% {
+		-webkit-transform: perspective(400px) rotateY(-10deg);
+		transform: perspective(400px) rotateY(-10deg)
+	}
+	70% {
+		-webkit-transform: perspective(400px) rotateY(10deg);
+		transform: perspective(400px) rotateY(10deg)
+	}
+	100% {
+		-webkit-transform: perspective(400px) rotateY(0deg);
+		transform: perspective(400px) rotateY(0deg);
+		opacity: 1
+	}
+}
+
+@keyframes flipInY {
+	0% {
+		-webkit-transform: perspective(400px) rotateY(90deg);
+		-ms-transform: perspective(400px) rotateY(90deg);
+		transform: perspective(400px) rotateY(90deg);
+		opacity: 0
+	}
+	40% {
+		-webkit-transform: perspective(400px) rotateY(-10deg);
+		-ms-transform: perspective(400px) rotateY(-10deg);
+		transform: perspective(400px) rotateY(-10deg)
+	}
+	70% {
+		-webkit-transform: perspective(400px) rotateY(10deg);
+		-ms-transform: perspective(400px) rotateY(10deg);
+		transform: perspective(400px) rotateY(10deg)
+	}
+	100% {
+		-webkit-transform: perspective(400px) rotateY(0deg);
+		-ms-transform: perspective(400px) rotateY(0deg);
+		transform: perspective(400px) rotateY(0deg);
+		opacity: 1
+	}
+}
+
+.flipInY {
+	-webkit-backface-visibility: visible !important;
+	-ms-backface-visibility: visible !important;
+	backface-visibility: visible !important;
+	-webkit-animation-name: flipInY;
+	animation-name: flipInY
+}
+
+
+/* 确认是否删除主诉的弹窗 */
+
+.confirm-model {
+	width: 400px;
+	height: 260px;
+	font-size: 12px;
+	font-weight: bold;
+	border-radius: 8px;
+	position: fixed;
+	z-index: 999;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: 100px;
+	background-color: #fff;
+	color: #33475f;
+}
+
+.confirm-model> .title {
+	width: 100%;
+	height: 50px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	background-color: #eee;
+	position: relative;
+}
+
+.confirm-model> .title> .close {
+	cursor: pointer;
+}
+
+.confirm-model> .title> p {
+	position: absolute;
+	top: 16px;
+}
+
+.confirm-model> .title> p:nth-of-type(1) {
+	left: 20px;
+	font-size: 14px;
+}
+
+.confirm-model> .title> p:nth-of-type(2) {
+	right: 20px;
+	width: 20px;
+	height: 20px;
+	background: url("../img/index/close.png") no-repeat center;
+	background-size: 20px 20px;
+}
+
+.confirm-model> .body {
+	width: 100%;
+	height: 160px;
+	position: relative;
+}
+
+.confirm-model> .body> .img {
+	width: 60px;
+	height: 60px;
+	margin: 0 auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 30px;
+	background: url("../img/index/info.png") no-repeat center;
+	background-size: 60px 60px;
+}
+
+.confirm-model> .body> p {
+	width: auto;
+	margin: 0 auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 105px;
+	text-align: center;
+}
+
+.confirm-model> .button {
+	width: 100%;
+	height: 50px;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+	position: relative;
+	cursor: pointer;
+	color: #fff;
+}
+
+.confirm-model> .button p {
+	text-align: center;
+	line-height: 52px;
+}
+
+.confirm-model> .button> .left {
+	width: 50%;
+	height: 100%;
+	border-bottom-left-radius: 8px;
+	position: absolute;
+	left: 0;
+	background-color: #0088be;
+}
+
+.confirm-model> .button> .left> .img {
+	width: 37px;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	background: url("../img/index/left.png") no-repeat right;
+	background-size: 22px 22px;
+}
+
+.confirm-model> .button> .left> .img+p {
+	position: absolute;
+	right: 0;
+	text-align: left;
+	width: 158px;
+}
+
+.confirm-model> .button> .right {
+	width: 50%;
+	height: 100%;
+	border-bottom-right-radius: 8px;
+	position: absolute;
+	right: 0;
+	background-color: #18aaa4;
+}
+
+.confirm-model> .button> .right> .img {
+	width: 37px;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	background: url("../img/index/right.png") no-repeat left;
+	background-size: 22px 22px;
+}
+
+.confirm-model> .button> .right> .img+p {
+	position: absolute;
+	left: 0;
+	text-align: right;
+	width: 158px;
+}
+
+.confirm-model> .button .all {
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+	position: absolute;
+	right: 0;
+	background-color: #18aaa4;
+}
+
+.confirm-model> .button> .all> .img {
+	width: 37px;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	background: url("../img/index/right.png") no-repeat right;
+	background-size: 22px 22px;
+}
+
+.confirm-model> .button> .all> .img+p {
+	position: absolute;
+	left: 0;
+	text-align: center;
+	width: 400px;
+}

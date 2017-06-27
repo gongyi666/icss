@@ -1,0 +1,83 @@
+<ns3:cdsInput xmlns:ns3="org.opencds.vmr.v1_0.schema.cdsinput">
+	<templateId root="2.16.840.1.113883.3.795.11.1.1" />
+	<!--描述上下文，如使用者，语言 -->
+	<cdsContext>
+		<cdsSystemUserType code="doctor" codeSystem="2.16.840.1.113883.6.99" codeSystemName="医生"/>
+		<cdsSystemUserPreferredLanguage code="en"
+			codeSystem="2.16.840.1.113883.6.99" displayName="English" />
+	</cdsContext>
+	<!-- -->
+	<vmrInput>
+		<templateId root="1.1" />
+		<patient>
+			<!--病人UUID-->
+			<id root="${patientUUID!''}" />
+			<entityType code="organization" codeSystem="2.16.840.1.113883.6.99" codeSystemName="医疗机构"/>
+			<!--病人信息，可以不填 -->
+			<demographics />
+			<clinicalStatements>
+				<!--症状 -->
+				<adverseEvents>
+					<adverseEvent>
+						<templateId root="2.16.840.1.113883.3.795.11.9.4.1" />
+						<id root="idRoot" extension="idExtension" />
+						<adverseEventCode code="${symptomCode!''}"
+							codeSystem="朗通编码体系编码" codeSystemName="朗通编码"
+							displayName="${symptomName!''}" />
+						<adverseEventTime />
+						<adverseEventStatus />
+					</adverseEvent>
+				</adverseEvents>
+				<!-- 症状表现 -->
+				<observationResults>
+					<observationResult>
+						<templateId root="2.16.840.1.113883.3.795.11.6.3.1" />
+						<id root="e0873224-d109-4420-8ec9-7bc72aca2460" />
+						<observationFocus code="发生时间编码" codeSystem="朗通编码体系编码"
+							codeSystemName="朗通编码" displayName="发生时间" />
+						<observationValue>
+							<physicalQuantity value="${duration!''}" unit="单位所对应编码" />
+						</observationValue>
+					</observationResult>
+					<observationResult>
+						<templateId root="2.16.840.1.113883.3.795.11.6.3.1" />
+						<id root="e0873224-d109-4420-8ec9-7bc72aca2460" />
+						<observationFocus code="程度编码" codeSystem="朗通编码体系编码"
+							codeSystemName="朗通编码" displayName="程度" originalText="程度"/>
+						<observationValue>
+							<concept code="${degree!''}"/>
+						</observationValue>
+					</observationResult>
+					<observationResult>
+						<templateId root="2.16.840.1.113883.3.795.11.6.3.1" />
+						<id root="e0873224-d109-4420-8ec9-7bc72aca2460" />
+						<observationFocus code="性质编码" codeSystem="朗通编码体系编码"
+							codeSystemName="朗通编码" displayName="性质" originalText="性质"/>
+						<observationValue>
+							<concept code="${nature!''}" />
+						</observationValue>
+					</observationResult>
+					<observationResult>
+						<templateId root="2.16.840.1.113883.3.795.11.6.3.1" />
+						<id root="e0873224-d109-4420-8ec9-7bc72aca2460" />
+						<observationFocus code="诱因编码" codeSystem="朗通编码体系编码"
+										  codeSystemName="朗通编码" displayName="诱因" originalText="诱因"/>
+						<observationValue>
+							<concept code="${incentive!''}" />
+						</observationValue>
+						<interpretation code="${incentive_category!''}" />
+					</observationResult>
+					<observationResult>
+						<templateId root="2.16.840.1.113883.3.795.11.6.3.1" />
+						<id root="e0873224-d109-4420-8ec9-7bc72aca2460" />
+						<observationFocus code="补充编码" codeSystem="朗通编码体系编码"
+										  codeSystemName="朗通编码" displayName="补充" originalText="补充"/>
+						<observationValue>
+							<text value="${supplement!''}"/>
+						</observationValue>
+					</observationResult>
+				</observationResults>
+			</clinicalStatements>
+		</patient>
+	</vmrInput>
+</ns3:cdsInput>

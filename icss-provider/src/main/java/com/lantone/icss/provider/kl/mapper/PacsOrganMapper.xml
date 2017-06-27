@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.PacsOrganMapper" >
+  <resultMap id="baseResultMap" type="com.lantone.icss.api.kl.model.wrapper.PacsOrganWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ 	<select id="getPacsOrganByApparatusCode" parameterType="java.lang.String" resultMap="baseResultMap">
+ 		select a.* from kl_pacs_organ a,
+			kl_apparatus_part b
+			where a.status = '1'
+			and a.code = b.organ_code
+			and b.apparatus_code = #{apparatusCode}
+ 	</select>
+ 	
+ 	<select id="getPacsOrganByApparatusAndPart" parameterType="java.util.Map" resultMap="baseResultMap">
+ 		select a.* from kl_pacs_organ a,
+			kl_apparatus_part b
+			where a.status = '1'
+			and a.code = b.organ_code
+			and b.apparatus_code = #{apparatusCode}
+			and b.part_code = #{partCode}
+ 	</select>
+ 	
+ 	<select id="getPacsOrganByCode" parameterType="java.lang.String" resultMap="baseResultMap">
+ 		select * from kl_pacs_organ where code = #{code}
+ 	</select>
+ 	
+ 	<select id="getPacsOrganByPartCode" parameterType="java.lang.String" resultMap="baseResultMap">
+ 		select DISTINCT a.* from kl_pacs_organ a,kl_apparatus_part b
+			where a.code = b.organ_code
+			and b.part_code = #{partCode}
+ 	</select>
+</mapper>

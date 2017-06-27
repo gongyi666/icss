@@ -1,0 +1,208 @@
+{
+  "type": "1",
+  "sign": "0",
+  "patientId": "25",
+  "hisCode": "hisCode",
+  "doctorName": "医生名字",
+  "dept": "部门名称",
+  "deptCode": "部门编码",
+  "doctorId": "1",
+  "hospitalCode": "331023",
+  "diagnose": "诊断名称",
+  "diseaseId": "diseaseId",
+  "toPat": {
+    "name": "ddd",
+    "idNo": "002",
+    "idType": "223232",
+    "id": "1290"
+  },
+  "toHistory": [
+    {
+      "itemDescribe": "咳嗽3天&胸痛5天&blibbl天",
+      "type": 1
+    },
+    {
+      "itemDescribe": "咳嗽3天&胸痛5天&blibbl天",
+      "type": 2
+    },
+    {
+      "itemDescribe": "咳嗽3天&胸痛5天&blibbl天",
+      "type": 3
+    },
+    {
+      "itemDescribe": "咳嗽3天&胸痛5天&blibbl天",
+      "type": 4
+    },
+    {
+      "itemDescribe": "咳嗽3天&胸痛5天&blibbl天",
+      "type": 5
+    },
+    {
+      "itemDescribe": "",
+      "type": 9
+    }
+  ],
+  "detailStr": [
+    {
+      "itemId": "胸痛编码",
+      "itemName": "胸痛",
+      "itemDescribe": "胸痛5天",
+      "type": "1",
+      "contentJson": [],
+      "remark": ""
+    }
+  ],
+  "codeJson": {
+    "疾病code1": {
+      "date_one_time": "1",
+      "date_one_unit": "天",
+      "question_cause": "寒冷",
+      "input的name": "用药(11),手术(11)"
+    },
+    "疾病Code2": {
+      "input的name": "用药(11),手术(11)",
+      "input的name": "用药(11),手术(11)",
+      "input的name": "用药(11),手术(11)",
+      "input的name": "用药(11),手术(11)"
+    }
+  },
+  "dataJson": [
+    {
+      "type": 0,
+      "choose": [
+        {
+          "itemId": "胸痛编码",
+          "itemName": "胸痛",
+          "itemDescribe": "胸痛5天",
+          "type": "1",
+          "contentJson": {},
+          "remark": ""
+        }
+      ],
+      "else": [
+        "SJFL002001",
+        "SJFL002002",
+        "SJFL002004"
+      ],
+      "details": [
+        {
+          "itemId": "1",
+          "title": {
+            "itemName": "腹泻",
+            "checkboxClass": "d-n"
+          },
+
+          "contents": [
+            {
+              "type": "7",
+              "id": "3",
+              "date_toggle": "1",
+              "date_one_time": "1",
+              "date_one_unit": "天"
+            },
+            {
+              "type": "10",
+              "question_cause": "寒冷"
+            },
+            {
+              "type": "10",
+              "question_cause": "中度"
+            },
+            {
+              "type": "10",
+              "question_cause": "持续性"
+            },
+            {
+              "type": "6",
+              "question_cause": "fefef"
+            },
+            {
+              "type": "4",
+              "name": "不饮酒,很少饮酒,"
+            }
+          ]
+        },
+        {
+          "itemId": "13",
+          "title": {
+            "itemName": "白带增多",
+            "checkboxClass": "d-n"
+          },
+          "contents": [
+            {
+              "date_toggle": "2",
+              "date_to_year": "2012",
+              "date_to_month": "2",
+              "date_to_day": "2"
+            },
+            {
+              "type": "10",
+              "question_cause": "寒冷"
+            },
+            {
+              "type": "10",
+              "question_cause": "中度"
+            },
+            {
+              "type": "10",
+              "question_cause": "持续性"
+            },
+            {
+              "type": "6",
+              "question_cause": "fefef"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "2",
+      "details": [
+        {
+          "itemId": "3",
+          "title": {
+            "itemName": "心肌梗死",
+            "checkboxClass": "d-n"
+          },
+          "contents": [
+            {
+              "type": "7",
+              "id": "6",
+              "date_toggle": "2",
+              "date_to_year": "2012",
+              "date_to_month": "2",
+              "date_to_day": "2"
+            },
+            {
+              "id": "7",
+              "type": "9",
+              "input的name": "用药(11),手术(11)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "3",
+      "details": [
+        {
+          "itemId": "1003",
+          "title": {
+            "itemName": "饮食",
+            "checkboxClass": "d-n"
+          },
+          "contents": [
+            {
+              "type": "8",
+              "name": "不定时,不定量"
+            },
+            {
+              "type": "8",
+              "name": "素食,荤食"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

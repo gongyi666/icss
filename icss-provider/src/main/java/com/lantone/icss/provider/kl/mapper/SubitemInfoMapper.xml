@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.SubitemInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.wrapper.SubitemInfoWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sys_type" property="sysType" jdbcType="BIGINT" />
+    <result column="spell" property="spell" jdbcType="VARCHAR" />
+    <result column="five_stroke" property="fiveStroke" jdbcType="VARCHAR" />
+    <result column="sex_type" property="sexType" jdbcType="VARCHAR" />
+    <result column="age_begin" property="ageBegin" jdbcType="BIGINT" />
+    <result column="age_end" property="ageEnd" jdbcType="BIGINT" />
+    <result column="has_question" property="hasQuestion" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="is_special" property="isSpecial" jdbcType="VARCHAR" />
+    <result column="portrait_id" property="portraitId" jdbcType="VARCHAR" />
+  	<result column="type" property="type" jdbcType="VARCHAR" />
+  	<result column="trans_code" property="transCode" jdbcType="VARCHAR" />
+  	<result column="standard_id" property="standardId" jdbcType="BIGINT" />
+  	<!-- 扩充字段 -->
+  	<result column="sub_name" property="subName" jdbcType="VARCHAR" /> 
+  	<result column="param_code" property="paramCode" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<!-- 多个参数过滤 -->
+	<select id="getSubitemByParam" parameterType="com.lantone.icss.api.kl.model.wrapper.SubitemInfoWrapper" resultMap="BaseResultMap">
+		select a.*, s.code param_code, #{portraitId} as portrait_id 
+		from kl_subitem_info a
+		left join kl_portrait_subitem b on a.id = b.subitem_id
+		left join kl_standard_info s on s.id = a.standard_id	
+		where a.status = '1'
+			and b.portrait_id = #{portraitId}
+			<if test="sexType != null and sexType !='' ">
+				and a.sex_type in (#{sexType},'3')
+			</if>
+	</select>
+	
+	<select id="getSubitemByPortrait" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select a.*, s.code param_code, #{portraitId} as portrait_id 
+		from kl_subitem_info a
+		left join kl_portrait_subitem b on a.id = b.subitem_id
+		left join kl_standard_info s on s.id = a.standard_id	
+		where a.status = '1'
+			and b.portrait_id = #{portraitId}
+	</select>
+	
+	<select id="searchSubitemInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select a.*, s.code param_code 
+		from kl_subitem_info a 
+		left join kl_standard_info s on s.id = a.standard_id
+		where a.status = '1'
+		and a.type = #{type}
+		and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))
+		limit 0,#{size}
+	</select>
+	
+	<!-- 高频推送 -->
+	<select id="highFrequencyPush" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select a.*, b.*, s.code param_code 
+		from kl_subitem_info a 
+		left join at_doctor_habit_count b on a.id = b.habit_id
+		left join kl_standard_info s on s.id = a.standard_id
+		where b.doctor_id = #{doctorId} and b.type = #{type}
+			 and a.status = '1' and a.type = #{type} and b.count_num > 2 
+			<if test="notIds != null and notIds.length > 0">
+				and a.id not in 
+				<foreach item="item" index="index" collection="notIds" 
+                         open="(" separator="," close=")">
+                     #{item}
+                </foreach>
+			</if>
+			<if test="notCodes != null and notCodes.length > 0">
+				and (a.trans_code not in 
+				<foreach item="item" index="index" collection="notCodes" 
+                         open="(" separator="," close=")">
+                     #{item}
+                </foreach> 
+                	or (a.trans_code is null or a.trans_code = ''))
+			</if>
+			<if test="age != null and age != ''"> 
+				<![CDATA[ and a.age_begin <= #{age} ]]>
+				<![CDATA[ and a.age_end >= #{age} ]]>
+			</if>
+			<if test="standardIds != null and standardIds.size() != 0 ">
+				and a.standard_id in 
+				<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+			</if>
+			<if test="sexType == 3">
+				and a.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and a.sex_type in ('3',#{sexType})
+			</if>
+			<!-- *********************加入科室与项目的对应关系 2017.6.10-->
+			<!-- <if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != ''">
+				and a.id in (
+					select mm.item_id from kl_dept_item mm, his_mapping_dept nn 
+					where mm.type = #{type} and mm.icss_sys_id = nn.icss_sys_id
+						and nn.hospital_code = #{hospitalCode} and nn.his_dept_code = #{deptNo})
+			</if> -->
+			<!-- <if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != ''">
+				and a.sys_type in (select c.icss_sys_id from 
+											his_mapping_dept c 
+											where c.hospital_code = #{hospitalCode}
+											and c.his_dept_code = #{deptNo})
+			</if> -->
+			<if test="inputstr != null and inputstr != ''">
+				and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))
+			</if>
+			order by b.count_num desc,a.order_no asc
+			limit 0,#{size}
+	</select>
+	
+	<select id="getInitSubitemInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select a.*, b.*, s.code param_code from kl_subitem_info a
+			left join at_doctor_habit_count b on a.id = b.habit_id and b.doctor_id = #{doctorId} and b.type = #{type}
+			left join kl_standard_info s on s.id = a.standard_id
+			<!-- *********************加入科室与项目的对应关系开始 2017.6.10-->
+			<if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != '' 
+						and (standardIds == null or standardIds.size()==0 )">
+				inner join (select mm.item_id from kl_dept_item mm, his_mapping_dept nn
+				where mm.usual = '1' and mm.type = #{type} and mm.icss_sys_id = nn.icss_sys_id
+				and nn.hospital_code = #{hospitalCode} and nn.his_dept_code = #{deptNo}) h
+			</if>
+			<!-- *********************加入科室与项目的对应关系结束 2017.6.10-->
+			where a.status = '1' and a.type = #{type}
+			<!-- *********************加入科室与项目的对应关系开始 2017.6.10-->
+			<if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != '' 
+						and (standardIds == null or standardIds.size()==0) ">
+				and a.id = h.item_id
+			</if>
+			<if test="notIds != null and notIds.length > 0">
+				and a.id not in 
+				<foreach item="item" index="index" collection="notIds" 
+                         open="(" separator="," close=")">
+                     #{item}
+                </foreach>
+			</if>
+			<if test="notCodes != null">
+				and (a.trans_code not in 
+				<foreach item="item" index="index" collection="notCodes" 
+                         open="(" separator="," close=")">
+                     #{item}
+                </foreach> 
+                	or (a.trans_code is null or a.trans_code = ''))
+			</if>
+			<if test="age != null and age != ''"> 
+				<![CDATA[ and a.age_begin <= #{age} ]]>
+				<![CDATA[ and a.age_end >= #{age} ]]>
+			</if>
+			<if test="standardIds != null and standardIds.size() != 0 ">
+				and a.standard_id in 
+				<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+			</if>
+			<!-- <if test="standardIds != null and standardIds.size() != 0 ">
+				and a.standard_id in 
+				<foreach collection="standardIds" item="standardId" open="(" separator="," close=")">
+					#{standardId}
+				</foreach>
+			</if> -->
+			<if test="sexType == 3">
+				and a.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and a.sex_type in ('3',#{sexType})
+			</if>
+			
+			<!-- *********************加入科室与项目的对应关系结束 2017.6.10-->
+			<!-- 搜索不用过滤科室2017.6.10
+			<if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != ''">
+				and a.sys_type in (select c.icss_sys_id from 
+											his_mapping_dept c 
+											where c.hospital_code = #{hospitalCode}
+											and c.his_dept_code = #{deptNo})
+			</if> -->
+			<if test="inputstr != null and inputstr != ''">
+				and (a.spell like CONCAT('%',#{inputstr},'%') or a.name like CONCAT('%',#{inputstr},'%'))
+			</if>
+			order by b.count_num desc,a.order_no asc
+			limit 0,#{size}
+	</select>
+	
+	<select id="getSubitemByDiseaseId" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select a.*, s.code param_code 
+		from kl_subitem_info a 
+		left join kl_disease_subitem b on a.id = b.subitem_id
+		left join kl_standard_info s on s.id = a.standard_id
+			where a.status = '1'
+			and b.disease_id = #{diseaseId}
+			and a.type = #{type}
+	</select>
+	
+	<select id="getsubitemInfosByCode"  resultMap="BaseResultMap">
+		select c.*,(SELECT f.code FROM kl_standard_info f where f.id=c.standard_id) param_code from kl_subitem_info c where c.type= 4 and c.id in
+		   (select a.subitem_id from kl_subitem_diagnose a,kl_subitem_rule b where a.rule_id = b.id and b.code in 
+		   <foreach item="code" collection="list" open="(" separator="," close=")">
+			#{code}
+		  </foreach>
+		   )
+	</select>
+	
+	<select id="getSpecialSubitem" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select a.*, (select s.code from kl_standard_info s where s.id = a.standard_id) param_code from kl_subitem_info a where a.status = '1' and a.is_special = '1' and a.type = #{type}
+	</select>
+	
+	<select id="getSubitemInfoByRetrieval" parameterType="com.lantone.icss.api.kl.model.wrapper.RetrievalInfoWrapper" resultMap="BaseResultMap">
+		select t.* from 
+			(select s.*, ksi.code param_code, r.name as sub_name 
+			from kl_subitem_info s
+			left join kl_retrieval_mapping m on m.search_id = s.id
+			left join kl_retrieval_info r on m.retrieval_id = r.id and r.status = '1' 
+			left join kl_standard_info ksi on ksi.id = s.standard_id
+			where s.status = '1' 
+			and (r.spell like CONCAT('%',#{inputstr},'%') or r.name like CONCAT('%',#{inputstr},'%'))
+			and s.type = #{type}) t 
+		left join at_doctor_habit_count b on t.id = b.habit_id and b.doctor_id = #{doctorId} and b.type = #{type}
+		where 1=1
+			<if test="notIdsArr != null and notIdsArr.length > 0">
+				and t.id not in 
+				<foreach item="item" index="index" collection="notIdsArr" 
+                         open="(" separator="," close=")">
+                     #{item}
+                </foreach>
+			</if>
+			<if test="notCodesArr != null and notCodesArr.length > 0">
+				and (t.trans_code not in 
+				<foreach item="item" index="index" collection="notCodesArr" 
+                         open="(" separator="," close=")">
+                     #{item}
+                </foreach> 
+                	or (t.trans_code is null or t.trans_code = ''))
+			</if>
+			<if test="age != null and age != ''"> 
+				<![CDATA[ and t.age_begin <= #{age} ]]>
+				<![CDATA[ and t.age_end >= #{age} ]]>
+			</if>
+			<if test="sexType == 3">
+				and t.sex_type in ('1','2','3')
+			</if>
+			<if test="sexType != 3">
+				and t.sex_type in ('3',#{sexType})
+			</if>
+			<!-- 搜索不用过滤科室2017.6.10
+			<if test="hospitalCode != null and hospitalCode != '' and deptNo != null and deptNo != ''">
+				and t.sys_type in (select c.icss_sys_id from 
+											his_mapping_dept c 
+											where c.hospital_code = #{hospitalCode}
+											and c.his_dept_code = #{deptNo})
+			</if> -->
+		order by b.count_num desc,t.order_no asc
+		limit 0, #{size}
+	</select>
+	
+	<select id="getSubitemInfoByStandardId" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select t.*, (select s.code from kl_standard_info s where s.id = t.standard_id) param_code from kl_subitem_info t where t.standard_id = #{standardId} limit 0,#{size}
+	</select>
+	
+	<select id="getSubitemInfoById" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select t.*, (select s.code from kl_standard_info s where s.id = t.standard_id) param_code from kl_subitem_info t where t.status=1 and t.id=#{id}
+	</select>
+	
+</mapper>

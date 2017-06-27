@@ -1,0 +1,17 @@
+package com.lantone.icss.rule
+
+import java.util.List;
+import java.util.ArrayList;
+
+import com.lantone.icss.rule.model.IcssObjectInput;
+import com.lantone.icss.rule.model.ChiefComplaint;
+import com.lantone.icss.rule.model.LabResult;
+import com.lantone.icss.rule.model.OtherHistory;
+import com.lantone.icss.rule.model.PastMedicalHistory;
+import com.lantone.icss.rule.model.VitalSign;
+import com.lantone.icss.rule.util.PhraseUtil;
+
+import com.lantone.icss.rule.model.IcssObjectOutput;
+
+//declare any global variables here
+global IcssObjectOutput output;

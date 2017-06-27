@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.at.dao.PatientInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.at.model.PatientInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+	  <id column="id" jdbcType="BIGINT" property="id" />
+	  <result column="his_code" jdbcType="VARCHAR" property="hisCode" />
+	  <result column="hospital_code" jdbcType="VARCHAR" property="hospitalCode" />
+	  <result column="name" jdbcType="VARCHAR" property="name" />
+	  <result column="sex" jdbcType="VARCHAR" property="sex" />
+	  <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+	  <result column="id_type" jdbcType="VARCHAR" property="idType" />
+	  <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+	  <result column="address" jdbcType="VARCHAR" property="address" />
+	  <result column="phone" jdbcType="VARCHAR" property="phone" />
+	  <result column="status" jdbcType="VARCHAR" property="status" />
+	  <result column="remark" jdbcType="VARCHAR" property="remark" />
+
+	  <result column="identity_num" jdbcType="VARCHAR" property="identityNum" />
+	  <result column="nature_id" jdbcType="VARCHAR" property="natureId" />
+	  <result column="postcode" jdbcType="VARCHAR" property="postcode" />
+	  <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+	  <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+	  <result column="work_unit" jdbcType="VARCHAR" property="workUnit" />
+	  <result column="operation" jdbcType="VARCHAR" property="operation" />
+	  <result column="country" jdbcType="VARCHAR" property="country" />
+	  <result column="nationality" jdbcType="VARCHAR" property="nationality" />
+	  <result column="matrimony" jdbcType="VARCHAR" property="matrimony" />
+	  <result column="his_previous" jdbcType="LONGVARCHAR" property="hisPrevious" />
+	  <result column="his_allergic" jdbcType="LONGVARCHAR" property="hisAllergic" />
+	  <result column="his_family" jdbcType="LONGVARCHAR" property="hisFamily" />
+	  <result column="record_date" jdbcType="VARCHAR" property="recordDate" />
+	  <result column="mem_grade" jdbcType="CHAR" property="memGrade" />
+	  <result column="card_num" jdbcType="VARCHAR" property="cardNum" />
+	  <result column="fee_id" jdbcType="BIGINT" property="feeId" />
+	  <result column="reg_visited_state" jdbcType="CHAR" property="regVisitedState" />
+  </resultMap>
+  
+  <select id="getPatientByNoAndHospital" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select * from at_patient_info where his_code = #{patientNo} and hospital_code = #{hospitalCode}
+  </select>
+  
+  <insert id="insertPatient" keyProperty="id" useGeneratedKeys="true" parameterType="com.lantone.icss.api.at.model.PatientInfo">
+	  insert into at_patient_info
+	  <trim prefix="(" suffix=")" suffixOverrides=",">
+		  <if test="hisCode != null">
+			  his_code,
+		  </if>
+		  <if test="hospitalCode != null">
+			  hospital_code,
+		  </if>
+		  <if test="name != null">
+			  name,
+		  </if>
+		  <if test="sex != null">
+			  sex,
+		  </if>
+		  <if test="birthday != null">
+			  birthday,
+		  </if>
+		  <if test="idType != null">
+			  id_type,
+		  </if>
+		  <if test="idNo != null">
+			  id_no,
+		  </if>
+		  <if test="address != null">
+			  address,
+		  </if>
+		  <if test="phone != null">
+			  phone,
+		  </if>
+		  <if test="status != null">
+			  status,
+		  </if>
+		  <if test="remark != null">
+			  remark,
+		  </if>
+		  <if test="identityNum != null">
+			  identity_num,
+		  </if>
+		  <if test="natureId != null">
+			  nature_id,
+		  </if>
+		  <if test="postcode != null">
+			  postcode,
+		  </if>
+		  <if test="contactPhone != null">
+			  contact_phone,
+		  </if>
+		  <if test="contacts != null">
+			  contacts,
+		  </if>
+		  <if test="workUnit != null">
+			  work_unit,
+		  </if>
+		  <if test="operation != null">
+			  operation,
+		  </if>
+		  <if test="country != null">
+			  country,
+		  </if>
+		  <if test="nationality != null">
+			  nationality,
+		  </if>
+		  <if test="matrimony != null">
+			  matrimony,
+		  </if>
+		  <if test="hisPrevious != null">
+			  his_previous,
+		  </if>
+		  <if test="hisAllergic != null">
+			  his_allergic,
+		  </if>
+		  <if test="hisFamily != null">
+			  his_family,
+		  </if>
+		  <if test="recordDate != null">
+			  record_date,
+		  </if>
+		  <if test="memGrade != null">
+			  mem_grade,
+		  </if>
+		  <if test="cardNum != null">
+			  card_num,
+		  </if>
+		  <if test="feeId != null">
+			  fee_id,
+		  </if>
+		  <if test="regVisitedState != null">
+			  reg_visited_state,
+		  </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides=",">
+		  <if test="hisCode != null">
+			  #{hisCode,jdbcType=VARCHAR},
+		  </if>
+		  <if test="hospitalCode != null">
+			  #{hospitalCode,jdbcType=VARCHAR},
+		  </if>
+		  <if test="name != null">
+			  #{name,jdbcType=VARCHAR},
+		  </if>
+		  <if test="sex != null">
+			  #{sex,jdbcType=VARCHAR},
+		  </if>
+		  <if test="birthday != null">
+			  #{birthday,jdbcType=TIMESTAMP},
+		  </if>
+		  <if test="idType != null">
+			  #{idType,jdbcType=VARCHAR},
+		  </if>
+		  <if test="idNo != null">
+			  #{idNo,jdbcType=VARCHAR},
+		  </if>
+		  <if test="address != null">
+			  #{address,jdbcType=VARCHAR},
+		  </if>
+		  <if test="phone != null">
+			  #{phone,jdbcType=VARCHAR},
+		  </if>
+		  <if test="status != null">
+			  #{status,jdbcType=VARCHAR},
+		  </if>
+		  <if test="remark != null">
+			  #{remark,jdbcType=VARCHAR},
+		  </if>
+		  <if test="identityNum != null">
+			  #{identityNum,jdbcType=VARCHAR},
+		  </if>
+		  <if test="natureId != null">
+			  #{natureId,jdbcType=VARCHAR},
+		  </if>
+		  <if test="postcode != null">
+			  #{postcode,jdbcType=VARCHAR},
+		  </if>
+		  <if test="contactPhone != null">
+			  #{contactPhone,jdbcType=VARCHAR},
+		  </if>
+		  <if test="contacts != null">
+			  #{contacts,jdbcType=VARCHAR},
+		  </if>
+		  <if test="workUnit != null">
+			  #{workUnit,jdbcType=VARCHAR},
+		  </if>
+		  <if test="operation != null">
+			  #{operation,jdbcType=VARCHAR},
+		  </if>
+		  <if test="country != null">
+			  #{country,jdbcType=VARCHAR},
+		  </if>
+		  <if test="nationality != null">
+			  #{nationality,jdbcType=VARCHAR},
+		  </if>
+		  <if test="matrimony != null">
+			  #{matrimony,jdbcType=VARCHAR},
+		  </if>
+		  <if test="hisPrevious != null">
+			  #{hisPrevious,jdbcType=LONGVARCHAR},
+		  </if>
+		  <if test="hisAllergic != null">
+			  #{hisAllergic,jdbcType=LONGVARCHAR},
+		  </if>
+		  <if test="hisFamily != null">
+			  #{hisFamily,jdbcType=LONGVARCHAR},
+		  </if>
+		  <if test="recordDate != null">
+			  #{recordDate,jdbcType=VARCHAR},
+		  </if>
+		  <if test="memGrade != null">
+			  #{memGrade,jdbcType=CHAR},
+		  </if>
+		  <if test="cardNum != null">
+			  #{cardNum,jdbcType=VARCHAR},
+		  </if>
+		  <if test="feeId != null">
+			  #{feeId,jdbcType=BIGINT},
+		  </if>
+		  <if test="regVisitedState != null">
+			  #{regVisitedState,jdbcType=CHAR},
+		  </if>
+	  </trim>
+  </insert>
+  
+  <update id="updatePatient" parameterType="com.lantone.icss.api.at.model.PatientInfo">
+	  update at_patient_info
+	  <set>
+		  <if test="hisCode != null">
+			  his_code = #{hisCode,jdbcType=VARCHAR},
+		  </if>
+		  <if test="hospitalCode != null">
+			  hospital_code = #{hospitalCode,jdbcType=VARCHAR},
+		  </if>
+		  <if test="name != null">
+			  name = #{name,jdbcType=VARCHAR},
+		  </if>
+		  <if test="sex != null">
+			  sex = #{sex,jdbcType=VARCHAR},
+		  </if>
+		  <if test="birthday != null">
+			  birthday = #{birthday,jdbcType=TIMESTAMP},
+		  </if>
+		  <if test="idType != null">
+			  id_type = #{idType,jdbcType=VARCHAR},
+		  </if>
+		  <if test="idNo != null">
+			  id_no = #{idNo,jdbcType=VARCHAR},
+		  </if>
+		  <if test="address != null">
+			  address = #{address,jdbcType=VARCHAR},
+		  </if>
+		  <if test="phone != null">
+			  phone = #{phone,jdbcType=VARCHAR},
+		  </if>
+		  <if test="status != null">
+			  status = #{status,jdbcType=VARCHAR},
+		  </if>
+		  <if test="remark != null">
+			  remark = #{remark,jdbcType=VARCHAR},
+		  </if>
+		  <if test="identityNum != null">
+			  identity_num = #{identityNum,jdbcType=VARCHAR},
+		  </if>
+		  <if test="natureId != null">
+			  nature_id = #{natureId,jdbcType=VARCHAR},
+		  </if>
+		  <if test="postcode != null">
+			  postcode = #{postcode,jdbcType=VARCHAR},
+		  </if>
+		  <if test="contactPhone != null">
+			  contact_phone = #{contactPhone,jdbcType=VARCHAR},
+		  </if>
+		  <if test="contacts != null">
+			  contacts = #{contacts,jdbcType=VARCHAR},
+		  </if>
+		  <if test="workUnit != null">
+			  work_unit = #{workUnit,jdbcType=VARCHAR},
+		  </if>
+		  <if test="operation != null">
+			  operation = #{operation,jdbcType=VARCHAR},
+		  </if>
+		  <if test="country != null">
+			  country = #{country,jdbcType=VARCHAR},
+		  </if>
+		  <if test="nationality != null">
+			  nationality = #{nationality,jdbcType=VARCHAR},
+		  </if>
+		  <if test="matrimony != null">
+			  matrimony = #{matrimony,jdbcType=VARCHAR},
+		  </if>
+		  <if test="hisPrevious != null">
+			  his_previous = #{hisPrevious,jdbcType=LONGVARCHAR},
+		  </if>
+		  <if test="hisAllergic != null">
+			  his_allergic = #{hisAllergic,jdbcType=LONGVARCHAR},
+		  </if>
+		  <if test="hisFamily != null">
+			  his_family = #{hisFamily,jdbcType=LONGVARCHAR},
+		  </if>
+		  <if test="recordDate != null">
+			  record_date = #{recordDate,jdbcType=VARCHAR},
+		  </if>
+		  <if test="memGrade != null">
+			  mem_grade = #{memGrade,jdbcType=CHAR},
+		  </if>
+		  <if test="cardNum != null">
+			  card_num = #{cardNum,jdbcType=VARCHAR},
+		  </if>
+		  <if test="feeId != null">
+			  fee_id = #{feeId,jdbcType=BIGINT},
+		  </if>
+		  <if test="regVisitedState != null">
+			  reg_visited_state = #{regVisitedState,jdbcType=CHAR},
+		  </if>
+	  </set>
+	  where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getPatientById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select * from at_patient_info where id = #{patientId}
+  </select>
+
+	<select id="selectWaitListWrapper" resultMap="BaseResultMap"
+			parameterType="java.util.Map">
+		select t.* from at_patient_info t WHERE t.status = 1 and t.reg_visited_state in (0,1,2)
+		<if test="hospitalCode != null and hospitalCode != ''">
+			and hospital_code = #{hospitalCode}
+		</if>
+		<if test="inputVal != null and inputVal != ''">
+			and (t.name like CONCAT('%',#{inputVal},'%') or t.card_num like CONCAT('%',#{inputVal},'%'))
+		</if>
+		<if test="regVisitedState != null and regVisitedState != ''">
+			and t.reg_visited_state = #{regVisitedState}
+		</if>
+	</select>
+</mapper>

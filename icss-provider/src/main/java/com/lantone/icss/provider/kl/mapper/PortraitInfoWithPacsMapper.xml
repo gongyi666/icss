@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.PortraitInfoWithPacsMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.wrapper.PortraitInfoWithPacsWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="transverse_id" property="transverseId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="end_level" property="endLevel" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getPortraitWithPacsByParent" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  		select * from kl_portrait_info 
+  		where status = '1' 
+  		and parent_id = #{parentId} 
+  		order by order_no
+  </select>
+  
+  <select id="getPortraitWithPacsByTransverse" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  		select * from kl_portrait_info 
+  		where status = '1' 
+  		and transverse_id = #{transverseId} 
+  		order by order_no
+  </select>
+</mapper>

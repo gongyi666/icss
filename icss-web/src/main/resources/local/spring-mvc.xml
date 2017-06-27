@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd 
+    http://www.springframework.org/schema/beans          
+    http://www.springframework.org/schema/beans/spring-beans.xsd    
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd      
+    http://code.alibabatech.com/schema/dubbo          
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<dubbo:annotation package="com.lantone.icss" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<bean class="org.springframework.http.MediaType">
+								<constructor-arg index="0" value="text" />
+								<constructor-arg index="1" value="plain" />
+								<constructor-arg index="2" value="UTF-8" />
+							</bean>
+							<bean class="org.springframework.http.MediaType">
+								<constructor-arg index="0" value="*" />
+								<constructor-arg index="1" value="*" />
+								<constructor-arg index="2" value="UTF-8" />
+							</bean>
+						</list>
+					</property>
+				</bean>
+				<!-- 启动JSON格式的配置 -->
+				<bean id="jacksonMessageConverter"
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<!-- 解决 HttpMediaTypeNotAcceptableException: Could not find acceptable 
+						representation -->
+					<property name="supportedMediaTypes">
+						<list>
+							<value>application/json;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!--视图配置 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/master/" />
+		<property name="suffix" value=".html" />
+	</bean>
+
+	<!-- 支持上传文件 -->
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+     <property name="maxUploadSize" value="104857600" />
+     <property name="maxInMemorySize" value="4096" />
+     <property name="defaultEncoding" value="UTF-8"></property>
+</bean>
+
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.lantone.core.intercept.RegionInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<mvc:resources mapping="/icss/**" location="/icss/" />
+	<mvc:annotation-driven />
+
+	<!-- 使用 Swagger Restful API文档时，添加此注解 -->
+	<mvc:default-servlet-handler />
+</beans>

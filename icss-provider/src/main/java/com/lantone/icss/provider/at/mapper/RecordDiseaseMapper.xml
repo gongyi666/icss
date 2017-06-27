@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.at.dao.RecordDiseaseMapper" >
+  <resultMap id="RecordDiseaseWrapper" type="com.lantone.icss.api.at.model.wrapper.RecordDiseaseWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="record_id" property="recordId" jdbcType="BIGINT" />
+    <result column="disease_id" property="diseaseId" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="disease_name" property="diseaseName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="insertRecordDisease" parameterType="com.lantone.icss.api.at.model.wrapper.RecordDiseaseWrapper">
+  	insert into 
+  		at_record_disease(
+  			record_id,
+  			disease_id,
+  			type,
+  			order_no,
+  			remark
+  		)
+  		values(
+  			#{recordId},
+  			#{diseaseId},
+  			#{type},
+  			#{orderNo},
+  			#{remark}
+  		)
+  </insert>
+  
+  <delete id="deleteRecordDiseaseByRecordId" parameterType="java.lang.Long">
+  	delete from at_record_disease where record_id = #{recordId}
+  </delete>
+  
+  <select id="getRecordDiseaseByRecordId" parameterType="java.lang.Long" resultMap="RecordDiseaseWrapper">
+  	select a.*,b.name as disease_name from at_record_disease a 
+		left join kl_disease_info b on a.disease_id = b.id
+		where a.record_id = #{recordId}
+  </select>
+</mapper>

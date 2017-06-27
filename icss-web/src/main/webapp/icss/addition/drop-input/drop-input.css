@@ -1,0 +1,50 @@
+.drop-input-container{
+    position: relative;
+    height: auto;
+    cursor: pointer;
+    z-index: 0;
+    min-height: 0 !important;
+}
+
+.drop-input-container textarea{
+    position: relative;
+    height: 80px;
+    padding: 2px;
+    width: 100%;
+    resize: none;
+    border: none;
+    border: 1px solid #e5e5e5;
+    margin-bottom: -4px;
+    outline: none;
+}
+
+.drop-input-container textarea:focus{
+    border-color: #0088be;
+}
+
+.drop-input-center{
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    width: 100px;
+    height: 17px;
+    background-color: #ccc;
+    padding-top: 1px;
+    bottom: -18px;
+    text-align: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 1;
+}
+
+.drop-input-arrow{
+    background-color: #ccc;
+    margin: 0 auto;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 0 solid #fff;
+    border-top: 5px solid #fff;
+}
+

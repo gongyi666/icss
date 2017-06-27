@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="js/jquery.tmpl.js"></script>
+    
+    <script type="text/javascript">
+        
+        $(document).ready(function() {
+            //表单渲染
+			var data = {
+			"resultTemplate": "最终生成的一句话",//这里需要后端定好这句话的规则，即定一个模板，可以由下面表单的value拼凑出来
+			"formData": [
+				{
+				"type": "input",
+				"title": "姓名",
+				"nameval": "name",
+				"size": "min",
+				"value": "zhangsan"
+				},
+				{
+				"type": "radio",
+				"title": "性别",
+				"nameval": "sex",
+				"size": "max",
+				"value": [
+					{
+					"tag": "男",
+					"selected": false
+					},
+					{
+					"tag": "女",
+					"selected": true
+					}
+					]
+				},
+				{
+				"type": "checkbox",
+				"title": "爱好",
+				"nameval": "love",
+				"size": "min",
+				"value": [
+					{
+					"tag": "打球",
+					"selected": true
+					},
+					{
+					"tag": "下棋",
+					"selected": false
+					},
+					{
+					"tag": "钓鱼",
+					"selected": true
+					}
+					]
+				},
+				{
+				"type": "select",
+				"title": "国家",
+				"nameval": "guojia",
+				"size": "min",
+				"value": [
+					{
+					"tag": "中国",
+					"selected": false
+					},
+					{
+					"tag": "美国",
+					"selected": false
+					},
+					{
+					"tag": "韩国",
+					"selected": true
+					}
+					]
+				},
+				{
+				"type": "textarea",
+				"title": "个人简介",
+				"nameval": "description",
+				"size": "min",
+				"value": "打卡了深刻"
+				}
+				]
+			}
+			
+            $("#template1").tmpl(data).appendTo('#result1');
+			
+			//表单交互
+			$(".check-box").click(function(){
+				var type = $(this).parents("dl").attr("type");
+				var isselected = $(this).hasClass("check-state");
+				
+				if (type == "checkbox") {
+					if (isselected) {
+						$(this).removeClass("check-state");
+					} else {
+						$(this).addClass("check-state");
+					}
+					
+				} else {
+					if (isselected) {
+						$(this).removeClass("check-state");
+					} else {
+						$(this).addClass("check-state");
+						$(this).siblings(".check-box").removeClass("check-state");
+					}
+				}
+			});
+			
+			//获取表单数据
+			$(".make-sure").click(function(){
+				var formObj = {};
+				formObj.formData = getFormData();//提交到后端的表单数据
+			});
+			function getFormData() {
+				var newFormData = data.formData;
+				for (var k in newFormData) {
+					var item = newFormData[k];
+					var name = item.nameval;
+					var type = item.type;
+					var dlDom = $('#formList dl[name='+name+']');
+					if (type == "input") {
+						var value = dlDom.find("input").val();
+						newFormData[k].value = value;
+					} else if (type == "textarea") {
+						var value = dlDom.find("textarea").val();
+						newFormData[k].value = value;
+					} else if (type == "radio") {
+						dlDom.find(".check-box").each(function(i){
+							var curstate = $(this).hasClass("check-state");
+							newFormData[k].value[i].selected = curstate;
+						});
+					} else if (type == "checkbox") {
+						dlDom.find(".check-box").each(function(i){
+							var curstate = $(this).hasClass("check-state");
+							newFormData[k].value[i].selected = curstate;
+						});
+					} else if (type == "select") {
+						var selectValue = dlDom.find("select").val();
+						for (var i in item.value) {
+							newFormData[k].value[i].selected = false;
+							if (item.value[i].tag == selectValue) {
+								newFormData[k].value[i].selected = true;
+							}
+						}
+					} else {
+						
+					}
+					
+				}
+				
+			}
+        });	
+    </script>
+
+</head>
+<body>
+    	<div id="result1" class="jTemplatesTest"></div>
+        <!--详细表单-->
+        <script id="template1" type="text/x-jquery-tmpl"> 
+        <div id="formList" class="detail-list" style="display:block">
+            <h3 class="pro-name"><b>经典居</b><span class="check-box">无</span></h3>
+            <div class="form-area">
+			{{each(i, record) formData}}
+            
+                {{if record.type == "input"}}
+				<dl name=${record.nameval}>
+                    <dt>${record.title}</dt>
+                    <dd><input value=${record.value} /></dd>
+                </dl>
+                {{else record.type == "radio"}}
+                <dl name=${record.nameval} type=${record.type}>
+                    <dt>${record.title}</dt>
+                    <dd>
+					{{each(j, val) record.value}}
+						{{if val.selected}}
+                        <span class="check-box check-state">${val.tag}</span>
+						{{else}}
+						<span class="check-box">${val.tag}</span>
+						{{/if}}
+                     {{/each}} 
+                    </dd>
+                </dl>
+				{{else record.type == "checkbox"}}
+                <dl name=${record.nameval} type=${record.type}>
+                    <dt>${record.title}</dt>
+                    <dd>
+					{{each(j, val) record.value}}
+						{{if val.selected}}
+                        <span class="check-box check-state">${val.tag}</span>
+						{{else}}
+						<span class="check-box">${val.tag}</span>
+						{{/if}}
+                     {{/each}} 
+                    </dd>
+                </dl>
+				{{else record.type == "select"}}
+                <dl name=${record.nameval}>
+                    <dt>${record.title}</dt>
+                    <dd>
+					<select>
+					{{each(j, val) record.value}}
+						
+						{{if val.selected}}
+						<option selected value=${val.tag}>${val.tag}</option>
+						{{else}}
+						<option value=${val.tag}>${val.tag}</option>
+						{{/if}}
+                     {{/each}} 
+					 </select>
+                    </dd>
+                </dl>
+                {{else record.type == "textarea"}}
+                <dl name=${record.nameval}>
+                    <dt>${record.title}</dt>
+                    <dd><textarea>${record.value}</textarea></dd>
+                </dl>
+                {{else}}
+                 
+                {{/if}}
+             {{/each}}
+      
+            <p class="submit-bt">
+                <button class="make-sure usable" type="button">确定</button>
+                <button class="cancle unusable" type="button">取消</button>
+            </p>
+            </div>
+        </div>
+        </script>
+
+    
+</body>
+</html>

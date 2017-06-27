@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.DrugCrowdDosageMapper">
+	<resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.DrugCrowdDosage">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="drug_id" property="drugId" jdbcType="BIGINT" />
+		<result column="crowd_type" property="crowdType" />
+		<result column="min_dosage" property="minDosage" />
+		<result column="max_dosage" property="maxDosage" />
+		<result column="common_dosage" property="commonDosage" />
+		<result column="dosage_type" property="dosageType" />
+		<result column="drug_usage" property="drugUsage" />
+		<result column="drug_frequency" property="drugFrequency" />
+		<result column="disease_id" property="diseaseId" />
+		<result column="crowd_sex" property="crowdSex" />
+		<result column="crowd_star_age" property="crowdStarAge" />
+		<result column="crowd_end_age" property="crowdEndAge" />
+		<result column="dosage_unit" property="dosageUnit" />
+		<result column="drug_course" property="drugCourse" />
+		<result column="max_day_dosage" property="maxDayDosage" />
+		<result column="min_day_dosage" property="minDayDosage" />
+	</resultMap>
+
+	<resultMap id="BaseWrapperResultMap"
+		type="com.lantone.icss.api.kl.model.wrapper.DrugCrowdDosageWrapper">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="drug_id" property="drugId" jdbcType="BIGINT" />
+		<result column="crowd_type" property="crowdType" />
+		<result column="min_dosage" property="minDosage" />
+		<result column="max_dosage" property="maxDosage" />
+		<result column="common_dosage" property="commonDosage" />
+		<result column="dosage_type" property="dosageType" />
+		<result column="drug_usage" property="drugUsage" />
+		<result column="drug_frequency" property="drugFrequency" />
+		<result column="disease_id" property="diseaseId" />
+		<result column="crowd_sex" property="crowdSex" />
+		<result column="crowd_star_age" property="crowdStarAge" />
+		<result column="crowd_end_age" property="crowdEndAge" />
+		<result column="dosage_unit" property="dosageUnit" />
+		<result column="drug_id" property="drugId" />
+		<result column="name" property="drugName" />
+		<result column="drug_course" property="drugCourse" />
+		<result column="max_day_dosage" property="maxDayDosage" />
+		<result column="min_day_dosage" property="minDayDosage" />
+	</resultMap>
+	<select id="getDrugCrowdDosageWrapperInfo" parameterType="java.util.Map"
+		resultMap="BaseWrapperResultMap">
+		select b.*,a.name  from kl_drug_crowd_dosage b ,kl_drug_item_info a
+		where  a.id=b.drug_id
+		and drug_id=#{drugId}
+		<!-- <if test="diseaseId != null and diseaseId != ''">
+			and disease_id=#{diseaseId}
+		</if> -->
+		<if test="diseaseIds !=null and diseaseIds.length>0 ">
+			and disease_id in
+			<foreach collection="diseaseIds" item="diseaseId" open="(" separator="," close=")">
+				#{diseaseId}
+			</foreach>
+		</if>
+		<if test="age != null and age != ''">
+			and crowd_star_age &lt;=#{age} and crowd_end_age
+			&gt;=#{age}
+		</if>
+
+		<if test="crowdType != null and crowdType != ''">
+			and crowd_type=#{crowdType}
+		</if>
+		<if test="crowdSex != null and crowdSex != ''">
+
+			and crowd_sex=#{crowdSex}
+		</if>
+	</select>
+	<select id="getListDrugCrowdDosageWrapper" parameterType="java.util.Map"
+		resultMap="BaseWrapperResultMap">
+		select b.*,a.name  from kl_drug_crowd_dosage b ,kl_drug_item_info a
+		where  a.id=b.drug_id
+		and drug_id=#{drugId}
+
+		<if test="diseaseIds!=null and diseaseIds.length!=0">
+				and disease_id in
+			<foreach item="diseaseId" collection="diseaseIds" open="("
+				separator="," close=")">
+				#{diseaseId}
+			</foreach>
+		</if>
+		<if test="age != null and age != ''">
+			and crowd_star_age &lt;=#{age} and crowd_end_age
+			&gt;=#{age}
+		</if>
+
+		<if test="crowdType != null and crowdType != ''">
+			and crowd_type=#{crowdType}
+		</if>
+		<if test="crowdSex != null and crowdSex != ''">
+
+			and crowd_sex=#{crowdSex}
+		</if>
+		</select>
+
+	<select id="getUsageModeList" resultType="com.lantone.icss.api.his.model.HisUsageMode" parameterType="java.util.Map">
+		select
+			f.id,
+	  		f.hospital_code as hospitalCode,
+	  		f.name,
+	  		f.spell,
+	  		f.five_stroke as fiveStroke,
+	  		f.type,
+	  		f.status,
+	  		f.order_no as orderNo,
+	  		f.remark
+		from his_usage_mode f
+		where f.id in
+		( SELECT DISTINCT(t.drug_usage) FROM `kl_drug_crowd_dosage` t where t.drug_id = #{drgId})
+	</select>
+
+	<select id="getUseFrequencyList" resultType="com.lantone.icss.api.his.model.HisDrugUseFrequency" parameterType="java.util.Map">
+		select
+			f.id,
+	  		f.hospital_code as hospitalCode,
+	  		f.name,
+	  		f.en_name as enName,
+	  		f.num,
+	  		f.order_no as orderNo,
+	  		f.remark
+		from his_frequency_info f
+		where f.en_name in
+		( SELECT DISTINCT(t.drug_frequency) FROM kl_drug_crowd_dosage t where t.drug_id = #{drgId}) ;
+	</select>
+
+</mapper>

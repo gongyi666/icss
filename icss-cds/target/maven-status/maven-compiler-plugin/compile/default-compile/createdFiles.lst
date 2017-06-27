@@ -1,0 +1,6 @@
+com\lantone\icss\cds\model\CDSInput.class
+com\lantone\icss\cds\util\ClassUtils.class
+com\lantone\icss\cds\util\CdsObjectAssist.class
+com\lantone\icss\cds\web\CDSController.class
+com\lantone\icss\cds\util\CdsException.class
+com\lantone\icss\cds\util\MarshalUtils.class

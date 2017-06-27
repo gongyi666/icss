@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="addition/drop-input/drop-input.css" rel="stylesheet">
+    <link href="css/lis-pacs.css" rel="stylesheet" type="text/css">
+    <link href="http://at.alicdn.com/t/font_8zx93ufsnr85b3xr.css" rel="stylesheet">
+</head>
+
+<body>
+    <form id="form_save">
+        <div id="main-ct">
+            <!--病历单-->
+            <div class="medical-record-sheet">
+                <li class="list">
+                    <label>主诉</label>
+                    <div class="choose-list"></div>
+                    <div class="txt-area">
+                        <input name="" value=" " type="text">
+                        <div class="second-levl"></div>
+                    </div>
+                    <div class="third-levl"></div>
+                </li>
+                <li class="list">
+                    <label>现病史</label>
+                    <div class="choose-list"></div>
+                    <div class="txt-area">
+                        <input name="" value=" " type="text">
+                        <div class="second-levl"></div>
+                    </div>
+                    <div class="third-levl"></div>
+                </li>
+                <li class="list">
+                    <label>既往史</label>
+                    <div class="choose-list"></div>
+                    <div class="txt-area">
+                        <input name="" value=" " type="text">
+                        <div class="second-levl"></div>
+                    </div>
+                    <div class="third-levl"></div>
+                </li>
+                <li class="list">
+                    <label>其他史</label>
+                    <div class="choose-list"></div>
+                    <div class="txt-area">
+                        <input name="" value=" " type="text">
+                        <div class="second-levl"></div>
+                    </div>
+                    <div class="third-levl"></div>
+                </li>
+                <li class="list">
+                    <label>体征</label>
+                    <div class="choose-list"></div>
+                    <div class="txt-area">
+                        <input name="" value=" " type="text">
+                        <div class="second-levl"></div>
+                    </div>
+                    <div class="third-levl"></div>
+                </li>
+                <li class="list">
+                    <label>化验</label>
+                    <div class="choose-list"></div>
+                    <div class="txt-area">
+                        <input name="" value=" " type="text">
+                        <div class="second-levl"></div>
+                    </div>
+                    <div class="third-levl"></div>
+                </li>
+                <li class="list">
+                    <label>器查</label>
+                    <div class="choose-list"></div>
+                    <div class="txt-area">
+                        <input name="" value=" " type="text">
+                        <div class="second-levl"></div>
+                    </div>
+                    <div class="third-levl"></div>
+                </li>
+                <li class="list">
+                    <label>诊断</label>
+                    <div class="choose-list"></div>
+                    <div class="txt-area">
+                        <input name="" value=" " type="text">
+                        <div class="second-levl"></div>
+                    </div>
+                    <div class="third-levl"></div>
+                    <div class="diagnosis-forth-levl">
+                        <div class="detail-list">
+                            <h3 class="pro-name"><b>转诊</b><div class="pro-name-box"><span class="check-box">加急</span></div></h3>
+                            <div style="overflow:hidden">
+                                <dl>
+                                    <dt>医院</dt>
+                                    <dd>
+                                        <select>
+                                            <option>邵逸夫医院</option>
+                                            <option>浙一医院</option>
+                                        </select>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>科室</dt>
+                                    <dd>
+                                        <select>
+                                            <option>内科</option>
+                                            <option>外科</option>
+                                        </select>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>医生</dt>
+                                    <dd>
+                                        <select>
+                                            <option>李时珍</option>
+                                            <option></option>
+                                        </select>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <p class="submit-bt">
+                                <button class="make-sure usable" type="button">确定</button>
+                                <button class="cancle unusable" type="button" onclick="this.parentNode.parentNode.style.display='none'">取消</button>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="list">
+                    <label>治疗</label>
+                    <div class="choose-list"></div>
+                    <div class="txt-area">
+                        <input name="" value=" " type="text">
+                        <div class="second-levl"></div>
+                    </div>
+                    <div class="third-levl">
+                    </div>
+                </li>
+            </div>
+        </div>
+    </form>
+    <!--推送列表-->
+    <script id="template1" type="text/x-jquery-tmpl">
+        ${max_length=5}
+        <div class="open-list1">
+            <ul class="push-list clearfix">
+                {{each(i, record) data}} {{if record.state == 1}} {{if record.name.length > max_length}}
+                <li class="check-state" data-id="${record.id}" max-overflow="1">${record.name.substring(0,max_length)}...</li>
+                {{else}}
+                <li class="check-state" data-id="${record.id}">${record.name}</li>
+                {{/if}} {{else}} {{if record.name.length > max_length}}
+                <li data-id="${record.id}" max-overflow="1">${record.name.substring(0,max_length)}...</li>
+                {{else}}
+                <li data-id="${record.id}">${record.name}</li>
+                {{/if}} {{/if}} {{/each}}
+                <p class="more-bt"><img src="img/1.png"> </p>
+            </ul>
+            <div class="past-history clearfix">
+                <span class="none check-box">无</span>
+                <ul class="cr-hsy">
+                    <li>疾病史</li>
+                    <li>传染病史</li>
+                    <li>过敏史</li>
+                    <li>接种史</li>
+                </ul>
+                <span class="all">全部</span>
+            </div>
+        </div>
+    </script>
+    <!--LIS模板-->
+    <script id="templateLis" type="text/x-jquery-tmpl">
+        ${max_length=5}
+        <div class="open-list1">
+            <ul class="push-list clearfix">
+                {{each(i, record) data}} {{if record.name.length > max_length}}
+                <li tip-title="${record.name}" data-code="${record.lisCode}" data-type="${record.type}" max-overflow="1">${record.name.substring(0,max_length)}...</li>
+                {{else}}
+                <li data-code="${record.lisCode}" data-type="${record.type}">${record.name}</li>
+                {{/if}} {{/each}}
+                <p class="more-bt"><img src="img/1.png"> </p>
+            </ul>
+        </div>
+    </script>
+    <!--PACS模板-->
+    <script id="templatePacs" type="text/x-jquery-tmpl">
+        ${max_length=5}
+        <div class="open-list1">
+            <ul class="push-list clearfix">
+                {{each(i, record) data}} {{if record.state == 1}} {{if record.name.length > max_length}}
+                <li class="check-state" data-id="${record.id}" max-overflow="1">${record.name.substring(0,max_length)}...</li>
+                {{else}}
+                <li class="check-state" data-id="${record.id}">${record.name}</li>
+                {{/if}} {{else}} {{if record.name.length > max_length}}
+                <li wholeid="${record.id}" tip-title="${record.name}" pacode="${record.partCode}" apcode="${record.apparatusCode}" max-overflow="1">${record.name.substring(0,max_length)}...</li>
+                {{else}}
+                <li wholeid="${record.id}" pacode="${record.partCode}" apcode="${record.apparatusCode}">${record.name}</li>
+                {{/if}} {{/if}} {{/each}}
+                <p class="more-bt pacs-more-bt"><img src="img/1.png"> </p>
+            </ul>
+        </div>
+    </script>
+    <!--diagnosis模板-->
+    <script id="templateDiagnosis" type="text/x-jquery-tmpl">
+        ${max_length=5}
+        <div class="open-list1 diagnosis-list">
+            <ul class="push-list clearfix" style="height:auto!important">
+                {{each(i, record) data}} {{if record.state == 1}} {{if record.name.length > max_length}}
+                <li style="display:inline-block" class="check-state" data-code="${record.code}" max-overflow="1">${record.name.substring(0,max_length)}...</li>
+                {{else}}
+                <li style="display:inline-block" class="check-state" data-code="${record.code}">${record.name}</li>
+                {{/if}} {{else}} {{if record.name.length > max_length}}
+                <li tip-title="${record.name}" style="display:inline-block" data-code="${record.code}" max-overflow="1">${record.name.substring(0,max_length)}...</li>
+                {{else}}
+                <li style="display:inline-block" data-code="${record.code}">${record.name}</li>
+                {{/if}} {{/if}} {{/each}}
+            </ul>
+            <ul class="diagnosis-list-explain">
+                {{each(i, record) data}}
+                <li style="display:none;" data-code="${record.code}">${record.name}详细说明</li>
+                {{/each}}
+            </ul>
+            <div class="diagnosis-list-buttons">
+                <button class="come-again" type="button">待查</button>
+                <button class="go-away" type="button">转诊</button>
+            </div>
+        </div>
+    </script>
+    <!--治疗模板-->
+    <script id="templateDrug" type="text/x-jquery-tmpl">
+        ${max_length=5}
+        <div class="open-list1">
+            <ul class="push-list clearfix">
+                {{each(i, record) data}} {{if record.state == 1}} {{if record.name.length > max_length}}
+                <li style="display:inline-block" class="check-state" data-id="${record.id}" max-overflow="1">${record.name.substring(0,max_length)}...</li>
+                {{else}}
+                <li style="display:inline-block" class="check-state" data-id="${record.id}">${record.name}</li>
+                {{/if}} {{else}} {{if record.name.length > max_length}}
+                <li tip-title="${record.name}" style="display:inline-block" data-id="${record.id}" max-overflow="1">${record.name.substring(0,max_length)}...</li>
+                {{else}}
+                <li style="display:inline-block" data-id="${record.id}">${record.name}</li>
+                {{/if}} {{/if}} {{/each}}
+                <p class="more-bt"><img src="img/1.png"> </p>
+            </ul>
+        </div>
+    </script>
+    <script>
+    var host_url = "http://192.168.3.130:8080/icss-web/";
+    </script>
+    <script src="js/jquery-1.11.1.js"></script>
+    <script src="js/jquery.fix.clone.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/blueTip.js"></script>
+    <script src="js/form-reader-init.js"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script src="addition/drop-input/jQuery-drop-input.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/jquery.tmpl.js"></script>
+    <script src="js/pushlist.js"></script>
+    <script src="js/fancy-modal.js"></script>
+    <script src="js/lis-modal.js"></script>
+    <script src="js/pacs-modal.js"></script>
+    <script src="js/diagnosis-modal.js"></script>
+    <script src="js/treatment-modal.js"></script>
+    <script>
+    var searchPush = host_url + "kl/subitem/search_subiteminfo?size=14";
+
+    $(".medical-record-sheet li").each(function() {
+        var dex = $(this).index();
+        if (dex < 5) { //化验以下的事件不绑定
+            if (dex == 0 || dex == 1) {
+                liNum(dex, 1);
+            } else {
+                liNum(dex, dex);
+            }
+        }
+
+    });
+
+    function liNum(a, b) {
+        var $input = $(".medical-record-sheet li").eq(a).find("input"),
+            _thsParent = $input.parents("li:first"),
+            apdArea = _thsParent.find(".second-levl");
+        _thsParent.on("click.search", function(e) {
+            return false;
+        });
+        $input.on("focus.search input.search propertychange.search", function(e) {
+            var url = host_url + "kl/subitem/init_subiteminfo?doctorId=1&size=14&sexType=1&age=20&deptNo=001&hospitalCode=1001&type=" + b,
+                val = $input.val().trim(),
+                param = {};
+            if (val !== "") {
+                url = searchPush;
+                param["inputstr"] = val;
+            }
+            ajaxPushList(apdArea, url, b, a, param, function() {
+                var $push_list = apdArea.find("ul.push-list"),
+                    $push_list_lis = $push_list.children("li");
+                _thsParent.find("div.choose-list").find("span").each(function() {
+                    var data_id = $(this).children("b").attr("data-id");
+                    apdArea.find("li[data-id=" + data_id + "]").addClass("check-state");
+                });
+                apdArea.show();
+                $push_list_lis.eq(0).addClass("li-hover");
+                $push_list_lis.on("mouseenter", function() {
+                    var $li = $(this);
+                    $li.addClass("li-hover");
+                    $li.siblings("li").removeClass("li-hover");
+                });
+                $input.off("keydown.ajaxKey");
+                $input.on("keydown.ajaxKey", function(e) {
+                    var $hover_li = $push_list_lis.filter(".li-hover"),
+                        index = $hover_li.index();
+
+                    function directionUp() {
+                        if (index >= 7) {
+                            $push_list_lis.eq(index).removeClass("li-hover");
+                            $push_list_lis.eq(index - 7).addClass("li-hover");
+                        }
+                    }
+
+                    function directionDown() {
+                        console.log(index);
+                        if (index < 7 && $push_list_lis.length > index + 7) {
+                            $push_list_lis.eq(index).removeClass("li-hover");
+                            $push_list_lis.eq(index + 7).addClass("li-hover");
+                        }
+                    }
+
+                    function directionLeft() {
+                        if (index > 0) {
+                            $push_list_lis.eq(index).removeClass("li-hover");
+                            $push_list_lis.eq(index - 1).addClass("li-hover");
+                        }
+                    }
+
+                    function directionRight() {
+                        if (index < $push_list_lis.length - 1) {
+                            $push_list_lis.eq(index).removeClass("li-hover");
+                            $push_list_lis.eq(index + 1).addClass("li-hover");
+                        }
+                    }
+
+                    function enter() {
+                        $push_list_lis.filter(".li-hover").click();
+                    }
+                    var key = {
+                        "37": directionLeft,
+                        "38": directionUp,
+                        "39": directionRight,
+                        "40": directionDown,
+                        "13": enter
+                    };
+
+                    if (key[e.keyCode]) {
+                        key[e.keyCode]();
+                    }
+                });
+            });
+            _thsParent.siblings().find(".second-levl").hide();
+
+        });
+        $(document).on("click", function() {
+            apdArea.hide();
+        });
+    }
+
+    //治疗input框数据，写死的数据，作为参考，到时候这部分删除
+    //*******************治疗开始*******************************//
+    /* setTimeout(function () {
+        var $li = $(".medical-record-sheet li").eq(8);
+        $li.find("input").off("click");
+        $li.append('<div class="second-levl" style="display: block;"><div class="open-list1"><ul class="push-list clearfix"><li data-id="3">心律平片</li> <li data-id="2">熟地</li><li data-id="1">高血压</li><li data-id="12">狂犬疫苗</li> <li data-id="10">糖尿病</li><li data-id="9">肝炎</li><li data-id="8">百白破</li> <li data-id="7">卡介苗</li><li data-id="5">阑尾炎</li><li data-id="4">青霉素过敏</li><p class="more-bt"><img src="img/1-beifen.jpg"> </p></ul><div class="past-history clearfix"><span class="none check-box">无</span><ul class="cr-hsy"><li>疾病史</li><li>传染病史</li><li>手术外伤史</li><li>过敏史</li><li>输血史</li><li>接种史</li></ul><span class="all">全部</span></div></div></div>').find("div.second-levl").hide();
+
+        $li.find("input").on("click", function () {
+            var $input = $(this),
+                $li = $input.parent().parent();
+            $li.find(".second-levl").toggle();
+            $li.siblings().find("div.second-levl").hide();
+        });
+
+        $li.find("div.second-levl").find("li").eq(0).on("click",function () {
+            $("#form-list-xinlv").show().siblings().hide();
+
+        });
+
+        $li.find("div.second-levl").find("li").eq(1).on("click",function () {
+            $("#form-list-shudi").show().siblings().hide();
+        });
+
+        $("#form-list-xinlv").find("p.submit-bt").on("click","button",function () {
+            $("#form-list-xinlv").hide();
+        });
+
+        $("#form-list-shudi").find("p.submit-bt").on("click","button",function () {
+            $("#form-list-shudi").hide();
+        });
+
+        $("#form-list-xinlv").on("click","span",function (e) {
+            var $span=$(e.target);
+            if($span.hasClass("check-box")){
+                $span.hasClass("check-state")?$span.removeClass("check-state"):$span.addClass("check-state");
+            }
+        });
+
+        $("#form-list-shudi").on("click","span",function (e) {
+            var $span=$(e.target);
+            if($span.hasClass("check-box")){
+                $span.hasClass("check-state")?$span.removeClass("check-state"):$span.addClass("check-state");
+            }
+        });
+
+        $("#form-list-xinlv").find("div.pro-name-arrow-container").on("click",function () {
+            var $this=$(this);
+            if($this.hasClass("light-border")){
+                $this.removeClass("light-border");
+                $this.siblings(".add-medicine-detail").css("display","none");
+            }else{
+                $this.addClass("light-border");
+                $this.siblings(".add-medicine-detail").css("display","block");
+            }
+        });
+
+        $("#form-list-xinlv").find("div.add-medicine-detail").on("click","tr",function (e) {
+            var $tr=$(e.target).parents("tr:first");
+            $tr.find("td:first").text("✔️️").parent().siblings().find("td:first").text("");
+        });
+
+    },300); */
+
+
+
+    //*******************治疗结束*******************************//
+    //*******************input框焦点去掉详细疾病框*******************************//
+    (function() {
+        var $lis = $(".medical-record-sheet li"),
+            $inputs = $lis.find("input");
+        $inputs.on("focus.hide-detail-list", function() {
+            $lis.find(".detail-list").hide();
+        });
+    }());
+    //*******************input框焦点去掉详细疾病框结束*******************************//
+    </script>
+</body>
+
+</html>

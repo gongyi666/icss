@@ -1,0 +1,108 @@
+/*=== base style===*/
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dt, dd, li, img {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+body {
+    font-size: 12px;
+    font-family:"微软雅黑";
+    background: #f1f4f9;
+}
+ul,li {
+    list-style: none;
+}
+h1,h2,h3,h4, h5,h6{
+    font-weight:normal;
+}
+.clearfix:after,.detail-list dl:after{
+    content:"\0020";
+    height:0;
+    display:block;
+    clear:both;
+}
+.clearfix,.detail-list dl{
+    zoom:1;
+}
+img{
+    vertical-align:top;
+}
+#main-ct{
+    width: 768px;
+    margin: 0 auto;
+    color: #33475f;
+    padding-bottom: 100px;
+}
+.check-box{
+    display:inline-block;
+    line-height: 24px;
+    padding-left: 30px;
+    background: url("img/2.png") no-repeat;
+}
+.check-box.check-state{
+    background: url("img/3.png") no-repeat;
+}
+
+/*************************详情表单***************************************/
+.detail-list{
+    display: none;
+    width: 746px;
+    background: #fff;
+    padding: 10px;
+    border: 1px #ddd solid;
+    border-radius: 5px;
+}
+.pro-name{
+    border-bottom: 1px #ddd solid;
+    line-height: 30px;
+}
+.pro-name b{
+    padding: 0 20px 0 10px;
+}
+.detail-list dl{
+    margin: 15px 0;
+}
+.detail-list dt{
+    width: 70px;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+}
+.detail-list dd{
+    width: 670px;
+    float: left;
+}
+.detail-list textarea{
+    width: 665px;
+    height: 85px;
+    border: 1px #ddd solid;
+}
+.detail-list .describe{
+    padding: 10px;
+    display: none;
+}
+.detail-list .submit-bt{
+    text-align: center;
+}
+.detail-list button{
+    width: 68px;
+    line-height: 24px;
+    text-align: center;
+    color: #fff;
+    border: 1px #ccc solid;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+.detail-list button.usable{
+    background: #0287bb;
+}
+.detail-list button.unusable{
+    background: #ccc;
+}
+
+
+
+
+
+

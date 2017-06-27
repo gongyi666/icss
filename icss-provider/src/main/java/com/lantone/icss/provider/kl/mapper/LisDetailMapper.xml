@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.LisDetailMapper" >
+  <resultMap id="LisDetailWrapper" type="com.lantone.icss.api.kl.model.wrapper.LisDetailWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="lis_id" property="lisId" jdbcType="BIGINT" />
+    <result column="standard_id" property="standardId" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="spell" property="spell" jdbcType="VARCHAR" />
+    <result column="five_stroke" property="fiveStroke" jdbcType="VARCHAR" />
+    <result column="label_prefix" property="labelPrefix" jdbcType="VARCHAR" />
+    <result column="text_name" property="textName" jdbcType="VARCHAR" />
+    <result column="label_suffix" property="labelSuffix" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="max_value" property="maxValue" jdbcType="DECIMAL" />
+    <result column="min_value" property="minValue" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+
+	<result column="type" jdbcType="VARCHAR" property="type" />
+	<result column="has_detail" jdbcType="VARCHAR" property="hasDetail" />
+	<result column="add_line" jdbcType="VARCHAR" property="addLine" />
+    <!-- 扩充字段 -->
+  	<result column="param_code" property="paramCode" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ <select id="getLisDetailByLisId" parameterType="java.lang.Long" resultMap="LisDetailWrapper">
+ 	select a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_lis_detail a where a.lis_id = #{lisId}
+ </select>
+ 
+ <select id="getLisDetailByDiseaseId" parameterType="java.lang.Long" resultMap="LisDetailWrapper">
+ 	select a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_lis_detail a,
+		kl_dis_lis_detail b
+		where a.id = b.lis_detail_id
+		and b.disease_id = #{diseaseId}
+ </select>
+ 
+ <select id="getLisDetail" parameterType="java.util.Map" resultMap="LisDetailWrapper">
+ 	SELECT a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  FROM kl_lis_detail a where a.id IN (
+		SELECT
+			icss_lis_id
+		FROM
+			his_mapping_lis 
+		where 
+		hospital_code = #{hospitalCode}
+		and his_lis_code in
+		<foreach collection="hisLisDetail" item="detail" open="(" separator="," close=")">
+			#{detail}
+		</foreach>
+	)
+ </select>
+ 
+ 
+ <select id="getLisDetailByCode" parameterType="java.util.Map" resultMap="LisDetailWrapper">
+  	select d.*,(select s.code from kl_standard_info s where s.id = d.standard_id) param_code  from kl_lis_detail d , kl_lis_project p
+	where d.code = p.lis_code
+	and d.code = #{code}
+	and status = '1'
+  </select>
+  
+ 
+  
+  <select id="getLisDetailByDoctorId" parameterType="java.util.Map" resultMap="LisDetailWrapper">
+		select k.*,(select s.code from kl_standard_info s where s.id = k.standard_id) param_code 
+		from kl_lis_detail k 
+		left join at_doctor_habit_count a
+			on k.id = a.habit_id
+		and
+			a.type = '5'
+		and doctor_id = #{doctorId}
+		order by count_num desc
+		limit 0,#{size}
+  </select>
+  
+  
+  <select id="searchLisDetail" parameterType="java.util.Map" resultMap="LisDetailWrapper">
+		select a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code 
+		from kl_lis_detail a
+		where a.status = '1'
+		and (a.spell like CONCAT(#{input},'%') or a.name like CONCAT('%',#{input},'%'))
+		limit 0,#{size}
+ </select>
+ 
+ <select id="getLisDetailByType" resultMap="LisDetailWrapper">
+		select a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code 
+		from kl_lis_detail a
+		where a.status = '1' and a.type_id = #{type}
+ </select>
+ 
+ <select id="getLisDetailByInfoId" resultMap="LisDetailWrapper">
+	select a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code  from kl_lis_detail a where a.status = '1' and a.lis_id = #{lisId}
+ </select>
+ 
+</mapper>

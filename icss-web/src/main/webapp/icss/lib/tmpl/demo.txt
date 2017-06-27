@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<head>
+    <link type="text/css" rel="stylesheet" href="css/base.css">
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="js/jquery.tmpl.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		//模拟数据
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: 'http://192.168.2.165:8090/icss-web/kl/symptominfo/search_symptominfo?inputstr=btss',
+            success: function (resutl) {
+                var data = resutl;
+                $("#template1").tmpl(data).appendTo('#result1');
+            }
+        });
+
+	});
+</script>
+</head>
+<body>
+
+	<!-- Template content -->
+    <script id="template1" type="text/x-jquery-tmpl">
+        <div class="open-list1">
+            <ul class="push-list clearfix">
+            {{each(i, record) data}}
+                {{if record.state == 1}}
+                <li class="check-state">${record.name}</li>
+                {{else}}
+                <li>${record.name}</li>
+                {{/if}}
+            {{/each}}
+                <p class="more-bt"><img src="img/1.jpg"> </p>
+            </ul>
+            <div class="past-history clearfix">
+                <span class="none check-box">无</span>
+                <ul class="cr-hsy">
+                    <li class="check-state">疾病史</li>
+                    <li>传染病史</li>
+                    <li>手术外伤史</li>
+                    <li>过敏史</li>
+                    <li>输血史</li>
+                    <li>接种史</li>
+                </ul>
+                <span class="all">全部</span>
+            </div>
+        </div>
+	</script>
+
+	<!-- Output elements -->
+	<div id="result1"></div>
+
+</body>
+</html>

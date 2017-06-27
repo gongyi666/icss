@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.DiagnosisStandardMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.DiagnosisStandard" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="disease_id" property="diseaseId" jdbcType="BIGINT" />
+    <result column="stand_id" property="standId" jdbcType="BIGINT" />
+    <result column="describe" property="describe" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

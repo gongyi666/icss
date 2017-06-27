@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.at.dao.RecordPacsMapper" >
+  <resultMap id="RecordPacsWrapper" type="com.lantone.icss.api.at.model.wrapper.RecordPacsWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="record_id" property="recordId" jdbcType="BIGINT" />
+    <result column="pacs_id" property="pacsId" jdbcType="BIGINT" />
+    <result column="pacs_result" property="pacsResult" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="pacs_name" property="pacsName" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<insert id="insertRecordPacs" parameterType="com.lantone.icss.api.at.model.wrapper.RecordPacsWrapper">
+		insert into	
+			at_record_pacs(
+				record_id,
+				pacs_id,
+				pacs_result,
+				order_no,
+				remark
+			)
+			values(
+				#{recordId},
+				#{pacsId},
+				#{pacsResult},
+				#{orderNo},
+				#{remark}
+			)
+	</insert>
+	
+	<delete id="deleteRecordPacsByRecordId" parameterType="java.lang.Long">
+		delete from at_record_pacs where record_id = #{recordId}
+	</delete>
+	
+	<select id="getRecordPacsByRecordId" parameterType="java.lang.Long" resultMap="RecordPacsWrapper">
+		select a.*,b.name as pacs_name from at_record_pacs a
+		left join kl_lispacs_menu_detail b on a.pacs_id = b.id
+		where record_id = #{recordId}
+	</select>
+</mapper>

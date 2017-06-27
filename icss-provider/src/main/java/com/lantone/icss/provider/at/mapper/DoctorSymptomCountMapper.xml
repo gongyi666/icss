@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.at.dao.DoctorSymptomCountMapper" >
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.at.model.DoctorSymptomCount" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="doctor_id" property="doctorId" jdbcType="BIGINT" />
+    <result column="symptom_id" property="symptomId" jdbcType="BIGINT" />
+    <result column="count_num" property="countNum" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+ <insert id="insertDoctorSymptomCount" parameterType="com.lantone.icss.api.at.model.wrapper.DoctorSymptomCountWrapper">
+ 	insert into
+ 		at_doctor_symptom_count(
+ 			doctor_id,
+ 			symptom_id,
+ 			count_num
+ 		)
+ 		values(
+ 			#{doctorId},
+ 			#{symptomId},
+ 			#{countNum}
+ 		)
+ </insert>
+ 
+ <update id="updateDoctorSymptomCount" parameterType="com.lantone.icss.api.at.model.wrapper.DoctorSymptomCountWrapper">
+ 	update	
+ 		at_doctor_symptom_count
+ 	set	
+ 		count_num = #{countNum}
+ 	where	
+ 	 	doctor_id = #{doctorId}
+ 	 	and symptom_id = #{symptomId}
+ </update>
+ 
+ <select id="getDoctorSymptomCount" parameterType="com.lantone.icss.api.at.model.wrapper.DoctorSymptomCountWrapper" resultMap="BaseResultMap">
+ 	select * from at_doctor_symptom_count 
+ 	where doctor_id = #{doctorId}
+ 	and symptom_id = #{symptomId}
+ </select>
+</mapper>

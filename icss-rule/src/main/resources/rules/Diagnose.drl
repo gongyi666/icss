@@ -1,0 +1,1128 @@
+package com.lantone.icss.rule
+
+import java.util.List;
+import java.util.ArrayList;
+
+import com.lantone.icss.rule.model.IcssObjectInput;
+import com.lantone.icss.rule.model.ChiefComplaint;
+import com.lantone.icss.rule.model.LabResult;
+import com.lantone.icss.rule.model.OtherHistory;
+import com.lantone.icss.rule.model.PastMedicalHistory;
+import com.lantone.icss.rule.model.VitalSign;
+import com.lantone.icss.rule.util.PhraseUtil;
+
+import com.lantone.icss.rule.model.IcssObjectOutput;
+
+//declare any global variables here
+global IcssObjectOutput output;
+
+//血压≥140/90mmHg且血压<160/100mmHg
+rule "DIA001017"
+	salience 100
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136")) >=140 && input.getVitalSign().getVitals().get("WZYD901006") != null && input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136")) <160 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136")) >=140 && input.getVitalSign().getVitals().get("WZYD902138") != null && input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136")) <160 || input.getVitalSign().getVitals().get("WZYD901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135")) >=90 && input.getVitalSign().getVitals().get("WZYD901006") != null && input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135")) <100 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135")) >=90 && input.getVitalSign().getVitals().get("WZYD902138") != null && input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135")) <100) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001017", true);
+		System.out.println("DIA001017: " + output.getDiagnosisValidateResult().get("DIA001017"));
+end
+
+//血压≥160/100mmHg且血压<180/110mmHg
+rule "DIA001018"
+	salience 101
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136")) >=160 && input.getVitalSign().getVitals().get("WZYD901006") != null && input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136")) <180 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136")) >=160 && input.getVitalSign().getVitals().get("WZYD902138") != null && input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136")) <180 || input.getVitalSign().getVitals().get("WZYD901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135")) >=100 && input.getVitalSign().getVitals().get("WZYD901006") != null && input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135")) <110 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135")) >=100 && input.getVitalSign().getVitals().get("WZYD902138") != null && input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135")) <110) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001018", true);
+		System.out.println("DIA001018: " + output.getDiagnosisValidateResult().get("DIA001018"));
+end
+
+//血压≥180/110mmHg
+rule "DIA001019"
+	salience 102
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136")) >=180 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136")) >=180 || input.getVitalSign().getVitals().get("WZYD901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135")) >=110 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135")) >=110) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001019", true);
+		System.out.println("DIA001019: " + output.getDiagnosisValidateResult().get("DIA001019"));
+end
+
+//收缩压≥160mmHg，舒张压<90mmHg
+rule "DIA001020"
+	salience 103
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136")) >=160 && input.getVitalSign().getVitals().get("WZYD901006") != null && input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135")) <90 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136")) >=160 && input.getVitalSign().getVitals().get("WZYD902138") != null && input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135")) <90) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001020", true);
+		System.out.println("DIA001020: " + output.getDiagnosisValidateResult().get("DIA001020"));
+end
+
+//视乳头水肿
+rule "DIA001021"
+	salience 104
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902042") != null && input.getPhraseUtil().isInArray("WZNR902003", input.getVitalSign().getVitals().get("WZYD902042").get("WZYD902042")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001021", true);
+		System.out.println("DIA001021: " + output.getDiagnosisValidateResult().get("DIA001021"));
+end
+
+//视网膜出血
+rule "DIA001022"
+	salience 105
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902009", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001022", true);
+		System.out.println("DIA001022: " + output.getDiagnosisValidateResult().get("DIA001022"));
+end
+
+//气急
+rule "DIA001023"
+	salience 106
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001105") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001023", true);
+		System.out.println("DIA001023: " + output.getDiagnosisValidateResult().get("DIA001023"));
+end
+
+//哮鸣音
+rule "DIA001024"
+	salience 107
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901048") != null && input.getPhraseUtil().isInArray("WZNR902017", input.getVitalSign().getVitals().get("WZYD901048").get("WZYD901048")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001024", true);
+		System.out.println("DIA001024: " + output.getDiagnosisValidateResult().get("DIA001024"));
+end
+
+//空腹血糖（FPG)≥7.0mmol/L
+rule "DIA001025"
+	salience 108
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001001")) >=7 || input.getLabResult().getLabs().get("HYBM901065") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901065").get("HYBM001001")) >=7) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001025", true);
+		System.out.println("DIA001025: " + output.getDiagnosisValidateResult().get("DIA001025"));
+end
+
+//白带增多、阴道出血
+rule "DIA001001"
+	salience 109
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001088") != null || input.getChiefComplaint().getComplaints().get("JBZZ001098") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001001", true);
+		System.out.println("DIA001001: " + output.getDiagnosisValidateResult().get("DIA001001"));
+end
+
+//宫颈糜烂、肥大、息肉、囊肿等
+rule "DIA001002"
+	salience 110
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901171") != null && input.getPhraseUtil().isInArray("WZNR902180", input.getVitalSign().getVitals().get("WZYD901171").get("WZYD902139")) == true || input.getVitalSign().getVitals().get("WZYD901171") != null && input.getPhraseUtil().isInArray("WZNR902334", input.getVitalSign().getVitals().get("WZYD901171").get("WZYD902139")) == true || input.getVitalSign().getVitals().get("WZYD901171") != null && input.getPhraseUtil().isInArray("WZNR902160", input.getVitalSign().getVitals().get("WZYD901171").get("WZYD902139")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001002", true);
+		System.out.println("DIA001002: " + output.getDiagnosisValidateResult().get("DIA001002"));
+end
+
+//阴道出血、排液
+rule "DIA001003"
+	salience 111
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001098") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001003", true);
+		System.out.println("DIA001003: " + output.getDiagnosisValidateResult().get("DIA001003"));
+end
+
+//宫颈肥大、溃疡、炎症变，淋巴结肿
+rule "DIA001004"
+	salience 112
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901171") != null && input.getPhraseUtil().isInArray("WZNR902180", input.getVitalSign().getVitals().get("WZYD901171").get("WZYD902139")) == true || input.getVitalSign().getVitals().get("WZYD901171") != null && input.getPhraseUtil().isInArray("WZNR902334", input.getVitalSign().getVitals().get("WZYD901171").get("WZYD902139")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001004", true);
+		System.out.println("DIA001004: " + output.getDiagnosisValidateResult().get("DIA001004"));
+end
+
+//宫颈TCT：细胞非定型变、HPV+
+rule "DIA001005"
+	salience 113
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901046") != null && input.getLabResult().getLabs().get("HYBM901046").get("HYBM001010") == "Y" || input.getLabResult().getLabs().get("HYBM901046") != null && input.getLabResult().getLabs().get("HYBM901046").get("HYBM001010") == "+") 
+	then
+		output.getDiagnosisValidateResult().put("DIA001005", true);
+		System.out.println("DIA001005: " + output.getDiagnosisValidateResult().get("DIA001005"));
+end
+
+//病理检查：宫颈鳞状、腺上皮癌变
+rule "DIA001006"
+	salience 114
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901268") != null && input.getPhraseUtil().isInArray("HYJG001014", input.getLabResult().getLabs().get("HYBM901268").get("HYBM901268")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001006", true);
+		System.out.println("DIA001006: " + output.getDiagnosisValidateResult().get("DIA001006"));
+end
+
+//白带增多、经量增多、压迫感
+rule "DIA001007"
+	salience 115
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001088") != null || input.getChiefComplaint().getComplaints().get("JBZZ001253") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001007", true);
+		System.out.println("DIA001007: " + output.getDiagnosisValidateResult().get("DIA001007"));
+end
+
+//子宫肿块
+rule "DIA001008"
+	salience 116
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901171") != null && input.getPhraseUtil().isInArray("WZNR902144", input.getVitalSign().getVitals().get("WZYD901171").get("WZYD902140")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001008", true);
+		System.out.println("DIA001008: " + output.getDiagnosisValidateResult().get("DIA001008"));
+end
+
+//B超提示子宫上良性特征肿瘤灶
+rule "DIA001009"
+	salience 117
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001002") != null && input.getPhraseUtil().isInArray("YXJG6001001", input.getPacsResult().getPacs().get("YXJC6001002").get("YXJC6001002")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001009", true);
+		System.out.println("DIA001009: " + output.getDiagnosisValidateResult().get("DIA001009"));
+end
+
+//病理检查：子宫肌瘤
+rule "DIA001010"
+	salience 118
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901269") != null && input.getPhraseUtil().isInArray("HYJG001015", input.getLabResult().getLabs().get("HYBM901269").get("HYBM901269")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001010", true);
+		System.out.println("DIA001010: " + output.getDiagnosisValidateResult().get("DIA001010"));
+end
+
+//腹痛（下腹坠胀感）、白带增多等
+rule "DIA001011"
+	salience 119
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ000013") != null || input.getChiefComplaint().getComplaints().get("JBZZ001088") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001011", true);
+		System.out.println("DIA001011: " + output.getDiagnosisValidateResult().get("DIA001011"));
+end
+
+//宫颈举痛、附件触压痛，输卵管、卵巢肿块
+rule "DIA001012"
+	salience 120
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901171") != null && input.getPhraseUtil().isInArray("WZNR902486", input.getVitalSign().getVitals().get("WZYD901171").get("WZYD902139")) == true || input.getVitalSign().getVitals().get("WZYD902100") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902100").get("WZYD902100")) == true || input.getVitalSign().getVitals().get("WZYD902100") != null && input.getPhraseUtil().isInArray("WZNR902208", input.getVitalSign().getVitals().get("WZYD902100").get("WZYD902100")) == true || input.getVitalSign().getVitals().get("WZYD902101") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902101").get("WZYD902101")) == true || input.getVitalSign().getVitals().get("WZYD902101") != null && input.getPhraseUtil().isInArray("WZNR902208", input.getVitalSign().getVitals().get("WZYD902101").get("WZYD902101")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001012", true);
+		System.out.println("DIA001012: " + output.getDiagnosisValidateResult().get("DIA001012"));
+end
+
+//C反应蛋白↑、血沉↑
+rule "DIA001013"
+	salience 121
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901045") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901045").get("HYBM001002")) >10 || input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) >=14 && input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) <50 && input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001105") == "WZNR001180" && input.getLabResult().getLabs().get("HYBM901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901006").get("HYBM001003")) >15 || input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) >=50 && input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) <85 && input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001105") == "WZNR001180" && input.getLabResult().getLabs().get("HYBM901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901006").get("HYBM001003")) >20 || input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) >=85 && input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001105") == "WZNR001180" && input.getLabResult().getLabs().get("HYBM901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901006").get("HYBM001003")) >30 || input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) >=14 && input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) <50 && input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001105") == "WZNR001181" && input.getLabResult().getLabs().get("HYBM901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901006").get("HYBM001003")) >20 || input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) >=50 && input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) <85 && input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001105") == "WZNR001181" && input.getLabResult().getLabs().get("HYBM901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901006").get("HYBM001003")) >30 || input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) >=85 && input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001105") == "WZNR001180" && input.getLabResult().getLabs().get("HYBM901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901006").get("HYBM001003")) >42 || input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) <=13 && input.getLabResult().getLabs().get("HYBM901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901006").get("HYBM001003")) >10) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001013", true);
+		System.out.println("DIA001013: " + output.getDiagnosisValidateResult().get("DIA001013"));
+end
+
+//B超提示输卵管、卵巢炎症变
+rule "DIA001014"
+	salience 122
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001003") != null && input.getPhraseUtil().isInArray("YXJG6001002", input.getPacsResult().getPacs().get("YXJC6001003").get("YXJC6001003")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001014", true);
+		System.out.println("DIA001014: " + output.getDiagnosisValidateResult().get("DIA001014"));
+end
+
+//头晕、头痛
+rule "DIA001015"
+	salience 123
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001037") != null || input.getChiefComplaint().getComplaints().get("JBZZ000022") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001015", true);
+		System.out.println("DIA001015: " + output.getDiagnosisValidateResult().get("DIA001015"));
+end
+
+//收缩压SBP≥140或（和）舒张压DSP≥90 mmHg
+rule "DIA001016"
+	salience 124
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136")) >=140 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136")) >=140 || input.getVitalSign().getVitals().get("WZYD901006") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135")) >=90 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135")) >=90) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001016", true);
+		System.out.println("DIA001016: " + output.getDiagnosisValidateResult().get("DIA001016"));
+end
+
+//年龄：老年期(65岁以上)
+rule "DIA001026"
+	salience 125
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) >65) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001026", true);
+		System.out.println("DIA001026: " + output.getDiagnosisValidateResult().get("DIA001026"));
+end
+
+//化验：同型半胱氨酸>10μmol/L
+rule "DIA001027"
+	salience 126
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901016") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901016").get("HYBM001030")) >10) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001027", true);
+		System.out.println("DIA001027: " + output.getDiagnosisValidateResult().get("DIA001027"));
+end
+
+//口渴、多尿、食欲增强
+rule "DIA001028"
+	salience 127
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001310") != null || input.getChiefComplaint().getComplaints().get("JBZZ001023") != null || input.getChiefComplaint().getComplaints().get("JBZZ001397") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001028", true);
+		System.out.println("DIA001028: " + output.getDiagnosisValidateResult().get("DIA001028"));
+end
+
+//消瘦(BMI<18)
+rule "DIA001029"
+	salience 128
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902125") != null && input.getVitalSign().getVitals().get("WZYD902125").get("WZYD902125") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902125").get("WZYD902125")) <18) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001029", true);
+		System.out.println("DIA001029: " + output.getDiagnosisValidateResult().get("DIA001029"));
+end
+
+//随机血糖≥11.1mmol/L
+rule "DIA001030"
+	salience 129
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001037")) >=11.1 || input.getLabResult().getLabs().get("HYBM901064") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901064").get("HYBM001037")) >=11.1) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001030", true);
+		System.out.println("DIA001030: " + output.getDiagnosisValidateResult().get("DIA001030"));
+end
+
+//胰岛素重度不足
+rule "DIA001031"
+	salience 130
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901085") != null && input.getLabResult().getLabs().get("HYBM901085").get("HYBM001031") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901085").get("HYBM001031")) <0.43 || input.getLabResult().getLabs().get("HYBM901086") != null && input.getLabResult().getLabs().get("HYBM901086").get("HYBM001034") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901086").get("HYBM001034")) <0.51) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001031", true);
+		System.out.println("DIA001031: " + output.getDiagnosisValidateResult().get("DIA001031"));
+end
+
+//糖耐量试验(2h)血糖检测≥11.1mmol/L
+rule "DIA001032"
+	salience 131
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001040")) >=11.1 || input.getLabResult().getLabs().get("HYBM901069") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901069").get("HYBM001040")) >=11.1) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001032", true);
+		System.out.println("DIA001032: " + output.getDiagnosisValidateResult().get("DIA001032"));
+end
+
+//胰岛素正常或轻度不足
+rule "DIA001033"
+	salience 132
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901085") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901085").get("HYBM001031")) >=0.43 || input.getLabResult().getLabs().get("HYBM901086") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901086").get("HYBM001034")) >=0.51) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001033", true);
+		System.out.println("DIA001033: " + output.getDiagnosisValidateResult().get("DIA001033"));
+end
+
+//妊娠状态
+rule "DIA001034"
+	salience 133
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901034") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901034").get("HYBM001048")) >=3) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001034", true);
+		System.out.println("DIA001034: " + output.getDiagnosisValidateResult().get("DIA001034"));
+end
+
+//儿童(14岁以下)
+rule "DIA001035"
+	salience 134
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("FFFFF00000") != null && input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("FFFFF00000").get("WZYD001106")) <14) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001035", true);
+		System.out.println("DIA001035: " + output.getDiagnosisValidateResult().get("DIA001035"));
+end
+
+//视力下降
+rule "DIA001036"
+	salience 135
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001341") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001036", true);
+		System.out.println("DIA001036: " + output.getDiagnosisValidateResult().get("DIA001036"));
+end
+
+//糖化血红蛋白(GHbA1c)：≥6.5％(排除红细胞及血红蛋白异常)
+rule "DIA001037"
+	salience 136
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001041")) >=6.5 || input.getLabResult().getLabs().get("HYBM901068") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901068").get("HYBM001041")) >=6.5) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001037", true);
+		System.out.println("DIA001037: " + output.getDiagnosisValidateResult().get("DIA001037"));
+end
+
+//糖尿病(诊断或既往病史)
+rule "DIA001038"
+	salience 137
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPastMedicalHistory().getPast.get("JBBM001042") != null || input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001001")) >=7 || input.getLabResult().getLabs().get("HYBM901065") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901065").get("HYBM001001")) >=7 || input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001037")) >=11.1 || input.getLabResult().getLabs().get("HYBM901064") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901064").get("HYBM001037")) >=11.1 || input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001040")) >=11.1 || input.getLabResult().getLabs().get("HYBM901069") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901069").get("HYBM001040")) >=11.1 || input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001041")) >=6.5 || input.getLabResult().getLabs().get("HYBM901068") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901068").get("HYBM001041")) >=6.5) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001038", true);
+		System.out.println("DIA001038: " + output.getDiagnosisValidateResult().get("DIA001038"));
+end
+
+//视网膜血管变：微动脉瘤、出血、渗出、黄斑水肿等(眼底镜)
+rule "DIA001039"
+	salience 138
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902009", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001039", true);
+		System.out.println("DIA001039: " + output.getDiagnosisValidateResult().get("DIA001039"));
+end
+
+//眼底荧光血管造影：荧光形态异常
+rule "DIA001040"
+	salience 139
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001003", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001040", true);
+		System.out.println("DIA001040: " + output.getDiagnosisValidateResult().get("DIA001040"));
+end
+
+//体征：视网膜无新生血管
+rule "DIA001042"
+	salience 141
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001005") != null && input.getPhraseUtil().isInArray("YXJG6001006", input.getPacsResult().getPacs().get("YXJC6001005").get("YXJC6001005")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001042", true);
+		System.out.println("DIA001042: " + output.getDiagnosisValidateResult().get("DIA001042"));
+end
+
+//荧光造影或彩超：视网膜无新生血管
+rule "DIA001043"
+	salience 142
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001007", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001043", true);
+		System.out.println("DIA001043: " + output.getDiagnosisValidateResult().get("DIA001043"));
+end
+
+//体征：视网膜有新生血管
+rule "DIA001044"
+	salience 143
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902487", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true || input.getPacsResult().getPacs().get("YXJC6001005") != null && input.getPhraseUtil().isInArray("YXJG6001005", input.getPacsResult().getPacs().get("YXJC6001005").get("YXJC6001005")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001044", true);
+		System.out.println("DIA001044: " + output.getDiagnosisValidateResult().get("DIA001044"));
+end
+
+//荧光造影或彩超：视网膜有新生血管
+rule "DIA001045"
+	salience 144
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001004", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001045", true);
+		System.out.println("DIA001045: " + output.getDiagnosisValidateResult().get("DIA001045"));
+end
+
+//胰岛素重度不足，且抗胰岛细胞抗体+
+rule "DIA001046"
+	salience 145
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901085") != null && input.getLabResult().getLabs().get("HYBM901085").get("HYBM001031") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901085").get("HYBM001031")) <0.43 && input.getLabResult().getLabs().get("HYBM901012") != null && input.getLabResult().getLabs().get("HYBM901012").get("HYBM001045") == "+" || input.getLabResult().getLabs().get("HYBM901086") != null && input.getLabResult().getLabs().get("HYBM901086").get("HYBM001034") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901086").get("HYBM001034")) <0.51 && input.getLabResult().getLabs().get("HYBM901012") != null && input.getLabResult().getLabs().get("HYBM901012").get("HYBM001045") == "+") 
+	then
+		output.getDiagnosisValidateResult().put("DIA001046", true);
+		System.out.println("DIA001046: " + output.getDiagnosisValidateResult().get("DIA001046"));
+end
+
+//肢体痛，肢体麻木，尿潴留，阳痿
+rule "DIA001047"
+	salience 146
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ000034") != null || input.getChiefComplaint().getComplaints().get("JBZZ001229") != null || input.getChiefComplaint().getComplaints().get("JBZZ001471") != null || input.getVitalSign().getVitals().get("WZYD902104") != null && input.getPhraseUtil().isInArray("WZNR902377", input.getVitalSign().getVitals().get("WZYD902104").get("WZYD902104")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001047", true);
+		System.out.println("DIA001047: " + output.getDiagnosisValidateResult().get("DIA001047"));
+end
+
+//皮肤感觉减退、消失，站立不稳，深反射减弱
+rule "DIA001048"
+	salience 147
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902132") != null && input.getPhraseUtil().isInArray("WZNR902012", input.getVitalSign().getVitals().get("WZYD902132").get("WZYD902132")) == true || input.getVitalSign().getVitals().get("WZYD902132") != null && input.getPhraseUtil().isInArray("WZNR902013", input.getVitalSign().getVitals().get("WZYD902132").get("WZYD902132")) == true || input.getVitalSign().getVitals().get("WZYD902133") != null && input.getPhraseUtil().isInArray("WZNR902012", input.getVitalSign().getVitals().get("WZYD902133").get("WZYD902133")) == true || input.getVitalSign().getVitals().get("WZYD902133") != null && input.getPhraseUtil().isInArray("WZNR902013", input.getVitalSign().getVitals().get("WZYD902133").get("WZYD902133")) == true || input.getVitalSign().getVitals().get("WZYD902134") != null && input.getPhraseUtil().isInArray("WZNR902012", input.getVitalSign().getVitals().get("WZYD902134").get("WZYD902134")) == true || input.getVitalSign().getVitals().get("WZYD902134") != null && input.getPhraseUtil().isInArray("WZNR902013", input.getVitalSign().getVitals().get("WZYD902134").get("WZYD902134")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001048", true);
+		System.out.println("DIA001048: " + output.getDiagnosisValidateResult().get("DIA001048"));
+end
+
+//神经肌电图：异常
+rule "DIA001049"
+	salience 148
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001006") != null && input.getPhraseUtil().isInArray("YXJG6001008", input.getPacsResult().getPacs().get("YXJC6001006").get("YXJC6001006")) == true || input.getPacsResult().getPacs().get("YXJC6001007") != null && input.getPhraseUtil().isInArray("YXJG6001008", input.getPacsResult().getPacs().get("YXJC6001007").get("YXJC6001007")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001049", true);
+		System.out.println("DIA001049: " + output.getDiagnosisValidateResult().get("DIA001049"));
+end
+
+//腹胀，早饱，嗳气，恶心，呕吐
+rule "DIA001050"
+	salience 149
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001042") != null || input.getChiefComplaint().getComplaints().get("JBZZ001049") != null || input.getChiefComplaint().getComplaints().get("JBZZ000010") != null || input.getChiefComplaint().getComplaints().get("JBZZ001069") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001050", true);
+		System.out.println("DIA001050: " + output.getDiagnosisValidateResult().get("DIA001050"));
+end
+
+//上腹：胃区胀满，可闻及振水音
+rule "DIA001051"
+	salience 150
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001042") != null && input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902308", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001051", true);
+		System.out.println("DIA001051: " + output.getDiagnosisValidateResult().get("DIA001051"));
+end
+
+//钡餐造影：钡剂排空>6小时
+rule "DIA001052"
+	salience 151
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001001") != null && input.getPhraseUtil().isInArray("YXJG6001009", input.getPacsResult().getPacs().get("YXJC6001001").get("YXJC6001001")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001052", true);
+		System.out.println("DIA001052: " + output.getDiagnosisValidateResult().get("DIA001052"));
+end
+
+//胃镜：胃腔大量宿食潴留
+rule "DIA001053"
+	salience 152
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001008") != null && input.getPhraseUtil().isInArray("YXJG6001010", input.getPacsResult().getPacs().get("YXJC6001008").get("YXJC6001008")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001053", true);
+		System.out.println("DIA001053: " + output.getDiagnosisValidateResult().get("DIA001053"));
+end
+
+//呕吐，腹泻，腹痛
+rule "DIA001054"
+	salience 153
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001069") != null || input.getChiefComplaint().getComplaints().get("JBZZ000014") != null || input.getChiefComplaint().getComplaints().get("JBZZ000013") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001054", true);
+		System.out.println("DIA001054: " + output.getDiagnosisValidateResult().get("DIA001054"));
+end
+
+//嗜睡
+rule "DIA001055"
+	salience 154
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001236") != null || input.getVitalSign().getVitals().get("WZYD902005") != null && input.getPhraseUtil().isInArray("WZNR902032", input.getVitalSign().getVitals().get("WZYD902005").get("WZYD902005")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001055", true);
+		System.out.println("DIA001055: " + output.getDiagnosisValidateResult().get("DIA001055"));
+end
+
+//呼吸深长，呼气烂苹果，血压下降，昏迷
+rule "DIA001056"
+	salience 155
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901043") != null && input.getPhraseUtil().isInArray("WZNR902488", input.getVitalSign().getVitals().get("WZYD901043").get("WZYD901043")) == true || input.getVitalSign().getVitals().get("WZYD901006") != null && input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902136")) <90 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902136")) <90 || input.getVitalSign().getVitals().get("WZYD901006") != null && input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901006").get("WZYD902135")) <60 || input.getVitalSign().getVitals().get("WZYD902138") != null && input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD902138").get("WZYD902135")) <60 || input.getVitalSign().getVitals().get("WZYD902005") != null && input.getPhraseUtil().isInArray("WZNR902034", input.getVitalSign().getVitals().get("WZYD902005").get("WZYD902005")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001056", true);
+		System.out.println("DIA001056: " + output.getDiagnosisValidateResult().get("DIA001056"));
+end
+
+//酮体（尿/血）+，血PH<7.3
+rule "DIA001057"
+	salience 156
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901017") != null && input.getLabResult().getLabs().get("HYBM901017").get("HYBM001181") == "+" && input.getLabResult().getLabs().get("HYBM901008") != null && input.getLabResult().getLabs().get("HYBM901008").get("HYBM001216") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901008").get("HYBM001216")) <7.3 || input.getLabResult().getLabs().get("HYBM901063") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901063").get("HYBM001352")) >60 && input.getLabResult().getLabs().get("HYBM901008") != null && input.getLabResult().getLabs().get("HYBM901008").get("HYBM001216") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901008").get("HYBM001216")) <7.3) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001057", true);
+		System.out.println("DIA001057: " + output.getDiagnosisValidateResult().get("DIA001057"));
+end
+
+//气急，头晕，嗜睡，食欲下降，恶心，呕吐
+rule "DIA001058"
+	salience 157
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ001105") != null || input.getChiefComplaint().getComplaints().get("JBZZ001037") != null || input.getChiefComplaint().getComplaints().get("JBZZ001236") != null || input.getChiefComplaint().getComplaints().get("JBZZ001398") != null || input.getChiefComplaint().getComplaints().get("JBZZ000010") != null || input.getChiefComplaint().getComplaints().get("JBZZ001069") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001058", true);
+		System.out.println("DIA001058: " + output.getDiagnosisValidateResult().get("DIA001058"));
+end
+
+//呼吸深长，神志模糊、嗜睡、木僵、昏迷
+rule "DIA001059"
+	salience 158
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD901043") != null && input.getPhraseUtil().isInArray("WZNR902488", input.getVitalSign().getVitals().get("WZYD901043").get("WZYD901043")) == true || input.getVitalSign().getVitals().get("WZYD902005") != null && input.getPhraseUtil().isInArray("WZNR902032", input.getVitalSign().getVitals().get("WZYD902005").get("WZYD902005")) == true || input.getVitalSign().getVitals().get("WZYD902005") != null && input.getPhraseUtil().isInArray("WZNR902034", input.getVitalSign().getVitals().get("WZYD902005").get("WZYD902005")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001059", true);
+		System.out.println("DIA001059: " + output.getDiagnosisValidateResult().get("DIA001059"));
+end
+
+//血乳酸增高（>5mmol/L），血pH<7.35
+rule "DIA001060"
+	salience 159
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901008") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901008").get("HYBM001433")) >5 && input.getLabResult().getLabs().get("HYBM901008") != null && input.getLabResult().getLabs().get("HYBM901008").get("HYBM001216") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901008").get("HYBM001216")) <7.35) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001060", true);
+		System.out.println("DIA001060: " + output.getDiagnosisValidateResult().get("DIA001060"));
+end
+
+//饱餐/饮酒史
+rule "DIA001061"
+	salience 160
+	no-loop true
+	when
+		input: IcssObjectInput(input.getOtherHistory().getOther().get("WZYD001063") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001061", true);
+		System.out.println("DIA001061: " + output.getDiagnosisValidateResult().get("DIA001061"));
+end
+
+//上腹痛
+rule "DIA001062"
+	salience 161
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR901220", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD001123")) == true || input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR002001", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD001123")) == true || input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR901223", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD001123")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001062", true);
+		System.out.println("DIA001062: " + output.getDiagnosisValidateResult().get("DIA001062"));
+end
+
+//上腹部压痛
+rule "DIA001063"
+	salience 162
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001063", true);
+		System.out.println("DIA001063: " + output.getDiagnosisValidateResult().get("DIA001063"));
+end
+
+//淀粉酶>正常3倍，或脂肪酶>正常3倍
+rule "DIA001064"
+	salience 163
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001064", true);
+		System.out.println("DIA001064: " + output.getDiagnosisValidateResult().get("DIA001064"));
+end
+
+//腹部B超或CT：胰腺炎影像
+rule "DIA001065"
+	salience 164
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true || input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001065", true);
+		System.out.println("DIA001065: " + output.getDiagnosisValidateResult().get("DIA001065"));
+end
+
+//病理：胰腺组织炎症改变
+rule "DIA001066"
+	salience 165
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001066", true);
+		System.out.println("DIA001066: " + output.getDiagnosisValidateResult().get("DIA001066"));
+end
+
+//胰腺炎，发病<1周
+rule "DIA001067"
+	salience 166
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001067", true);
+		System.out.println("DIA001067: " + output.getDiagnosisValidateResult().get("DIA001067"));
+end
+
+//急性胰腺炎诊断或病史
+rule "DIA001068"
+	salience 167
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001068", true);
+		System.out.println("DIA001068: " + output.getDiagnosisValidateResult().get("DIA001068"));
+end
+
+//腹部B超或CT：胰腺及周围组织水肿改变
+rule "DIA001069"
+	salience 168
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001012", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true || input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001012", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001069", true);
+		System.out.println("DIA001069: " + output.getDiagnosisValidateResult().get("DIA001069"));
+end
+
+//病理：胰腺组织以水肿性炎症改变为主
+rule "DIA001070"
+	salience 169
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001011", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001070", true);
+		System.out.println("DIA001070: " + output.getDiagnosisValidateResult().get("DIA001070"));
+end
+
+//重度腹痛，恶心、呕吐
+rule "DIA001071"
+	salience 170
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR000113", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999998")) == true || input.getChiefComplaint().getComplaints().get("JBZZ000010") != null || input.getChiefComplaint().getComplaints().get("JBZZ001069") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001071", true);
+		System.out.println("DIA001071: " + output.getDiagnosisValidateResult().get("DIA001071"));
+end
+
+//腹部压痛、反跳痛，腹肌紧张，移动浊音
+rule "DIA001072"
+	salience 171
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true || input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902306", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true || input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902304", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true || input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902307", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001072", true);
+		System.out.println("DIA001072: " + output.getDiagnosisValidateResult().get("DIA001072"));
+end
+
+//病理：胰腺组织萎缩、纤维化、钙化改变
+rule "DIA001073"
+	salience 172
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001012", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001073", true);
+		System.out.println("DIA001073: " + output.getDiagnosisValidateResult().get("DIA001073"));
+end
+
+//腹部B超或CT：胰腺组织萎缩、纤维化、钙化改变
+rule "DIA001074"
+	salience 173
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001013", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true || input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001013", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001074", true);
+		System.out.println("DIA001074: " + output.getDiagnosisValidateResult().get("DIA001074"));
+end
+
+//胰腺炎，病程>1月
+rule "DIA001075"
+	salience 174
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001075", true);
+		System.out.println("DIA001075: " + output.getDiagnosisValidateResult().get("DIA001075"));
+end
+
+//腹痛，腰背痛
+rule "DIA001076"
+	salience 175
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ000013") != null || input.getChiefComplaint().getComplaints().get("JBZZ000017") != null) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001076", true);
+		System.out.println("DIA001076: " + output.getDiagnosisValidateResult().get("DIA001076"));
+end
+
+//CCK↓，胰多肽↓，胰岛素↓
+rule "DIA001077"
+	salience 176
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901239") != null && input.getLabResult().getLabs().get("HYBM901239").get("HYBM001434") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901239").get("HYBM001434")) <5 && input.getLabResult().getLabs().get("HYBM901240") != null && input.getLabResult().getLabs().get("HYBM901240").get("HYBM001435") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901240").get("HYBM001435")) <105 && input.getLabResult().getLabs().get("HYBM901085") != null && input.getLabResult().getLabs().get("HYBM901085").get("HYBM001031") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901085").get("HYBM001031")) <1.9 || input.getLabResult().getLabs().get("HYBM901239") != null && input.getLabResult().getLabs().get("HYBM901239").get("HYBM001434") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901239").get("HYBM001434")) <5 && input.getLabResult().getLabs().get("HYBM901240") != null && input.getLabResult().getLabs().get("HYBM901240").get("HYBM001435") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901240").get("HYBM001435")) <105 && input.getLabResult().getLabs().get("HYBM901086") != null && input.getLabResult().getLabs().get("HYBM901086").get("HYBM001034") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901086").get("HYBM001034")) <9.93) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001077", true);
+		System.out.println("DIA001077: " + output.getDiagnosisValidateResult().get("DIA001077"));
+end
+
+//腹部B超或CT：胰及周围组织坏死变，腹腔积液
+rule "DIA001078"
+	salience 177
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001014", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true || input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001014", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001078", true);
+		System.out.println("DIA001078: " + output.getDiagnosisValidateResult().get("DIA001078"));
+end
+
+//腹腔液：血性，淀粉酶↑脂肪酶↑
+rule "DIA001079"
+	salience 178
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901027") != null && input.getPhraseUtil().isInArray("HYJG001004", input.getLabResult().getLabs().get("HYBM901027").get("HYBM001340")) == true && input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >1800 && input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >190 || input.getLabResult().getLabs().get("HYBM901027") != null && input.getPhraseUtil().isInArray("HYJG001004", input.getLabResult().getLabs().get("HYBM901027").get("HYBM001340")) == true && input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >12000 && input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >190) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001079", true);
+		System.out.println("DIA001079: " + output.getDiagnosisValidateResult().get("DIA001079"));
+end
+
+//病理：胰腺组织坏死性炎症改变
+rule "DIA001080"
+	salience 179
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001013", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001080", true);
+		System.out.println("DIA001080: " + output.getDiagnosisValidateResult().get("DIA001080"));
+end
+
+//慢性胰腺炎诊断或病史
+rule "DIA001081"
+	salience 180
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001081", true);
+		System.out.println("DIA001081: " + output.getDiagnosisValidateResult().get("DIA001081"));
+end
+
+//IgG>正常2倍
+rule "DIA001082"
+	salience 181
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901204") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901204").get("HYBM001110")) >33.2) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001082", true);
+		System.out.println("DIA001082: " + output.getDiagnosisValidateResult().get("DIA001082"));
+end
+
+//胰腺炎，胆道蛔虫症，胆石症等病史
+rule "DIA001083"
+	salience 182
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true || input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001011", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true || input.getLabResult().getLabs().get("HYBM901061") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901061").get("HYBM001350")) >5400 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true || input.getLabResult().getLabs().get("HYBM901075") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901075").get("HYBM001387")) >36000 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true || input.getLabResult().getLabs().get("HYBM901071") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901071").get("HYBM001355")) >570 && input.getLabResult().getLabs().get("HYBM901258") != null && input.getPhraseUtil().isInArray("HYJG001010", input.getLabResult().getLabs().get("HYBM901258").get("HYBM901258")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001083", true);
+		System.out.println("DIA001083: " + output.getDiagnosisValidateResult().get("DIA001083"));
+end
+
+//腹部B超或CT：胆道结石、梗阻等病变
+rule "DIA001084"
+	salience 183
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001015", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true || input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001015", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001084", true);
+		System.out.println("DIA001084: " + output.getDiagnosisValidateResult().get("DIA001084"));
+end
+
+//糖尿病性视网膜病变(诊断或既往病史)
+rule "DIA001085"
+	salience 184
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001001")) >=7 && input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902009", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true && input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001003", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true || input.getLabResult().getLabs().get("HYBM901065") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901065").get("HYBM001001")) >=7 && input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902009", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true && input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001003", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true || input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001037")) >=11.1 && input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902009", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true && input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001003", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true || input.getLabResult().getLabs().get("HYBM901064") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901064").get("HYBM001037")) >=11.1 && input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902009", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true && input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001003", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true || input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001040")) >=11.1 && input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902009", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true && input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001003", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true || input.getLabResult().getLabs().get("HYBM901069") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901069").get("HYBM001040")) >=11.1 && input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902009", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true && input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001003", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true || input.getLabResult().getLabs().get("HYBM901012") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901012").get("HYBM001041")) >=6.5 && input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902009", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true && input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001003", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true || input.getLabResult().getLabs().get("HYBM901068") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901068").get("HYBM001041")) >=6.5 && input.getVitalSign().getVitals().get("WZYD902043") != null && input.getPhraseUtil().isInArray("WZNR902009", input.getVitalSign().getVitals().get("WZYD902043").get("WZYD902043")) == true && input.getPacsResult().getPacs().get("YXJC6001004") != null && input.getPhraseUtil().isInArray("YXJG6001003", input.getPacsResult().getPacs().get("YXJC6001004").get("YXJC6001004")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001085", true);
+		System.out.println("DIA001085: " + output.getDiagnosisValidateResult().get("DIA001085"));
+end
+
+//转移性腹痛
+rule "DIA001087"
+	salience 186
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR002003", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD001123")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001087", true);
+		System.out.println("DIA001087: " + output.getDiagnosisValidateResult().get("DIA001087"));
+end
+
+//腹部压痛(麦氏点)
+rule "DIA001088"
+	salience 187
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001088", true);
+		System.out.println("DIA001088: " + output.getDiagnosisValidateResult().get("DIA001088"));
+end
+
+//C反应蛋白↑
+rule "DIA001089"
+	salience 188
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901045") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901045").get("HYBM001002")) >=8) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001089", true);
+		System.out.println("DIA001089: " + output.getDiagnosisValidateResult().get("DIA001089"));
+end
+
+//腹部B超或CT：阑尾炎性影像
+rule "DIA001090"
+	salience 189
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001016", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true || input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001016", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001090", true);
+		System.out.println("DIA001090: " + output.getDiagnosisValidateResult().get("DIA001090"));
+end
+
+//阑尾炎诊断，发病<1周
+rule "DIA001091"
+	salience 190
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR002003", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD001123")) == true && input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001016", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR002003", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD001123")) == true && input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001016", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001091", true);
+		System.out.println("DIA001091: " + output.getDiagnosisValidateResult().get("DIA001091"));
+end
+
+//急性阑尾炎诊断
+rule "DIA001092"
+	salience 191
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR002003", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD001123")) == true && input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001016", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7 || input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR002003", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD001123")) == true && input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001016", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) <7) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001092", true);
+		System.out.println("DIA001092: " + output.getDiagnosisValidateResult().get("DIA001092"));
+end
+
+//腹部B超：阑尾均质肿胀
+rule "DIA001093"
+	salience 192
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001017", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001093", true);
+		System.out.println("DIA001093: " + output.getDiagnosisValidateResult().get("DIA001093"));
+end
+
+//病理：非特异性阑尾炎
+rule "DIA001094"
+	salience 193
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901267") != null && input.getPhraseUtil().isInArray("HYJG001007", input.getLabResult().getLabs().get("HYBM901267").get("HYBM901267")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001094", true);
+		System.out.println("DIA001094: " + output.getDiagnosisValidateResult().get("DIA001094"));
+end
+
+//腹痛(中度或重度)
+rule "DIA001095"
+	salience 194
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR000113", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999998")) == true || input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR000112", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999998")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001095", true);
+		System.out.println("DIA001095: " + output.getDiagnosisValidateResult().get("DIA001095"));
+end
+
+//腹部压痛(右下腹，明显)，反跳痛，体温升高
+rule "DIA001096"
+	salience 195
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true || input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902306", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true || input.getVitalSign().getVitals().get("WZYD901001") != null && input.getPhraseUtil().phraseObject2Numerical(input.getVitalSign().getVitals().get("WZYD901001").get("WZYD902146")) >37.7) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001096", true);
+		System.out.println("DIA001096: " + output.getDiagnosisValidateResult().get("DIA001096"));
+end
+
+//白细胞↑，中性粒细胞↑
+rule "DIA001097"
+	salience 196
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901001") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901001").get("HYBM001049")) >10 && input.getLabResult().getLabs().get("HYBM901001") != null && input.getPhraseUtil().phraseObject2Numerical(input.getLabResult().getLabs().get("HYBM901001").get("HYBM001050")) >7.5) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001097", true);
+		System.out.println("DIA001097: " + output.getDiagnosisValidateResult().get("DIA001097"));
+end
+
+//腹部B超：阑尾化脓灶
+rule "DIA001098"
+	salience 197
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001018", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001098", true);
+		System.out.println("DIA001098: " + output.getDiagnosisValidateResult().get("DIA001098"));
+end
+
+//病理：阑尾化脓
+rule "DIA001099"
+	salience 198
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901267") != null && input.getPhraseUtil().isInArray("HYJG001008", input.getLabResult().getLabs().get("HYBM901267").get("HYBM901267")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001099", true);
+		System.out.println("DIA001099: " + output.getDiagnosisValidateResult().get("DIA001099"));
+end
+
+//右下腹包块
+rule "DIA001100"
+	salience 199
+	no-loop true
+	when
+		input: IcssObjectInput(input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902255", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001100", true);
+		System.out.println("DIA001100: " + output.getDiagnosisValidateResult().get("DIA001100"));
+end
+
+//腹部B超：阑尾穿孔灶，阑尾周围包块
+rule "DIA001101"
+	salience 200
+	no-loop true
+	when
+		input: IcssObjectInput(input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001019", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001101", true);
+		System.out.println("DIA001101: " + output.getDiagnosisValidateResult().get("DIA001101"));
+end
+
+//病理：阑尾穿孔
+rule "DIA001102"
+	salience 201
+	no-loop true
+	when
+		input: IcssObjectInput(input.getLabResult().getLabs().get("HYBM901267") != null && input.getPhraseUtil().isInArray("HYJG001009", input.getLabResult().getLabs().get("HYBM901267").get("HYBM901267")) == true) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001102", true);
+		System.out.println("DIA001102: " + output.getDiagnosisValidateResult().get("DIA001102"));
+end
+
+//阑尾炎诊断，发病>1月
+rule "DIA001103"
+	salience 202
+	no-loop true
+	when
+		input: IcssObjectInput(input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR002003", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD001123")) == true && input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true && input.getPacsResult().getPacs().get("YXJC6001009") != null && input.getPhraseUtil().isInArray("YXJG6001016", input.getPacsResult().getPacs().get("YXJC6001009").get("YXJC6001009")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30 || input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().isInArray("WZNR002003", input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD001123")) == true && input.getVitalSign().getVitals().get("WZYD902093") != null && input.getPhraseUtil().isInArray("WZNR902130", input.getVitalSign().getVitals().get("WZYD902093").get("WZYD902093")) == true && input.getPacsResult().getPacs().get("YXJC6001010") != null && input.getPhraseUtil().isInArray("YXJG6001016", input.getPacsResult().getPacs().get("YXJC6001010").get("YXJC6001010")) == true && input.getChiefComplaint().getComplaints().get("JBZZ000013") != null && input.getPhraseUtil().phraseObject2Numerical(input.getChiefComplaint().getComplaints().get("JBZZ000013").get("WZYD999996")) >30) 
+	then
+		output.getDiagnosisValidateResult().put("DIA001103", true);
+		System.out.println("DIA001103: " + output.getDiagnosisValidateResult().get("DIA001103"));
+end

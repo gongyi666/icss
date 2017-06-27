@@ -1,0 +1,578 @@
+
+.lis,.pacs,.diagnosis{
+    font-family:"微软雅黑";
+}
+
+.lis>div>div.symptom-all,.pacs>div>div.symptom-all,.diagnosis>div>div.symptom-all{
+    z-index:101;
+}
+.lis > div > div.symptom-all > div.wrap > div.wrap-content div.content ,
+.pacs > div > div.symptom-all > div.wrap > div.wrap-content div.content ,
+.diagnosis > div > div.symptom-all > div.wrap > div.wrap-content div.content{
+    min-height: 100px;
+}
+
+.detail-list{
+    background: #fff;
+    border-radius: 5px;
+}
+.treatment .detail-list{
+    padding-top: 20px;
+}
+.detail-list h3{
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 12px;
+}
+.detail-list h3 b{
+    float: left;
+    margin-right: 20px;
+}
+.submit-bt{
+    text-align: right;
+    margin-top: 10px;
+}
+.submit-bt button{
+    margin-left: 20px;
+}
+.form-area-checked-lis .form-group{
+    width:160px;
+    margin-top: 15px;
+    margin-right: 20px;
+}
+
+.lis>div>div.symptom-container>div.symptom-form,.pacs>div>div.symptom-container>div.symptom-form,
+.diagnosis>div>div.symptom-container>div.symptom-form,.treatment>div>div.symptom-container>div.symptom-form{
+    z-index: 100;
+    height:auto;
+    border-top: none;
+    margin-top: 0px;
+}
+.lis .form-area,.pacs .form-area,.diagnosis .form-area{
+    margin-top: 10px;
+}
+.diagnosis-list-buttons{
+    position:absolute;
+    margin-top: 30px;
+    margin-left: 0px;
+}
+.lis .div-group span,.pacs .div-group span{
+    font-size: 14px;
+    font-weight: normal;
+    text-decoration:underline;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.lis .div-group span:hover,.pacs .div-group span:hover{
+    text-decoration:none;
+    color: #0000CC;
+}
+
+.lis button,.pacs button,.diagnosis button,.treatment button{
+    width: 69px;
+    line-height: 24px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+}
+.lis button.usable, .pacs button.usable, .diagnosis button.usable, .treatment button.usable,
+.lis button.unusable, .pacs button.unusable, .diagnosis button.unusable, .treatment button.unusable{
+    height: 25px;
+    margin-left: 10px;
+    font-size: 11px;
+    cursor: pointer;
+    outline: none;
+    font-weight: bold;
+    width: 70px;
+    margin-right: 0;
+}
+.lis button.usable, .pacs button.usable, .treatment button.usable, .diagnosis button.usable{
+    color: #fff;
+    background: #0088be;
+}
+.lis button.unusable, .pacs button.unusable, .treatment button.unusable, .diagnosis button.unusable{
+    color: #fff;
+    background: #0088be;
+}
+.diagnosis-list-buttons button.usable{
+    margin-left: 3px;
+    color: #000;
+    background: #fff;
+ }
+.diagnosis-list-buttons button.unusable{
+    color: #000;
+    background: #fff;
+ }
+.pacs div.form-group{
+    margin-right: 8px;
+}
+.diagnosis .div-for-go-away{
+    position: relative;
+    z-index: 102;
+}
+.pacs .div-group-tit{
+    margin-right: 10px;
+}
+.pacs .div-group-tit li{
+    font-weight: normal;
+    cursor: pointer;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+.pacs .div-group-tit .focus{
+    text-decoration : underline;
+}
+
+#informationShade{
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    background-color: #fff;
+    filter:alpha(opacity=70);
+    -moz-opacity:0.7;
+    opacity:0.7;
+    z-index: 100;
+}
+
+/*information的样式*/
+.information{
+    position: fixed;
+    font-size: 10px;
+    width: 900px;
+
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    top:50px;
+    left:50px;
+    line-height: 18px;
+    z-index: 102;
+    color: #33475f;
+}
+.information-main{
+    width: 898px;
+
+    overflow-y: auto;
+}
+.information-list{
+    position: fixed;
+    margin-left: 760px;
+
+}
+.information-list ul{
+    padding:15px 18px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background-color: #eee;
+    /*width: 120px;
+    height:123px;
+    */
+}
+.information-list ul li{
+    overflow: hidden;
+    cursor: pointer;
+}
+.information-list ul li span{
+    float: left;
+}
+.information-list ul li.focus span:first-child{
+    background-color: #0088be!important;
+    border-color: #0088be!important;
+}
+.information-list ul li.focus span:last-child{
+    color: #0088be!important;
+}
+.information-list ul li span:first-child{
+    width: 8px;
+    height:8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    background-color: #eee;
+}
+.information-list ul li span:last-child{
+    margin-left: 10px;
+}
+.information-close{
+    overflow: hidden;
+    height: 40px;
+}
+.information-close div{
+    float: right;
+    cursor: pointer;
+    height: 14px;
+    width: 14px;
+    margin-right: 14px;
+    margin-top: 13px;
+    background-image: url(../img/icss/inclose.png);
+}
+.information-content{
+    width:700px;
+    margin-left: 38px;
+}
+.information-content dl dt{
+    font-size: 14px;
+}
+.information-content dl dt hr{
+    margin-top: -10px;
+    height:1px;
+    border:none;
+    border-top:1px dashed #ccc;
+}
+.information-content dl dt span{
+    background-color: #fff;
+    padding-right: 10px;
+    font-weight: bold;
+}
+.information-content dl dd{
+    padding:10px 0px 10px 5px;
+    margin-bottom: 20px;
+}
+.information-content dl dd ul li{
+    overflow: hidden;
+    font-weight: 500;
+    text-align:justify;
+}
+.information-content dl dd ul span{
+    float: left;
+}
+.information-content dl dd ul span:nth-child(1){
+    margin-top: 3px;
+    width: 12px;
+    height: 12px;
+}
+.information-content dl dd ul span:nth-child(2){
+    margin:0px 8px;
+}
+.information-content dl dd ul span:nth-child(3){
+    width: 655px;
+    word-wrap: break-word;
+}
+.information-content dl dd ul span.information-true{
+    background: url(../img/icss/intrue.png)
+}
+.information-content dl dd ul span.information-false{
+    background: url(../img/icss/infalse.png)
+}
+.information-line{
+    height: 15px;
+    width: 0px;
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    margin-left: 3px;
+}
+
+.information-main::-webkit-scrollbar {
+    width: 5px;
+    background-color: #fff;
+}
+
+.information-main::-webkit-scrollbar-thumb {
+    background-color: #e5e5e5;
+    height: 90px;
+}
+
+.information-main::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+/*information的样式*/
+.button-bottom {
+ float: right;
+}
+
+/*已检项的样式*/
+.group > div > div.choose > div > div > span.dot {
+    height: 6px;
+    width: 6px;
+    background-color: #aaa;
+    margin-right: 10px;
+    margin-top: 6px;
+    vertical-align: middle;
+    border-radius: 6px;
+    float: left;
+}
+.group > div > div.choose > div > div {
+    cursor: pointer;
+    padding: 5px 12px;
+    font-weight: normal;
+    line-height: 17px;
+    width: 775px;
+}
+.group > div > div.choose > div > div > ul{
+    float: left;
+    margin-right: 10px;
+}
+.group > div > div.choose > div > div > ul > li > span{
+    margin-right: 5px;
+    float: left;
+}
+.group > div > div.choose > div > div:hover > i {
+    height: 17px;
+    width: 17px;
+    float: left;
+    vertical-align: top;
+    margin-left: 10px;
+    background: url("../img/icss/close.png") no-repeat center;
+    background-size: 17px 17px;
+}
+/*.group > div > div.choose > div:hover {*/
+    /*color: #0088be;*/
+    /*font-weight: bold;*/
+/*}*/
+/*已检项的样式*/
+.lis .validate{
+    color: red;
+    padding-top: 5px;
+}
+/*select-only*/
+div.select-only{
+    /*width: 84px;*/
+    float: left;
+    position: relative;
+    z-index: 100;
+    height: 30px;
+    margin-right: 5px;
+}
+div.select-only>input[type=text]{
+    width: 84px;
+    height: 100%;
+    outline: none;
+    background:none;
+    border: none;
+    border-radius: 5px;
+    background-color:#fff;
+    outline:none;
+}
+div.select-only>div.down-arrow{
+    position: absolute;
+    right: 0;
+    top:0;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    text-align: center;
+    height: 28px;
+    width: 25px;
+    /*background-color: #e5e5e5;*/
+    cursor: pointer;
+}
+.pacs .form-area .form-group {
+    width: 84px;
+}
+.lis-check-some .form-group:nth-child(1) {
+        margin-right: 0px;
+}
+div.select-only>div.down-arrow>i.iconfont{
+    font-size: 12px;
+    position: absolute;
+    top: 8px;
+    right: 3px;
+}
+.lis-check-some div.select-only ul,.pacs-check-some div.select-only ul{
+    /*
+    position: absolute;
+    top:30px;
+    width: 100%;
+    z-index: 10;
+    */
+    width: 100px;
+}
+div.select-only li{
+    position: relative;
+}
+div.select-only a{
+    display: block;
+    padding: 10px;
+    min-height: 23px;
+    width: 100%;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    position: relative;
+    cursor: pointer;
+}
+/*select-only*/
+
+.info-icon{
+    background-image: url(../img/icss/info1.png);
+    width:14px;
+    height:14px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: 8px;
+}
+.lis-check-some ul{
+    /*margin-left: 170px;*/
+    /*width: 160px!important;*/
+    max-height:200px;
+    overflow-y: auto;
+}
+.lis-check-some ul a{
+    cursor: auto;
+}
+
+.pacs-check-some input{
+    width: 80px;
+}
+.pacs-check-some ul a{
+    cursor: auto;
+}
+.lis-checked-date ul,.pacs-checked-date ul{
+    overflow-y: auto;
+}
+.pacs .pacs-check-some2 ul{
+    overflow-y: auto;
+}
+.treatment .treatment-check-some3 ul,.treatment .treatment-check-some4 ul{
+	overflow-y: auto;
+}
+
+.high-light-color {
+    color: #0088be;
+    border-radius: 5px;
+    background-color: #eee;
+}
+.lis .select-only input:nth-child(1),.pacs .select-only input:nth-child(1) {
+    padding-left: 0;
+    width: 65px;
+}
+.pacs-check-some,.pacs-check-some .select-only, .pacs-check-some .select-only input:nth-child(1){
+    width: 62px;
+}
+.input-contain  {
+    display: block !important;
+}
+.input-contain .down-arrow {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 28px;    
+}
+.input-contain .down-arrow i {
+    width: 12px;
+    height: 14px;
+    font-size: 12px;
+    position: absolute;
+    top: 8px;
+    left: 6px;
+    /*color: rgb(170, 170, 170);*/
+}
+.inputCommen {
+    float: left;
+    width: calc(100% - 20px);
+    outline: none;
+    background: none;
+    border: none;
+    padding-left: 10px;
+    border-radius: 6px;
+    font-family: "微软雅黑";
+    font-size: 12px;
+    height: 30px;
+}
+.input-contain{
+    box-shadow: 0 1px 2px rgba(154,152,152,0.25);
+    margin-right: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    outline: none;
+    border-radius: 5px;
+}
+
+.tick--right {
+    display: inline-block;
+    position: relative;
+    top: -5px;
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    background: url("../img/icss/sprite.png")
+}
+.lis .symptom-form .down-arrow{
+    float: left;
+}
+
+
+.lis  h3 ul {
+    top: 55px;
+    display: block;
+    width: 100px;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 1px 2px rgba(154,152,152,0.25);
+    border-radius: 5px;
+}
+
+
+.lis  .symptom-form .lis-check-some ul{
+    display: block;
+    position: absolute;
+    left: -1px;
+    top: -21px;
+}
+.lis  .symptom-form .lis-check-some .info {
+    float: left;
+    position: absolute;
+    top: -51px;
+    left: 32px;
+}
+
+.lis-check-some3 .select ul {
+    position: absolute;
+     top: 55px; 
+    width: 100%;
+    z-index: 10;
+    max-height: 138px;
+}
+.lis .row {
+    margin-right: 5px;
+}
+.colorGray {
+    color: #aaa;
+}
+.lis .lis-check-some{
+    position: absolute;
+}
+.lis-check-some3 input{
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.lis-check-some2 input {
+    width: 70px !important;
+}
+.lis-check-some2 ul{
+    position: absolute;
+    top: 55px !important;
+}
+.lis-check-some3 .form-group input{
+    width: 95px !important;
+}
+.lis div.form-group input[type=text], 
+.lis div.form-group input[type=number] {
+    padding: 10px;
+}
+
+.pacs .checkbox input{
+    height: 100%;
+    outline: none;
+    background: none;
+    border: none;
+}
+
+.group.treatment input[type=number] {  
+    -moz-appearance:textfield;  
+}  
+.group.treatment input[type=number]::-webkit-inner-spin-button,  
+.group.treatment input[type=number]::-webkit-outer-spin-button {  
+    -webkit-appearance: none;  
+    margin: 0;  
+}

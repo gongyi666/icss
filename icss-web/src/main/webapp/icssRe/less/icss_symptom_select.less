@@ -1,0 +1,107 @@
+div.group {
+    height: auto;
+    width: 778px;
+    color: #33475f;
+    margin-bottom: 10px;
+    &>div {
+        width: 100%;
+        min-height: 39px;
+        position: relative;
+    }
+    
+    .group__wrapper {
+        border-radius: 5px;
+        box-shadow: 0 0 1px rgba(154,152,152,0.15);
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        outline: none;
+        .wrapper__choose {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .wrapper__choose__title {
+                // display: inline-block;
+                width: 10%;
+                position: relative;
+                height: 100%;
+                float: left;
+                text-align: left;
+                color: #33475f !important;
+                font-size: 12px;
+                font-weight: bold !important;
+                padding-right: 0;
+                padding-left: 6px;
+                border-radius: 5px;
+                padding-top: 6px;
+        }
+        .wrapper__choose__content {
+            width: 89%;
+            float: left;
+            &>div {
+                cursor: pointer;
+                padding: 5px 12px;
+                font-weight: normal;
+                line-height: 17px;
+                width: 100%;
+                position: relative;
+                &>ul {
+                    float: left;
+                    margin-right: 10px;
+                }
+                i.icon-move-top {
+                    background: url('../img/modules/top.png') no-repeat center;
+                    background-size: 17px 17px;
+                    }
+                &>i.icon-remove {
+                    background: url(../img/modules/close.png) no-repeat center;
+                    background-size: 17px 17px;
+                }
+                i {
+                    height: 17px;
+                    width: 17px;
+                    display: inline-block;
+                    vertical-align: top;
+                    margin-left: 8px;
+                }
+                &:hover {
+                    color: #0088be;
+                    font-weight: bold;
+                    &>span.dot{
+                        background-color: #0088be;
+                    }
+                }
+            }
+            &>.symptom-item {
+                .icon-dot {
+                    margin-top: 4px;
+                }
+            }
+        }
+    }
+    // 添加 input框的 边框 
+    .group__wrapper.focus {
+        border-color: #0088be;
+    }
+
+    /* 标题 样式 */
+    &>label {
+        display: block;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+    }
+    /* 输入框样式 */
+    &>div {
+        &>input {
+            width: 100%;
+            padding-left: 10px;
+            height: 39px;
+            border: none;
+            outline: none;
+            position: relative;
+            z-index: 0;
+            line-height: 39px;
+            font-size: 13px;
+        }
+    }
+}

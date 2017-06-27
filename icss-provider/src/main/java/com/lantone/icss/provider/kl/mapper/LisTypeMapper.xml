@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lantone.icss.provider.kl.dao.LisTypeMapper" >
+  <resultMap id="LisTypeWrapper" type="com.lantone.icss.api.kl.model.wrapper.LisTypeWrapper" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="stand_id" property="standId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ <select id="getLisTypeById" parameterType="java.lang.Long" resultMap="LisTypeWrapper">
+ 	select * from kl_lis_type where id = #{typeId} 
+ </select>
+ 
+ <select id="getAllLisType" resultMap="LisTypeWrapper">
+ 	select * from kl_lis_type where status = '1'
+ </select>
+ 
+ <select id="getLisTypeByDiseaseId" parameterType="java.lang.Long" resultMap="LisTypeWrapper">
+ 	select DISTINCT e.* from 
+		(select d.lis_type_id from 
+		(select DISTINCT b.lis_id from 
+		(select lis_detail_id from kl_dis_lis_detail where disease_id = #{diseaseId} order by order_no) a
+		left join kl_lis_detail b on a.lis_detail_id = b.id) c
+		left join kl_lis_info d on c.lis_id = d.id) f
+		left join kl_lis_type e on f.lis_type_id = e.id
+ </select>
+ 
+ <select id="getLisTypeByInput" parameterType="java.lang.String" resultMap="LisTypeWrapper">
+ 	select * from kl_lis_type 
+ 	where
+ 		status = '1'
+ 		and (name like CONCAT(#{inputstr},"%") or spell like CONCAT("%",#{inputstr},"%"))
+ </select>
+ 
+ <select id="getCommonLisType" parameterType="java.lang.Long" resultMap="LisTypeWrapper">
+ 	select b.* from at_doctor_habit_count a
+		,kl_lis_type b
+		where a.habit_id = b.id
+		and a.type = '5'
+		and doctor_id = #{doctorId}
+		order by a.count_num desc
+ </select>
+</mapper>

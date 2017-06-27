@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans        
+    http://www.springframework.org/schema/beans/spring-beans.xsd        
+    http://code.alibabatech.com/schema/dubbo        
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+	<dubbo:application name="icss-web" />
+	
+	<!-- 使用zookeeper广播注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
+	<dubbo:provider delay="-1" timeout="6000" retries="0"/>
+	<!-- 预加载使用到的业务 -->
+	<dubbo:reference id="keyWordServcie" interface="com.lantone.icss.api.kl.service.KeyWordServcie"/> 
+	<dubbo:reference id="popularKnowledgeService" interface="com.lantone.icss.api.kl.service.PopularKnowledgeService"/>
+	<dubbo:reference id="diseaseInfoService" interface="com.lantone.icss.api.kl.service.DiseaseInfoService"/>
+	<dubbo:reference id="lisTypeService" interface="com.lantone.icss.api.kl.service.LisTypeService"/>
+
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<constructor-arg index="0" ref="jedisPoolConfig" />
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<property name="timeout" value="${redis.timeout}" />
+		<property name="database" value="${redis.default.db}"></property>
+		<property name="password" value="${redis.password}" />
+	</bean>
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactory" />
+	<bean id="redisService" class="com.lantone.core.service.RedisServiceImpl">
+		<property name="redisTemplate" ref="redisTemplate" />
+	</bean>
+	<bean class="com.lantone.core.utils.spring.SpringContextUtil"></bean>
+	<!-- freemarker模板配置 -->
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+      <property name="templateLoaderPaths">
+		  	<value>classpath:/template/</value>
+      </property>
+      <property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+				<prop key="defaultEncoding">UTF-8</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="whitespace_stripping">true</prop>
+			</props>
+		</property>
+    </bean>
+
+<!--     调度器
+    <bean lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                触发器列表
+                <ref bean="hisPartInfoTrigger" />
+            </list>
+        </property>
+    </bean>
+
+    触发器
+    <bean id="hisPartInfoTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        指向我们的任务
+        <property name="jobDetail" ref="hisPartInfoLog" />
+        每天0点启动
+        <property name="cronExpression" value="0 0 0 * * ?" />
+    </bean>
+
+    处理类
+    <bean name="hisPartInfoLog" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="hisPartInfoLog">
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+        <property name="concurrent" value="false" />
+        是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程
+    </bean>
+
+	<bean id="hisPartInfoLog" class="com.lantone.icss.web.his.controller.HisPartInfoController"/> -->
+	<import resource="spring-trans.xml" />
+	<context:component-scan base-package="com.lantone.icss" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+		<context:exclude-filter type="assignable" expression="com.lantone.icss.web.common.listen.RestApiConfig"/>
+	</context:component-scan>
+</beans>

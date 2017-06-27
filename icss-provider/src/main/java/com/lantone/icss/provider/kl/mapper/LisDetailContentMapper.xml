@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lantone.icss.provider.kl.dao.LisDetailContentMapper">
+
+  <resultMap id="BaseResultMap" type="com.lantone.icss.api.kl.model.LisDetailContent">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="standard_id" jdbcType="BIGINT" property="standardId" />
+    <result column="lis_detail_id" jdbcType="BIGINT" property="lisDetailId" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, standard_id, lis_detail_id, code, name, order_no, status, remark
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kl_lis_detail_content
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kl_lis_detail_content
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.lantone.icss.api.kl.model.LisDetailContent">
+    insert into kl_lis_detail_content (id, standard_id, lis_detail_id, 
+      code, name, order_no, 
+      status, remark)
+    values (#{id,jdbcType=BIGINT}, #{standardId,jdbcType=BIGINT}, #{lisDetailId,jdbcType=BIGINT}, 
+      #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.lantone.icss.api.kl.model.LisDetailContent">
+    insert into kl_lis_detail_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="standardId != null">
+        standard_id,
+      </if>
+      <if test="lisDetailId != null">
+        lis_detail_id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="standardId != null">
+        #{standardId,jdbcType=BIGINT},
+      </if>
+      <if test="lisDetailId != null">
+        #{lisDetailId,jdbcType=BIGINT},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.lantone.icss.api.kl.model.LisDetailContent">
+    update kl_lis_detail_content
+    <set>
+      <if test="standardId != null">
+        standard_id = #{standardId,jdbcType=BIGINT},
+      </if>
+      <if test="lisDetailId != null">
+        lis_detail_id = #{lisDetailId,jdbcType=BIGINT},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--自定义部分开始-->
+  <resultMap id="BaseResultMapWrapper" type="com.lantone.icss.api.kl.model.wrapper.LisDetailContentWrapper">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="standard_id" jdbcType="BIGINT" property="standardId" />
+    <result column="lis_detail_id" jdbcType="BIGINT" property="lisDetailId" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+
+    <!-- 扩充字段 -->
+    <result column="param_code" property="paramCode" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getContentDetailByDetailId" parameterType="java.lang.Long" resultMap="BaseResultMapWrapper">
+    select a.*,(select s.code from kl_standard_info s where s.id = a.standard_id) param_code from kl_lis_detail_content a
+    where a.status = '1'
+    and a.lis_detail_id = #{detailId}
+    order by order_no
+  </select>
+  <!--自定义部分结束-->
+</mapper>

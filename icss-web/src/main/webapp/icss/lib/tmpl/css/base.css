@@ -1,0 +1,185 @@
+/*=== base style===*/
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dt, dd, li, img {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+body {
+    font-size: 12px;
+    font-family:"微软雅黑";
+    background: #f1f4f9;
+}
+ul,li {
+    list-style: none;
+}
+h1,h2,h3,h4, h5,h6{
+    font-weight:normal;
+}
+.clearfix:after,.detail-list dl:after{
+    content:"\0020";
+    height:0;
+    display:block;
+    clear:both;
+}
+.clearfix,.detail-list dl{
+    zoom:1;
+}
+img{
+    vertical-align:top;
+}
+#main-ct{
+    width: 768px;
+    margin: 0 auto;
+    color: #33475f;
+    padding-bottom: 100px;
+}
+.check-box{
+    display:inline-block;
+    line-height: 24px;
+    padding-left: 30px;
+    background: url("../img/2.png") no-repeat;
+}
+.check-box.check-state{
+    background: url("../img/3.png") no-repeat;
+}
+
+
+/*************************弹层******************************/
+#fancy-box{
+    position:fixed;
+    top:0;
+    color: #33475f;
+    z-index:10;
+}
+#fancy-box .detail-list{
+    position: absolute;
+    top: 0;
+    left: 1px;
+}
+#fancy-mask{
+    background-color:#666;
+    opacity:0.6;
+    position:fixed;
+    top:0;
+}
+#fancy-ct{
+    width:770px;
+    height:435px;
+    border-radius: 10px;
+    background-color:#fff;
+    position:absolute;
+    left:0;
+    top:0;
+}
+.nav-bar{
+    height: 45px;
+    padding: 0 15px;
+    margin-bottom: 3px;
+    border-bottom: 1px #eee solid;
+    -webkit-box-shadow: 0 0 3px #ccc;
+    -moz-box-shadow: 0 0 3px #ccc;
+    box-shadow: 0 0 3px #ccc;
+}
+.first-level{
+    float: left;
+}
+.first-level li{
+    float: left;
+    cursor: pointer;
+    padding: 0 10px;
+    line-height: 40px;
+    border-top: 2px #fff solid;
+    margin-right: 10px;
+}
+.first-level li.check-state{
+    font-weight: bold;
+    color: #0287bb;
+    border-top: 2px #0287bb solid;
+}
+.toolbar{
+    float: right;
+}
+.toolbar p{
+    float: left;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.toolbar .seach-box{
+    padding-top: 10px;
+}
+.toolbar .seach-box input{
+    width: 180px;
+    height: 24px;
+    border: none;
+    background: #eee;
+}
+.toolbar .set-up{
+    padding-top: 15px;
+}
+#close{
+    padding-top: 15px;
+}
+.detail-category .level-list{
+    padding-left: 10px;
+}
+.level-list .push-list{
+    height: auto;
+}
+.second-level{
+    width: 119px;
+    height: 386px;
+    background: #f1f4f9;
+    border-right: 1px #eee solid;
+    float: left;
+    margin-right: 10px;
+    border-radius: 0 0 0 5px;
+}
+.method dt{
+    line-height: 30px;
+    padding-left: 35px;
+}
+.method dt.check-state{
+    background:url("../img/4.png") 20px 10px #fff no-repeat;
+    cursor: pointer;
+    font-weight: bold;
+}
+.method .third-level{
+    background:url("../img/4.png") 20px 10px #f1f4f9 no-repeat;
+}
+.method .third-level b{
+    cursor: pointer;
+    line-height: 24px;
+    padding-left: 45px;
+    display: none;
+    font-weight: normal;
+    width: 75px;
+    margin-left: -35px;
+}
+.method .third-level b.check-state{
+    background:#fff;
+}
+.method .third-level.check-state{
+    background:url("../img/10.png") 20px 13px #f1f4f9 no-repeat;
+}
+.method .third-level.check-state b{
+    display: block;
+}
+.method .third-level.check-state b.check-state{
+    background: #fff;
+}
+
+.detail-category{
+    display: none;
+}
+.detail-category.check-state{
+    display: block;
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="addition/drop-input/drop-input.css" rel="stylesheet">
+    <link href="css/lis-pacs.css" rel="stylesheet" type="text/css">
+    <link href="http://at.alicdn.com/t/font_2y2d1pur0i5jc3di.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="main-ct">
+    <!--病历单-->
+    <div class="medical-record-sheet">
+        <li class="list">
+            <label>主诉</label>
+            <div class="choose-list"></div>
+            <div class="txt-area">
+                <input name="" value=" " type="text">
+                <div class="second-levl"></div>
+            </div>
+
+            <div class="third-levl"></div>
+        </li>
+        <li class="list">
+            <label>现病史</label>
+            <div class="choose-list"></div>
+            <div class="txt-area">
+                <input name="" value=" " type="text">
+                <div class="second-levl"></div>
+            </div>
+            <div class="third-levl"></div>
+        </li>
+        <li class="list">
+            <label>既往史</label>
+            <div class="choose-list"></div>
+            <div class="txt-area">
+                <input name="" value=" " type="text">
+                <div class="second-levl"></div>
+            </div>
+            <div class="third-levl"></div>
+        </li>
+        <li class="list">
+            <label>其他史</label>
+            <div class="choose-list"></div>
+            <div class="txt-area">
+                <input name="" value=" " type="text">
+                <div class="second-levl"></div>
+            </div>
+            <div class="third-levl"></div>
+        </li>
+        <li class="list">
+            <label>体征</label>
+            <div class="choose-list"></div>
+            <div class="txt-area">
+                <input name="" value=" " type="text">
+                <div class="second-levl"></div>
+            </div>
+
+            <div class="third-levl"></div>
+        </li>
+        <li class="list">
+            <label>化验</label>
+            <div class="choose-list"></div>
+            <div class="txt-area">
+                <input name="" value=" " type="text">
+                <div class="second-levl"></div>
+            </div>
+
+            <div class="third-levl"></div>
+        </li>
+        <li class="list">
+            <label>器查</label>
+            <div class="choose-list"></div>
+            <div class="txt-area">
+                <input name="" value=" " type="text">
+                <div class="second-levl"></div>
+            </div>
+
+            <div class="third-levl">
+                <!--治疗表单的静态数据熟地开始-->
+                <div id="form-list-xiongbuBchao" class="detail-list" style="display: none">
+                    <h3 class="pro-name">
+                        <b>胸部B超</b>
+                        <div class="pro-name-box">
+                            <span class="check-box">已检</span>
+                        </div>
+                    </h3>
+                    <div class="form-area">
+                        <p class="serial-number">检查序号：021803</p>
+                        <div class="row">
+                            <div class="title"></div>
+                            <div class="form-group" style="width: 50%">
+                                <p class="">部位</p>
+                                <input type="text" value="" class="p-r-20" readonly style="width: 92%">
+                                <div class="input-arrow"><i class="iconfont icon-xiangxia input-arrow-font"></i></div>
+                                <div style="width: 375.75px;position: absolute;left: 0;right: 0;height: auto;background-color: #fff;border: 1px solid #ccc;z-index: 3;display: none" class="input-drop">
+                                    <ul class="first-lv">
+                                        <li>
+                                            <span class="check-box">腰部</span>
+                                            <div style="display:none" class="input-drop">
+                                                <ul>
+                                                    <li class="">
+                                                        <span class="check-box">肝脏</span>
+
+                                                    </li>
+                                                    <li>
+                                                        <span class="check-box">胆囊</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <span class="check-box">脾脏</span>
+                                        </li>
+                                        <li>
+                                            <span class="check-box">肾脏</span>
+                                            <div class="form-group relation" style="display: none">
+                                                <span class="radio">左</span>
+                                                <span class="radio">右</span>
+                                                <span class="radio">双</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <span class="check-box">腹腔</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="add-drug">+ 部位</div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <p class="">手段</p>
+                                <input type="text" value="" class="p-r-20" readonly>
+                                <div class="input-arrow"><i class="iconfont icon-xiangxia input-arrow-font"></i></div>
+                                <div style="width: 162px;position: absolute;left: 0;height: auto;background-color: #fff;border: 1px solid #ccc;z-index: 3;display: none" class="input-drop">
+                                    <ul>
+                                        <li class="">
+                                            <a>放射<i class="iconfont icon-xiangyou li-right-arrow"></i>
+                                                <div style="width: 100px;position: absolute;left: 162px;bottom: -5px;height: auto;background-color: #fff;border: 1px solid #ccc;z-index: 4;display: none" class="input-drop">
+                                                    <ul>
+                                                        <li>
+                                                            <a>透视</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>平片</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>DH</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>CR</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>造影</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>甩脉</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>左肺</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>右肺</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a>CT<i class="iconfont icon-xiangyou li-right-arrow"></i>
+                                                <div style="width: 100px;position: absolute;left: 162px;bottom: -5px;height: auto;background-color: #fff;border: 1px solid #ccc;z-index: 4;display: none"
+                                                     class="input-drop">
+                                                    <ul>
+                                                        <li>
+                                                            <a>透视</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>平片</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>DH</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>CR</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>造影</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>甩脉</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>左肺</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>右肺</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a>超声<i class="iconfont icon-xiangyou li-right-arrow"></i>
+                                                <div style="width: 100px;position: absolute;left: 162px;bottom: -5px;height: auto;background-color: #fff;border: 1px solid #ccc;z-index: 4;display: none"
+                                                     class="input-drop">
+                                                    <ul>
+                                                        <li>
+                                                            <a>透视</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>平片</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>DH</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>CR</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>造影</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>甩脉</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>左肺</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>右肺</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a>生物电<i class="iconfont icon-xiangyou li-right-arrow"></i>
+                                                <div style="width: 100px;position: absolute;left: 162px;bottom: -5px;height: auto;background-color: #fff;border: 1px solid #ccc;z-index: 4;display: none;"
+                                                     class="input-drop">
+                                                    <ul>
+                                                        <li>
+                                                            <a>透视</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>平片</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>DH</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>CR</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>造影</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>甩脉</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>左肺</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>右肺</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a>内窥镜<i class="iconfont icon-xiangyou li-right-arrow"></i>
+                                                <div style="width: 100px;position: absolute;left: 162px;bottom: -5px;height: auto;background-color: #fff;border: 1px solid #ccc;z-index: 4;display: none;"
+                                                     class="input-drop">
+                                                    <ul>
+                                                        <li>
+                                                            <a>透视</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>平片</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>DH</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>CR</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>造影</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>甩脉</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>左肺</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>右肺</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a>磁共振<i class="iconfont icon-xiangyou li-right-arrow"></i>
+                                                <div style="width: 100px;position: absolute;left: 162px;bottom: -5px;height: auto;background-color: #fff;border: 1px solid #ccc;z-index: 4;display: none;"
+                                                     class="input-drop">
+                                                    <ul>
+                                                        <li>
+                                                            <a>透视</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>平片</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>DH</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>CR</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>造影</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>甩脉</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>左肺</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>右肺</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p class="">检查方法</p>
+                                <input type="text" value="" class="p-r-20" readonly>
+                                <div class="input-arrow"><i class="iconfont icon-xiangxia input-arrow-font"></i></div>
+                            </div>
+                            <div class="form-group">
+                                <p class="">体位</p>
+                                <input type="text" value="" class="p-r-20" readonly>
+                                <div class="input-arrow"><i class="iconfont icon-xiangxia input-arrow-font"></i></div>
+                            </div>
+                            <div class="form-group">
+                                <p class="">机型</p>
+                                <input type="text" value="" class="p-r-20" readonly>
+                                <div class="input-arrow"><i class="iconfont icon-xiangxia input-arrow-font"></i></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <p class="">费用 30元</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 96%">
+                                <p class="">补充</p>
+                                <input type="text" style="width: 100%">
+                            </div>
+                        </div>
+                        <p class="submit-bt">
+                            <button class="make-sure usable" type="button">确定</button>
+                            <button class="cancle unusable" type="button">取消</button>
+                        </p>
+                    </div>
+                </div>
+                <!--治疗表单的静态数据熟地结束-->
+            </div>
+        </li>
+
+        <li class="list">
+            <label>诊断</label>
+            <div class="choose-list"></div>
+            <div class="txt-area">
+                <input name="" value=" " type="text">
+                <div class="second-levl"></div>
+            </div>
+
+            <div class="third-levl"></div>
+        </li>
+        <li class="list">
+            <label>治疗</label>
+            <div class="choose-list"></div>
+            <div class="txt-area">
+                <input name="" value=" " type="text">
+                <div class="second-levl"></div>
+            </div>
+            <div class="third-levl"></div>
+        </li>
+    </div>
+    <!--推送列表-->
+    <script id="template1" type="text/x-jquery-tmpl">
+        <div class="open-list1">
+            <ul class="push-list clearfix">
+            {{each(i, record) data}}
+                {{if record.state == 1}}
+                <li class="check-state" data-id="${record.id}">${record.name}}</li>
+                {{else}}
+                <li data-id="${record.id}">${record.name}</li>
+                {{/if}}
+            {{/each}}
+                <p class="more-bt"><img src="img/1.png"> </p>
+            </ul>
+            <div class="past-history clearfix">
+                <span class="none check-box">无</span>
+                <ul class="cr-hsy">
+                    <li>疾病史</li>
+                    <li>传染病史</li>
+                    <li>手术外伤史</li>
+                    <li>过敏史</li>
+                    <li>输血史</li>
+                    <li>接种史</li>
+                </ul>
+                <span class="all">全部</span>
+            </div>
+        </div>
+
+
+
+
+
+    </script>
+    <!--LIS模板-->
+    <script id="templateLis" type="text/x-jquery-tmpl">
+        <div class="open-list1">
+            <ul class="push-list clearfix">
+            {{each(i, record) data}}
+                {{if record.state == 1}}
+                <li class="check-state" data-id="${record.id}">${record.name}</li>
+                {{else}}
+                <li data-id="${record.id}">${record.name}</li>
+                {{/if}}
+            {{/each}}
+                <p class="more-bt"><img src="img/1-beifen.jpg"> </p>
+            </ul>
+
+        </div>
+
+
+
+
+
+    </script>
+    <!--PACS模板-->
+    <script id="templatePacs" type="text/x-jquery-tmpl">
+        <div class="open-list1">
+            <ul class="push-list clearfix">
+            {{each(i, record) data}}
+                {{if record.state == 1}}
+                <li class="check-state" data-id="${record.id}">${record.name}</li>
+                {{else}}
+                <li data-id="${record.id}">${record.name}</li>
+                {{/if}}
+            {{/each}}
+                <p class="more-bt"><img src="img/1-beifen.jpg"> </p>
+            </ul>
+
+        </div>
+
+
+
+
+
+    </script>
+    <!--diagnosis模板-->
+    <script id="templateDiagnosis" type="text/x-jquery-tmpl">
+        <div class="open-list1 diagnosis-list">
+            <ul class="push-list clearfix">
+            {{each(i, record) data}}
+                {{if record.state == 1}}
+                <li class="check-state" data-id="${record.id}">${record.name}</li>
+                {{else}}
+                <li data-id="${record.id}">${record.name}</li>
+                {{/if}}
+            {{/each}}
+                <p class="more-bt"><img src="img/1-beifen.jpg"> </p>
+            </ul>
+            <ul class="diagnosis-list-explain">
+                {{each(i, record) data}}
+
+                    <li style="display:none;" data-id="${record.id}">${record.name}</li>
+
+                {{/each}}
+            </ul>
+            <div class="diagnosis-list-buttons"><button class="" type="button">待查</button><button class="" type="button">转诊</button></div>
+
+        </div>
+
+
+
+
+
+    </script>
+
+</div>
+<div id="fancy-box-add-drug" class="fancy-box" style="width: 100%; height: 100%; display: none;">
+    <div class="fancy-mask" style="width: 100%; height: 100%;"></div>
+    <div class="det-form"></div>
+    <div class="fancy-ct">
+        <div class="nav-bar clearfix">
+            <ul class="first-level clearfix">
+                <li data-id="8" class="">常用</li>
+                <li data-id="9" class="">系统</li>
+                <li data-id="18" class="check-state">部位</li>
+            </ul>
+            <div class="toolbar"><p class="seach-box"><input type="text"></p>
+                <p class="set-up"><img src="img/6.png"></p>
+                <p id="close"><img src="img/7.png"></p></div>
+        </div>
+        <div class="detail-category clearfix" style="display: block;" data-transverseid="18">
+            <div class="second-level" style="width: 119px;">
+                <dl class="method">
+                    <dt class="third-level check-state" data-id="93">头部
+                        <b data-id="94" data-transverseid="null" class="check-state">颅骨</b>
+                        <b data-id="94" data-transverseid="null" class="">大小脑</b>
+                        <b data-id="94" data-transverseid="null" class="">血管</b>
+                        <b data-id="94" data-transverseid="null" class="">神经</b>
+
+                    </dt>
+                </dl>
+            </div>
+            <div class="level-list" style="display: block;" data-portraitid="94">
+                <p>颅骨:</p>
+                <div class="">
+                    <span class="check-box">腰部</span>
+                    <span class="check-box">腰部</span>
+                    <span class="check-box">腰部</span>
+                    <span class="check-box">腰部</span>
+                    <span class="check-box">腰部</span>
+                    <span class="check-box">腰部</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var host_url = "http://192.168.2.165:8090/icss-web/";
+</script>
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/form-reader-init.js"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script src="addition/drop-input/jQuery-drop-input.js"></script>
+
+<script src="js/jquery.tmpl.min.js"></script>
+<script src="js/jquery.tmpl.js"></script>
+<script src="js/pushlist.js"></script>
+<script src="js/fancy-modal.js"></script>
+<script src="js/lis-modal.js"></script>
+<script src="js/pacs-modal.js"></script>
+<script src="js/diagnosis-modal.js"></script>
+
+<script>
+    var searchPush = host_url + "kl/symptominfo/search_symptominfo?size=14&inputstr=";
+
+    $(".medical-record-sheet li").each(function () {
+        var dex = $(this).index();
+        if (dex < 5) {//化验以下的事件不绑定
+            if (dex == 0 || dex == 1) {
+                liNum(dex, 1)
+            } else {
+                liNum(dex, dex)
+            }
+        }
+
+    });
+    function liNum(a, b) {
+        $(".medical-record-sheet li").eq(a).find("input").on("focus", function () {
+            var html = $("#push-area").html(),
+                $input = $(this),
+                _thsParent = $input.parents("li"),
+                apdArea = _thsParent.find(".second-levl"),
+                url = host_url + "kl/subitem/init_subiteminfo?doctorId=1&size=14&sexType=1&age=20&deptNo=001&hospitalCode=1001&type=" + b;
+            ajaxPushList(apdArea, url, b, a);
+            apdArea.toggle();
+            _thsParent.siblings().find(".second-levl").hide();
+            $input.on("input propertychange", function () {
+                var val = $input.val().trim();
+                if (val !== "") {
+                    url = searchPush + val;
+                } else {
+                    $input.focus();
+                }
+                ajaxPushList(apdArea, url, b, a);
+                apdArea.toggle();
+                _thsParent.siblings().find(".second-levl").hide();
+            });
+//            $(this).keyup(function(){
+//                var keyword = $(this).val().replace(/^\s\s*/, '').replace(/\s\s*$/, ''),
+//                        url = searchPush+keyword;
+//                ajaxPushList(apdArea,url,b,a);
+//            });
+
+        })
+    }
+
+
+    //*******************input框焦点去掉详细疾病框*******************************//
+    (function () {
+        var $lis = $(".medical-record-sheet li"),
+            $inputs = $lis.find("input");
+        $inputs.on("focus.hide-detail-list", function () {
+            $lis.find(".detail-list").hide();
+        });
+    }());
+    //*******************input框焦点去掉详细疾病框结束*******************************//
+
+
+    //*******************器查静态页面开始******************************//
+    (function () {
+        var $li = $(".medical-record-sheet li").eq(6),
+            $second_levl = $li.find("div.second-levl"),
+            $third_levl = $li.find("div.third-levl"),
+            $detail_list = $third_levl.find("div.detail-list");
+        $li.find("input").off("click focus");
+        $second_levl.append('<div class="open-list1"><ul class="push-list clearfix"><li data-id="3">胸部B超</li> <li data-id="2">肾脏B超</li><li data-id="1">心脏平片</li><li data-id="12">心电图</li> <li data-id="10">胸部CT</li><li data-id="9">心磁图</li><li data-id="8">肌电图</li> <li data-id="7">冠脉造影</li><p class="more-bt"><img src="img/1-beifen.jpg"> </p></ul></div></div>');
+
+        $li.find("input").on("click", function () {
+            $second_levl.toggle();
+            $li.siblings().find("div.second-levl").hide();
+        });
+
+        $second_levl.find("li").eq(0).on("click", function () {
+            $("#form-list-xiongbuBchao").show().siblings().hide();
+        });
+
+        $third_levl.on("click", function () {
+            $third_levl.find("input").removeClass("focus").siblings(".input-drop").css("display", "none");
+        });
+
+        $detail_list.on("click", "input", function (e) {
+            var $input = $(e.target);
+            inputFocus($input);
+            e.stopPropagation();
+        });
+
+
+        $detail_list.find("div.input-arrow").on("click", function (e) {
+            var $div = $(this);
+            inputFocus($div.siblings("input"));
+            e.stopPropagation();
+        });
+
+        function inputFocus($input) {
+            $third_levl.find("input").removeClass("focus").siblings(".input-drop").css("display", "none");
+            $input.addClass("focus").siblings(".input-drop").fadeIn();
+        }
+
+        $detail_list.find("div.input-drop").on("click", function (e) {
+            return false;
+        });
+        $detail_list.find("div.input-drop").on("mouseleave", function () {
+            $(this).css("display", "none");
+        });
+
+        $detail_list.find("span.check-box,span.radio").on("click", function () {
+            checkboxRelationRadio($(this));
+        });
+
+        $detail_list.find("span.check-box").siblings("div.input-drop").off("mouseleave");
+
+        $detail_list.find("div.input-drop").children("ul").children("li").find("span").on("click", function () {
+            var $span = $(this),
+                $spans,
+                val = "";
+            $spans = $span.parents("ul:first").children("li").children("span.check-state");
+            $spans.each(function () {
+                val += addCheckboxVal($(this));
+            });
+            $span.parents("div.input-drop:last").siblings("input").val(val.slice(0, -1));
+        });
+
+        $detail_list.find("div.input-drop").find("a").on("mouseenter", function () {
+            var $a = $(this),
+                $a_siblings = $a.parent().siblings().children("a");
+            $a_siblings.children("i").css("display", "none");
+            $a_siblings.siblings("div.input-drop").css("display", "none");
+            $a.children("i").css("display", "block");
+            $a.siblings("div.input-drop").fadeIn();
+        });
+
+        $detail_list.find("div.input-drop").find("a").on("click", function () {
+            var $a = $(this),
+                $input_drop,
+                $input;
+            if ($a.siblings("div.input-drop").length === 0) {
+                $input_drop = $a.parents("div.input-drop:last");
+                $input = $input_drop.siblings("input");
+                $input_drop.css("display", "none");
+                $input.val($a.text());
+            }
+        });
+
+        $detail_list.find("div.add-drug").on("click", function () {
+            $("#fancy-box-add-drug").css("display","block");
+            val();
+            function val(){
+                var WinWidth =$(window).width();
+                var WinHeight  =$(window).height();
+                var Popwidth =$(".fancy-ct").width();
+                var Popheight =$(".fancy-ct").height();
+                var Leftwidth = (WinWidth-Popwidth)/2+"px";
+                var topheight = (WinHeight-Popheight)/2+"px";
+                $("#fancy-box-add-drug").find(".fancy-box,.fancy-mask").css({width:WinWidth,height:WinHeight});
+                $("#fancy-box-add-drug").find(".fancy-ct").css({left:Leftwidth,top:topheight});
+            };
+        });
+
+
+        function addCheckboxVal($span) {
+            return $span.siblings(".relation").find(".check-state").text() + $span.text() + "+";
+        }
+
+        function checkboxRelationRadio($span) {
+            if ($span.hasClass("check-box")) {
+                if ($span.hasClass("check-state")) {
+                    $span.removeClass("check-state");
+                    $span.siblings(".relation").css("display", "none");
+                    $span.siblings(".input-drop").css("display", "none");
+                } else {
+                    $span.addClass("check-state");
+                    $span.siblings(".relation").css("display", "");
+                    $span.siblings(".input-drop").css("display", "block");
+                }
+            } else if ($span.hasClass("radio")) {
+                $span.addClass("check-state").siblings("span.radio").removeClass("check-state");
+            }
+        }
+
+    })();
+    //*******************器查静态页面结束******************************//
+
+</script>
+
+
+</body>
+</html>
